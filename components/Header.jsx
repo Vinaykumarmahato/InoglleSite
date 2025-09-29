@@ -3,96 +3,61 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React from 'react';
-import { ChevronDown, Beaker, FileCheck, Database, FileText, Bot, ArrowRight, BookOpen, MessageSquare, Briefcase, Users } from 'lucide-react';
+import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase } from 'lucide-react';
 
 const navItems = [
   {
-    name: 'What we do',
+    name: 'Services',
     dropdown: {
       type: 'mega',
       columns: [
         {
-          title: 'Train Models',
+          title: 'Development',
           links: [
-            { name: 'ASI Research', icon: Beaker },
-            { name: 'Evaluate models', description: 'Benchmark gaps, set criteria, run dignostics.', icon: FileCheck },
-            { name: 'Generate data', description: 'Build and scale frontier data pipelines.', icon: Database },
-            { name: 'Datasets', description: 'Explore Curated Research Datasets.', icon: FileText },
-            { name: 'Improve models', description: 'Accelerate iteration loops and fine-tune outputs.', icon: Bot },
-            { name: 'What is Turing AGI Advancement', description: 'Power richer data generation and model gains with proprietary data and benchmarks.', icon: Beaker },
+            { name: 'Software Development', description: 'Scalable software solutions for your business needs.', icon: Code },
+            { name: 'System Integration', description: 'Seamlessly connect your disparate systems and services.', icon: GitBranch },
+            { name: 'Digital Transformation', description: 'Modernize your operations for the digital age.', icon: Zap },
           ]
         },
         {
-          title: 'Deploy AI',
+          title: 'Consulting',
           links: [
-            { name: 'Deploy AI Systems', description: 'Go from pilot to production with scalable, KPI-aligned systems.', icon: Bot },
-            { name: 'Deploy AI Talent', description: 'Accelerate delivery with AI-native pods integrated into your team and stack.', icon: Users },
-            { name: 'Develop AI Strategy', description: 'Align AI strategy to business outcomes and build a roadmap you can deliver on.', icon: Briefcase },
-            { name: 'What is Turing Intelligence', description: 'AI strategy, talent, and systems to move from roadmap to real-world outcomes', icon: BookOpen },
+            { name: 'IT Consulting', description: 'Strategic guidance to align technology with your business goals.', icon: MessageSquare },
+            { name: 'IT Infrastructure Planning', description: 'Building a robust and scalable IT foundation.', icon: Briefcase },
           ]
         }
       ],
       featured: {
-        title: 'Fine-Tuning LLMs: Overview, Methods, and Best Practices',
-        description: 'Large language models (LLMs) have transformed the field of natural language processing with their advanced capabilities...',
+        title: 'Featured Case Study: Digital Transformation',
+        description: 'Learn how we helped a client increase efficiency by 40% through strategic system integration and custom software.',
         image: 'bg-slate-700'
       }
     }
   },
   {
-    name: 'Resources',
-    dropdown: {
-      type: 'mega',
-      columns: [
-        {
-          title: 'Learn',
-          links: [
-            { name: 'Enterprise Insights' },
-            { name: 'Case studies' },
-            { name: 'Use cases' },
-          ]
-        },
-        {
-          title: 'Connect',
-          links: [
-            { name: 'Contact us' },
-            { name: 'Help center' },
-            { name: 'Turing careers' },
-          ]
-        }
-      ],
-      featured: {
-        title: 'How to Build a Secure LLM for Application Development Productivity?',
-        description: 'The convergence of generative AI and large language models (LLMs) has created a unique opportunity for enterprises...',
-        image: 'bg-slate-600'
-      }
-    }
-  },
-  {
-    name: 'For talent',
+    name: 'Careers',
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'How to get hired', description: 'How Turing works and how we match you to job opportunities.' },
-        { name: 'Developer resources', description: 'Tips, tricks, and more to enhance your tech skills and stand out with clients.' },
-        { name: 'Talent support', description: 'Get answers to common questions about job matching and more.' },
+        { name: 'Why Join Inoglle', description: 'Become part of an innovative and nurturing team.' },
+        { name: 'Job Openings', description: 'Explore current opportunities to join our team.' },
+        { name: 'Internships', description: 'Kickstart your IT career with our hands-on internship programs.' },
       ]
     }
   },
   {
-    name: 'Company',
+    name: 'About Us',
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'About' },
-        { name: 'Careers' },
+        { name: 'Our Story' },
         { name: 'Blog' },
-        { name: 'Press' },
         { name: 'Contact Us' },
       ]
     }
   },
 ];
+
 
 const MegaMenu = ({ columns, featured }) => (
   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-4xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
@@ -150,7 +115,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <a href="#" className="text-white font-bold text-xl tracking-wider">TURING</a>
+            <a href="#" className="text-white font-bold text-xl tracking-wider">INOGLLE</a>
           </div>
           <nav className="hidden md:flex items-center justify-center flex-grow">
             <div className="flex items-center gap-8">
