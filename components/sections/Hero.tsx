@@ -5,13 +5,15 @@
 import React, { useCallback } from 'react';
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
+import type { ISourceOptions } from 'tsparticles-engine';
 
 const Hero = () => {
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
   }, []);
 
-  const particlesOptions = {
+  // FIX: Explicitly type particlesOptions to prevent type widening of string literals, which caused a type error.
+  const particlesOptions: ISourceOptions = {
     background: {
       color: {
         value: 'transparent',
@@ -59,7 +61,7 @@ const Hero = () => {
           enable: true,
           area: 800,
         },
-        value: 80,
+        value: 50,
       },
       opacity: {
         value: 0.1,
@@ -88,9 +90,9 @@ const Hero = () => {
       </div>
       <div className="relative z-10">
         <div data-aos="fade-up" className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-lg px-4 py-2 inline-flex items-center justify-center gap-x-4 md:gap-x-8 mx-auto mb-8">
-          <button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Strategize & Consult</button>
-          <button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Build & Deploy</button>
-          <button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Hire Talent</button>
+          <a href="#approach"><button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Strategize & Consult</button></a>
+          <a href="#services"><button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Build & Deploy</button></a>
+          <a href="#services"><button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Hire Talent</button></a>
         </div>
         
         <h1 data-aos="fade-up" data-aos-delay="100" className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">

@@ -9,6 +9,7 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
   const [activeTab, setActiveTab] = useState(initialTab);
   const [view, setView] = useState('login'); // 'login', 'register', 'forgotPassword', 'confirmation'
   const [resetEmail, setResetEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setActiveTab(initialTab);
@@ -19,6 +20,7 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
     if (isOpen) {
       setView('login');
       setResetEmail('');
+      setIsLoading(false);
     }
   }, [isOpen]);
 
@@ -36,13 +38,28 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
     };
   }, [isOpen, onClose]);
   
-  const handleForgotPasswordSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email');
-    setResetEmail(email);
-    setView('confirmation');
+
+    // Simulate API call
+    setTimeout(() => {
+        setIsLoading(false);
+        if (view === 'forgotPassword') {
+            setResetEmail(email);
+            setView('confirmation');
+        } else {
+            // For login/register, you would handle success/error from the API
+            // For this demo, we'll just close the modal on success.
+            console.log('Simulating successful submission for', view);
+            onClose(); 
+        }
+    }, 1500);
   };
+
 
   if (!isOpen) return null;
 
@@ -52,6 +69,8 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
         ? 'border-blue-500 text-white'
         : 'border-slate-700 text-slate-400 hover:bg-slate-800'
     }`;
+  
+  const submitButtonClasses = "w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg mt-8 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500 disabled:bg-blue-800 disabled:cursor-not-allowed flex items-center justify-center";
 
   const renderContent = () => {
     switch (view) {
@@ -65,7 +84,7 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
               Create a new {activeTab === 'client' ? 'Client' : 'Talent'} account to get started.
             </p>
 
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={handleFormSubmit}>
               <div className="space-y-4">
                  <div>
                   <label htmlFor="register-name" className="block text-sm font-medium text-slate-300 mb-1">Full Name</label>
@@ -102,11 +121,8 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg mt-8 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500"
-              >
-                Create Account
+              <button type="submit" disabled={isLoading} className={submitButtonClasses}>
+                {isLoading ? <span className="spinner" /> : 'Create Account'}
               </button>
             </form>
 
@@ -129,7 +145,7 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
               Enter your email to receive a reset link.
             </p>
 
-            <form onSubmit={handleForgotPasswordSubmit}>
+            <form onSubmit={handleFormSubmit}>
               <div className="space-y-4">
                 <div>
                   <label htmlFor="reset-email" className="block text-sm font-medium text-slate-300 mb-1">Email</label>
@@ -144,11 +160,8 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg mt-8 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500"
-              >
-                Send Reset Link
+              <button type="submit" disabled={isLoading} className={submitButtonClasses}>
+                 {isLoading ? <span className="spinner" /> : 'Send Reset Link'}
               </button>
             </form>
 
@@ -195,7 +208,7 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
               Login as a {activeTab === 'client' ? 'Client' : 'Talent'} to continue.
             </p>
 
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={handleFormSubmit}>
               <div className="space-y-4">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1">Email</label>
@@ -210,7 +223,7 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
                 <div>
                   <div className="flex justify-between items-baseline">
                     <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-1">Password</label>
-                    <button onClick={() => setView('forgotPassword')} className="text-xs text-blue-400 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">Forgot password?</button>
+                    <button type="button" onClick={() => setView('forgotPassword')} className="text-xs text-blue-400 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">Forgot password?</button>
                   </div>
                   <input
                     type="password"
@@ -222,11 +235,8 @@ const LoginModal = ({ isOpen, onClose, initialTab = 'client' }) => {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg mt-8 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500"
-              >
-                Login
+              <button type="submit" disabled={isLoading} className={submitButtonClasses}>
+                {isLoading ? <span className="spinner" /> : 'Login'}
               </button>
             </form>
 

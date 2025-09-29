@@ -20,7 +20,7 @@ const Approach = () => (
       <div 
         data-aos="fade-up" 
         data-aos-delay="300"
-        className="border border-slate-700 p-8 rounded-2xl bg-[#060814] transition-all hover:border-blue-500/50 hover:shadow-[0_0_20px_theme(colors.blue.500/20)]"
+        className="border border-slate-700 p-8 rounded-2xl bg-[#060814] transition-all card-hover-glow"
       >
         <div className="w-16 h-16 bg-slate-800 rounded-lg mb-6 flex items-center justify-center">
             <Target size={32} className="text-blue-400"/>
@@ -32,7 +32,7 @@ const Approach = () => (
       <div 
         data-aos="fade-up"
         data-aos-delay="400" 
-        className="border border-slate-700 p-8 rounded-2xl bg-[#060814] transition-all hover:border-blue-500/50 hover:shadow-[0_0_20px_theme(colors.blue.500/20)]"
+        className="border border-slate-700 p-8 rounded-2xl bg-[#060814] transition-all card-hover-glow"
       >
         <div className="w-16 h-16 bg-slate-800 rounded-lg mb-6 flex items-center justify-center">
             <Laptop size={32} className="text-blue-400"/>

@@ -32,7 +32,7 @@ const navItems = [
       featured: {
         title: 'Featured Resource: Fine-Tuning LLMs',
         description: 'Large language models (LLMs) have transformed the field of natural language processing with their advanced capabilities.',
-        image: 'bg-slate-700'
+        image: '/images/featured-resource-llm.jpg'
       }
     }
   },
@@ -61,7 +61,7 @@ const navItems = [
       featured: {
         title: 'Featured Resource: Secure App Development',
         description: 'The convergence of generative AI and large language models (LLMs) has created a unique opportunity for enterprises to engineer powerful products.',
-        image: 'bg-slate-700'
+        image: '/images/featured-resource-secure-dev.jpg'
       }
     }
   },
@@ -93,7 +93,7 @@ const navItems = [
 
 
 const MegaMenu = ({ columns, featured }) => (
-  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-4xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-4xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
     <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl grid grid-cols-3 gap-8 p-8">
       {columns.map(col => (
         <div key={col.title}>
@@ -115,7 +115,7 @@ const MegaMenu = ({ columns, featured }) => (
       ))}
       <div className="bg-slate-800/50 rounded-lg p-4">
         <p className="text-xs font-semibold text-slate-400 mb-2">Featured resource</p>
-        <div className={`w-full h-32 rounded-md mb-4 ${featured.image}`}></div>
+        <img src={featured.image} alt={featured.title} className="w-full h-32 object-cover rounded-md mb-4" />
         <h4 className="font-bold text-white mb-2">{featured.title}</h4>
         <p className="text-sm text-slate-400 mb-4">{featured.description}</p>
         <a href="#" className="text-sm text-blue-400 font-bold hover:underline">Read more</a>
@@ -126,7 +126,7 @@ const MegaMenu = ({ columns, featured }) => (
 );
 
 const SimpleMenu = ({ links }) => (
-  <div className="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+  <div className="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
     <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
       <ul className="space-y-4">
         {links.map(link => (
@@ -214,7 +214,9 @@ const MobileMenu = ({ isOpen, onClose, openLoginModal }) => {
       <div className={`absolute top-0 right-0 h-full w-full max-w-sm bg-[#060814] transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b border-slate-700">
-            <a href="#" className="text-white font-bold text-xl tracking-wider">INOGLLE</a>
+            <a href="#" aria-label="Inoglle Home">
+              <img className="h-8 w-auto" src="/images/logo.png" alt="Inoglle logo" />
+            </a>
             <button onClick={onClose} className="p-2">
               <X size={24} />
             </button>
@@ -235,7 +237,7 @@ const MobileMenu = ({ isOpen, onClose, openLoginModal }) => {
               />
           </div>
           <div className="p-4 border-t border-slate-700">
-            <a href="#" className="bg-blue-600 text-white font-semibold px-4 py-3 rounded-lg text-sm w-full block text-center hover:bg-blue-700">
+            <a href="#" className="bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold px-4 py-3 rounded-lg text-sm w-full block text-center hover:from-blue-600 hover:to-blue-700">
               Get Started
             </a>
           </div>
@@ -273,7 +275,9 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
-              <a href="#" className="text-white font-bold text-xl tracking-wider">INOGLLE</a>
+              <a href="#" aria-label="Inoglle Home">
+                <img className="h-8 w-auto" src="/images/logo.png" alt="Inoglle logo" />
+              </a>
             </div>
             <nav className="hidden md:flex items-center justify-center flex-grow">
               <div className="flex items-center gap-8">
@@ -289,14 +293,14 @@ const Header = () => {
               </div>
             </nav>
             <div className="hidden md:flex items-center gap-4">
-              <a href="#" className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
+              <a href="#" className="bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:from-blue-600 hover:to-blue-700">
                 Get Started
               </a>
               <div className="group relative">
                 <div className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold cursor-pointer">
                   Login <ChevronDown size={16} />
                 </div>
-                <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
                   <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
                     <ul className="space-y-4">
                       <li>

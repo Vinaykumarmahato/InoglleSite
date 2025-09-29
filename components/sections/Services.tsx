@@ -50,7 +50,7 @@ const Services = () => (
       {specialties.map(({ icon: Icon, label }, index) => (
         <div 
           key={label} 
-          className="bg-slate-800/50 p-4 rounded-lg flex flex-col items-center justify-center h-24 group transition-all hover:bg-slate-800 hover:-translate-y-1"
+          className="bg-slate-800/50 p-4 rounded-lg flex flex-col items-center justify-center h-24 group transition-all hover:bg-slate-800 hover:-translate-y-1 service-card"
           data-aos="fade-up"
           data-aos-delay={100 + index * 50}
         >
