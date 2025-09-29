@@ -145,6 +145,7 @@ const MobileNavItem = ({ item, isOpen, onToggle }) => {
   const hasDropdown = item.dropdown && (item.dropdown.links?.length > 0 || item.dropdown.columns?.length > 0);
 
   const getLinks = () => {
+    if (!hasDropdown) return [];
     if (item.dropdown.type === 'simple') return item.dropdown.links;
     if (item.dropdown.type === 'mega') return item.dropdown.columns.flatMap(c => c.links);
     return [];
@@ -179,6 +180,17 @@ const MobileMenu = ({ isOpen, onClose }) => {
   const handleToggle = (name) => {
     setOpenDropdown(openDropdown === name ? null : name);
   };
+  
+  const loginItem = {
+    name: 'Login',
+    dropdown: {
+      type: 'simple',
+      links: [
+        { name: 'For clients', description: 'Access your project dashboard and resources.' },
+        { name: 'For talent', description: 'Manage your profile and find opportunities.' },
+      ]
+    }
+  };
 
   return (
     <div className={`fixed inset-0 z-50 transition-opacity md:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
@@ -203,13 +215,15 @@ const MobileMenu = ({ isOpen, onClose }) => {
                 onToggle={() => handleToggle(item.name)}
               />
             ))}
+             <MobileNavItem 
+                item={loginItem}
+                isOpen={openDropdown === loginItem.name}
+                onToggle={() => handleToggle(loginItem.name)}
+              />
           </div>
-          <div className="p-4 space-y-4 border-t border-slate-700">
+          <div className="p-4 border-t border-slate-700">
             <a href="#" className="bg-blue-600 text-white font-semibold px-4 py-3 rounded-lg text-sm w-full block text-center hover:bg-blue-700">
               Get Started
-            </a>
-            <a href="#" className="flex items-center justify-center gap-1 text-slate-300 hover:text-white text-sm font-semibold">
-              Login <ChevronDown size={16} />
             </a>
           </div>
         </div>
@@ -257,9 +271,29 @@ const Header = () => {
               <a href="#" className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
                 Get Started
               </a>
-              <a href="#" className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold">
-                Login <ChevronDown size={16} />
-              </a>
+              <div className="group relative">
+                <a href="#" className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold">
+                  Login <ChevronDown size={16} />
+                </a>
+                <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
+                    <ul className="space-y-4">
+                      <li>
+                        <a href="#" className="group/link">
+                          <p className="text-white font-medium group-hover/link:text-blue-400">For clients</p>
+                          <p className="text-sm text-slate-400">Access your project dashboard and resources.</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" className="group/link">
+                          <p className="text-white font-medium group-hover/link:text-blue-400">For talent</p>
+                          <p className="text-sm text-slate-400">Manage your profile and find opportunities.</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="md:hidden">
               <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-slate-300 hover:text-white">
