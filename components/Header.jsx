@@ -4,6 +4,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase, BookOpen, FileText, Mail, HelpCircle, Users, Menu, X } from 'lucide-react';
+import LoginModal from './LoginModal';
 
 const navItems = [
   {
@@ -149,7 +150,17 @@ const MobileNavItem = ({ item, isOpen, onToggle }) => {
     if (item.dropdown.type === 'simple') return item.dropdown.links;
     if (item.dropdown.type === 'mega') return item.dropdown.columns.flatMap(c => c.links);
     return [];
-  }
+  };
+
+  const LinkContent = ({ link }) => (
+    <>
+      {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400" />}
+      <div>
+        <p className="text-white font-medium">{link.name}</p>
+        {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
+      </div>
+    </>
+  );
 
   return (
     <div className="border-b border-slate-700">
@@ -160,13 +171,15 @@ const MobileNavItem = ({ item, isOpen, onToggle }) => {
       {hasDropdown && isOpen && (
         <div className="pb-4 pl-4 space-y-3">
           {getLinks().map(link => (
-             <a href="#" key={link.name} className="flex items-start gap-3 group/link">
-                {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400" />}
-                <div>
-                  <p className="text-white font-medium">{link.name}</p>
-                  {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-                </div>
+             link.onClick ? (
+              <button key={link.name} onClick={link.onClick} className="flex items-start gap-3 group/link text-left w-full">
+                <LinkContent link={link} />
+              </button>
+             ) : (
+              <a href="#" key={link.name} className="flex items-start gap-3 group/link">
+                <LinkContent link={link} />
               </a>
+             )
           ))}
         </div>
       )}
@@ -174,7 +187,7 @@ const MobileNavItem = ({ item, isOpen, onToggle }) => {
   )
 }
 
-const MobileMenu = ({ isOpen, onClose }) => {
+const MobileMenu = ({ isOpen, onClose, openLoginModal }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const handleToggle = (name) => {
@@ -186,8 +199,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'For clients', description: 'Access your project dashboard and resources.' },
-        { name: 'For talent', description: 'Manage your profile and find opportunities.' },
+        { name: 'For clients', description: 'Access your project dashboard and resources.', onClick: () => openLoginModal('client') },
+        { name: 'For talent', description: 'Manage your profile and find opportunities.', onClick: () => openLoginModal('talent') },
       ]
     }
   };
@@ -234,9 +247,17 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [initialLoginTab, setInitialLoginTab] = useState('client');
+
+  const openLoginModal = (tab) => {
+    setInitialLoginTab(tab);
+    setIsLoginModalOpen(true);
+    setIsMobileMenuOpen(false); // Close mobile menu when modal opens
+  };
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || isLoginModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -244,7 +265,7 @@ const Header = () => {
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, isLoginModalOpen]);
 
   return (
     <>
@@ -272,23 +293,23 @@ const Header = () => {
                 Get Started
               </a>
               <div className="group relative">
-                <a href="#" className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold">
+                <div className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold cursor-pointer">
                   Login <ChevronDown size={16} />
-                </a>
+                </div>
                 <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                   <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
                     <ul className="space-y-4">
                       <li>
-                        <a href="#" className="group/link">
+                        <button onClick={() => openLoginModal('client')} className="group/link text-left w-full">
                           <p className="text-white font-medium group-hover/link:text-blue-400">For clients</p>
                           <p className="text-sm text-slate-400">Access your project dashboard and resources.</p>
-                        </a>
+                        </button>
                       </li>
                       <li>
-                        <a href="#" className="group/link">
+                        <button onClick={() => openLoginModal('talent')} className="group/link text-left w-full">
                           <p className="text-white font-medium group-hover/link:text-blue-400">For talent</p>
                           <p className="text-sm text-slate-400">Manage your profile and find opportunities.</p>
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -303,7 +324,8 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} openLoginModal={openLoginModal} />
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} initialTab={initialLoginTab} />
     </>
   );
 };
