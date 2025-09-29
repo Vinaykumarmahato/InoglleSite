@@ -13,8 +13,35 @@ const StatCard = ({ value, label }) => (
   </div>
 );
 
+const testimonials = [
+  {
+    quote: "“Inoglle transformed our operations. Their customer-centric approach and technical expertise were instrumental in our digital transformation journey, delivering results beyond our expectations.”",
+    author: "Jane Doe",
+    title: "CTO, Innovate Inc."
+  },
+  {
+    quote: "“The learning and development resources provided by Inoglle have been invaluable for upskilling our team. Their hands-on internship program is a fantastic initiative for nurturing new talent.”",
+    author: "John Smith",
+    title: "Head of HR, Future Corp"
+  },
+  {
+    quote: "“Working with Inoglle on our custom software was a seamless experience. Their agile development process and transparent communication kept us aligned and resulted in a product that perfectly fits our needs.”",
+    author: "Emily White",
+    title: "Product Manager, Solutions Co."
+  }
+];
+
 export default function Home() {
   const [showBanner, setShowBanner] = useState(true);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  const handlePrevTestimonial = () => {
+    setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const handleNextTestimonial = () => {
+    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
 
   const specialties = [
     { icon: Lightbulb, label: "Innovative IT Solutions" },
@@ -35,16 +62,18 @@ export default function Home() {
   return (
     <div className="bg-[#060814] text-slate-200">
       {showBanner && (
-        <div className="bg-blue-600 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center text-sm relative">
-            <Bell size={16} className="mr-3" />
-            <p>
-              Need a vendor switch? Accelerate your AI research with a neutral data partner.
-            </p>
-            <a href="#" className="font-bold underline ml-4 flex items-center gap-1">
-              Learn More <ArrowRight size={14} />
-            </a>
-            <button onClick={() => setShowBanner(false)} className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-white/70 hover:text-white">
+        <div className="bg-blue-600 text-white relative">
+          <div className="max-w-7xl mx-auto px-12 sm:px-6 lg:px-8 py-2.5 text-center text-xs sm:text-sm">
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <Bell size={16} className="hidden sm:inline" />
+              <p>
+                Need a vendor switch? Accelerate your AI research with a neutral data partner.
+              </p>
+              <a href="#" className="font-bold underline flex items-center gap-1 whitespace-nowrap">
+                Learn More <ArrowRight size={14} />
+              </a>
+            </div>
+            <button onClick={() => setShowBanner(false)} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-white/70 hover:text-white">
               <X size={18} />
             </button>
           </div>
@@ -65,9 +94,15 @@ export default function Home() {
             <p className="max-w-3xl mx-auto text-lg text-slate-400 mb-8">
               We are a forward-thinking IT solutions provider dedicated to fostering growth and innovation, offering services from cutting-edge software development to comprehensive IT consulting.
             </p>
-            <button className="bg-white text-black font-semibold px-6 py-3 rounded-lg mb-16 hover:bg-slate-200">
+            <button className="bg-white text-black font-semibold px-6 py-3 rounded-lg mb-10 hover:bg-slate-200">
               Contact Us
             </button>
+
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-lg px-4 py-2 inline-flex items-center justify-center gap-x-4 md:gap-x-8 mx-auto">
+              <button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Strategize & Consult</button>
+              <button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Build & Deploy</button>
+              <button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Hire Talent</button>
+            </div>
           </div>
         </section>
 
@@ -119,7 +154,7 @@ export default function Home() {
         </section>
 
         {/* Our Approach Section */}
-        <section className="py-24 text-center relative bg-concentric">
+        <section className="py-24 text-center bg-concentric">
           <p className="text-sm font-semibold text-slate-400 mb-2">OUR APPROACH</p>
           <h2 className="text-3xl sm:text-4xl font-bold max-w-3xl mx-auto mb-8">
             From Concept to Completion, We're Your Dedicated Partner
@@ -152,7 +187,7 @@ export default function Home() {
           <button className="bg-white text-black font-semibold px-6 py-3 rounded-lg hover:bg-slate-200 mb-16">
             View Case Studies
           </button>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
             <StatCard value="50+" label="Projects Completed." />
             <StatCard value="99%" label="Client Satisfaction Rate." />
             <StatCard value="11-50" label="Dedicated Team Members." />
@@ -163,25 +198,34 @@ export default function Home() {
         {/* Testimonial Section */}
         <section className="py-24 text-center bg-dots">
           <p className="text-sm font-semibold text-slate-400 mb-4">TRUSTED BY INDUSTRY LEADERS</p>
-          <blockquote className="text-2xl sm:text-3xl max-w-4xl mx-auto leading-relaxed mb-8">
-            “Inoglle transformed our operations. Their customer-centric approach and technical expertise were instrumental in our digital transformation journey, delivering results beyond our expectations.”
+          <blockquote className="text-2xl sm:text-3xl max-w-4xl mx-auto leading-relaxed mb-8 min-h-[192px] md:min-h-[128px] flex items-center justify-center">
+            {testimonials[activeTestimonial].quote}
           </blockquote>
-          <p className="font-semibold">Jane Doe</p>
-          <p className="text-sm text-slate-400 mb-8">CTO, Innovate Inc.</p>
+          <p className="font-semibold">{testimonials[activeTestimonial].author}</p>
+          <p className="text-sm text-slate-400 mb-8">{testimonials[activeTestimonial].title}</p>
           <div className="flex items-center justify-center gap-4">
-            <button className="p-2 border border-slate-600 rounded-full hover:bg-slate-800"><ArrowLeft size={16} /></button>
+            <button onClick={handlePrevTestimonial} className="p-2 border border-slate-600 rounded-full hover:bg-slate-800" aria-label="Previous testimonial">
+                <ArrowLeft size={16} />
+            </button>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-white"></span>
-              <span className="w-2 h-2 rounded-full bg-slate-600"></span>
-              <span className="w-2 h-2 rounded-full bg-slate-600"></span>
+              {testimonials.map((_, index) => (
+                <button 
+                  key={index}
+                  onClick={() => setActiveTestimonial(index)}
+                  className={`w-2 h-2 rounded-full transition-colors ${activeTestimonial === index ? 'bg-white' : 'bg-slate-600 hover:bg-slate-500'}`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
             </div>
-            <button className="p-2 border border-slate-600 rounded-full hover:bg-slate-800"><ArrowRightIcon size={16} /></button>
+            <button onClick={handleNextTestimonial} className="p-2 border border-slate-600 rounded-full hover:bg-slate-800" aria-label="Next testimonial">
+                <ArrowRightIcon size={16} />
+            </button>
           </div>
         </section>
 
         {/* Final CTA Section */}
         <section className="py-16">
-          <div className="bg-blue-600 rounded-2xl text-center p-12">
+          <div className="bg-blue-600 rounded-2xl text-center p-8 sm:p-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Innovate? Let's Shape the Future of Your IT.</h2>
             <p className="max-w-2xl mx-auto text-blue-200 mb-8">Partner with Inoglle to deploy custom IT solutions, develop a winning strategy, and accelerate your business growth.</p>
             <button className="bg-white text-blue-600 font-bold px-6 py-3 rounded-lg hover:bg-blue-100">
