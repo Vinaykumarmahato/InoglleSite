@@ -16,24 +16,24 @@ const navItems = [
         {
           title: 'Development',
           links: [
-            { name: 'Software Development', description: 'Scalable software solutions for your business needs.', icon: Code },
-            { name: 'System Integration', description: 'Seamlessly connect your disparate systems and services.', icon: GitBranch },
-            { name: 'Digital Transformation', description: 'Modernize your operations for the digital age.', icon: Zap },
+            { name: 'Software Development', href: '/SoftwareDevelopment', description: 'Scalable software solutions for your business needs.', icon: Code },
+            { name: 'System Integration', href: '/SystemIntegration', description: 'Seamlessly connect your disparate systems and services.', icon: GitBranch },
+            { name: 'Digital Transformation', href: '/DigitalTransformation', description: 'Modernize your operations for the digital age.', icon: Zap },
           ]
         },
         {
           title: 'Consulting',
           links: [
-            { name: 'IT Consulting', description: 'Strategic guidance to align technology with your business goals.', icon: MessageSquare },
-            { name: 'IT Infrastructure Planning', description: 'Building a robust and scalable IT foundation.', icon: Briefcase },
-            { name: 'Deploy AI Talent', description: 'AI-native pods integrated into your team.', icon: Users },
+            { name: 'IT Consulting', href: '/ITConsulting', description: 'Strategic guidance to align technology with your business goals.', icon: MessageSquare },
+            { name: 'IT Infrastructure Planning', href: '/ITInfrastructurePlanning', description: 'Building a robust and scalable IT foundation.', icon: Briefcase },
+            { name: 'Deploy AI Talent', href: '/DeployAITalent', description: 'AI-native pods integrated into your team.', icon: Users },
           ]
         }
       ],
       featured: {
         title: 'Featured Resource: Fine-Tuning LLMs',
         description: 'Large language models (LLMs) have transformed the field of natural language processing with their advanced capabilities.',
-        image: '/images/featured-resource-llm.jpg'
+  image: '/images/logo.png'
       }
     }
   },
@@ -106,7 +106,7 @@ const MegaMenu = ({ columns, featured, align = 'center' }) => (
           <ul className="space-y-4">
             {col.links.map(link => (
               <li key={link.name}>
-                <a href="#" className="flex items-start gap-3 group/link">
+                <a href={link.href || '#'} className="flex items-start gap-3 group/link">
                   {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400 group-hover/link:text-blue-400" />}
                   <div>
                     <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
