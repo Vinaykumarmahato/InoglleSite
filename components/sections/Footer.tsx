@@ -4,6 +4,7 @@
 */
 import React from 'react';
 import { Twitter, Linkedin, Instagram, Youtube } from 'lucide-react';
+import Logo from '../Logo';
 
 const footerLinks = {
   "Services": ["Software Development", "System Integration", "IT Consulting", "Digital Transformation", "IT Infrastructure"],
@@ -13,13 +14,11 @@ const footerLinks = {
 };
 
 const Footer = () => (
-  <footer className="bg-black text-slate-400 text-sm">
+  <footer className="bg-[#060814]/80 backdrop-blur-md text-slate-400 text-sm border-t border-slate-800">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
         <div className="col-span-2 md:col-span-4 lg:col-span-1 space-y-4">
-          <a href="#" aria-label="Inoglle Home">
-            <img className="h-9 w-auto" src="/images/logo.png" alt="Inoglle logo" />
-          </a>
+          <Logo className="h-9" />
           <div>
             <p className="font-semibold text-white">Industry</p>
             <p>IT Services and IT Consulting</p>

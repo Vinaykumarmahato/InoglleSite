@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase, BookOpen, FileText, Mail, HelpCircle, Users, Menu, X } from 'lucide-react';
 import LoginModal from './LoginModal';
+import Logo from './Logo';
 
 const navItems = [
   {
@@ -214,9 +215,7 @@ const MobileMenu = ({ isOpen, onClose, openLoginModal }) => {
       <div className={`absolute top-0 right-0 h-full w-full max-w-sm bg-[#060814] transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-4 border-b border-slate-700">
-            <a href="#" aria-label="Inoglle Home">
-              <img className="h-8 w-auto" src="/images/logo.png" alt="Inoglle logo" />
-            </a>
+            <Logo />
             <button onClick={onClose} className="p-2">
               <X size={24} />
             </button>
@@ -275,9 +274,7 @@ const Header = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
-              <a href="#" aria-label="Inoglle Home">
-                <img className="h-8 w-auto" src="/images/logo.png" alt="Inoglle logo" />
-              </a>
+              <Logo />
             </div>
             <nav className="hidden md:flex items-center justify-center flex-grow">
               <div className="flex items-center gap-8">

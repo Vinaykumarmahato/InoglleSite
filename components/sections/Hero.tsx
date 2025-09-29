@@ -4,86 +4,91 @@
 */
 import React, { useCallback } from 'react';
 import Particles from "react-tsparticles";
+// FIX: The installed dependencies (react-tsparticles, tsparticles-slim) rely on `tsparticles-engine`.
+// Using types from `tsparticles-engine` to ensure compatibility.
+import type { Container, Engine } from "tsparticles-engine";
 import { loadSlim } from "tsparticles-slim";
-import type { ISourceOptions } from 'tsparticles-engine';
+
 
 const Hero = () => {
-  const particlesInit = useCallback(async engine => {
-    await loadSlim(engine);
-  }, []);
+    const particlesInit = useCallback(async (engine: Engine) => {
+        await loadSlim(engine);
+    }, []);
 
-  // FIX: Explicitly type particlesOptions to prevent type widening of string literals, which caused a type error.
-  const particlesOptions: ISourceOptions = {
-    background: {
-      color: {
-        value: 'transparent',
+    const particlesOptions = {
+      background: {
+        color: {
+          value: "transparent",
+        },
       },
-    },
-    fpsLimit: 60,
-    interactivity: {
-      events: {
-        onHover: {
+      fpsLimit: 60,
+      interactivity: {
+        events: {
+          onHover: {
+            enable: true,
+            mode: "repulse",
+          },
+        },
+        modes: {
+          repulse: {
+            distance: 100,
+            duration: 0.4,
+          },
+        },
+      },
+      particles: {
+        color: {
+          value: "#ffffff",
+        },
+        links: {
+          color: "#ffffff",
+          distance: 150,
           enable: true,
-          mode: 'repulse',
+          opacity: 0.1,
+          width: 1,
         },
-        resize: true,
-      },
-      modes: {
-        repulse: {
-          distance: 100,
-          duration: 0.4,
-        },
-      },
-    },
-    particles: {
-      color: {
-        value: '#ffffff',
-      },
-      links: {
-        color: '#ffffff',
-        distance: 150,
-        enable: false,
-        opacity: 0.1,
-        width: 1,
-      },
-      move: {
-        direction: 'none',
-        enable: true,
-        outModes: {
-          default: 'out',
-        },
-        random: false,
-        speed: 0.2,
-        straight: false,
-      },
-      number: {
-        density: {
+        move: {
+          direction: "none" as const,
           enable: true,
-          area: 800,
+          outModes: {
+            default: "out" as const,
+          },
+          random: true,
+          speed: 0.5,
+          straight: false,
         },
-        value: 50,
+        number: {
+          density: {
+            enable: true,
+          },
+          value: 80,
+        },
+        opacity: {
+          value: { min: 0.1, max: 0.5 },
+           animation: {
+            enable: true,
+            speed: 1,
+            sync: false
+          }
+        },
+        shape: {
+          type: "circle",
+        },
+        size: {
+          value: { min: 1, max: 3 },
+        },
       },
-      opacity: {
-        value: 0.1,
-      },
-      shape: {
-        type: 'circle',
-      },
-      size: {
-        value: { min: 1, max: 3 },
-      },
-    },
-    detectRetina: true,
-  }
+      detectRetina: true,
+    };
 
   return (
     <section className="text-center py-20 sm:py-32 relative overflow-hidden">
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={particlesOptions}
-        className="absolute inset-0 z-0"
-      />
+        <Particles
+            id="tsparticles"
+            init={particlesInit}
+            options={particlesOptions}
+            className="absolute inset-0 -z-1"
+        />
       <div className="absolute inset-0 opacity-60">
         <div className="hero-glow absolute -left-1/2 -top-1/4 w-full h-full bg-gradient-radial from-blue-500 to-transparent blur-3xl"></div>
         <div className="hero-glow absolute -right-1/2 -top-1/4 w-full h-full bg-gradient-radial from-yellow-500 to-transparent blur-3xl animation-delay-[-10s]"></div>
