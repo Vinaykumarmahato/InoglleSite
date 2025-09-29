@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React, { useCallback } from 'react';
+import VantaGlobeBackground from '../VantaGlobeBackground';
 import Particles from "react-tsparticles";
 // FIX: The installed dependencies (react-tsparticles, tsparticles-slim) rely on `tsparticles-engine`.
 // Using types from `tsparticles-engine` to ensure compatibility.
@@ -10,7 +11,7 @@ import type { Container, Engine } from "tsparticles-engine";
 import { loadSlim } from "tsparticles-slim";
 
 
-const Hero = () => {
+const Hero = ({ vantaRef }) => {
     const particlesInit = useCallback(async (engine: Engine) => {
         await loadSlim(engine);
     }, []);
@@ -83,12 +84,15 @@ const Hero = () => {
 
   return (
     <section className="text-center py-20 sm:py-32 relative overflow-hidden">
-        <Particles
-            id="tsparticles"
-            init={particlesInit}
-            options={particlesOptions}
-            className="absolute inset-0 -z-1"
-        />
+      {/* Premium dual Vanta Globe backgrounds */}
+  <VantaGlobeBackground position="left" size="partial" style={{ left: 0, bottom: 0, top: 'auto', width: '28vw', height: '55vh', opacity: 0.45, minWidth: 180, minHeight: 180, maxWidth: 500, maxHeight: 500 }} />
+  <VantaGlobeBackground position="right" size="partial" style={{ right: 0, top: 0, bottom: 'auto', width: '28vw', height: '55vh', opacity: 0.45, minWidth: 180, minHeight: 180, maxWidth: 500, maxHeight: 500 }} />
+      <Particles
+        id="tsparticles"
+        init={particlesInit}
+        options={particlesOptions}
+        className="absolute inset-0 -z-1"
+      />
       <div className="absolute inset-0 opacity-60">
         <div className="hero-glow absolute -left-1/2 -top-1/4 w-full h-full bg-gradient-radial from-blue-500 to-transparent blur-3xl"></div>
         <div className="hero-glow absolute -right-1/2 -top-1/4 w-full h-full bg-gradient-radial from-yellow-500 to-transparent blur-3xl animation-delay-[-10s]"></div>
@@ -99,7 +103,6 @@ const Hero = () => {
           <a href="#services"><button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Build & Deploy</button></a>
           <a href="#services"><button className="text-xs md:text-sm font-medium tracking-widest text-slate-300 uppercase hover:text-white transition-colors px-3 py-1">Hire Talent</button></a>
         </div>
-        
         <h1 data-aos="fade-up" data-aos-delay="100" className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
           Inoglle: Nurturing Innovation<br />Shaping the Future of IT
         </h1>
@@ -116,5 +119,5 @@ const Hero = () => {
   )
 };
 
-// FIX: Add default export to be consumable by other components
+// Accept vantaRef as prop
 export default Hero;

@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React from 'react';
+import VantaGlobeBackground from '../VantaGlobeBackground';
 import AnimatedStatCard from '../AnimatedStatCard';
 
 const Impact = () => (
-  <section className="py-24 text-left">
+  <section className="py-24 text-left relative overflow-hidden">
+  <VantaGlobeBackground position="bottom-left" size="partial" style={{ left: '5%', bottom: 0, width: '20vw', height: '35vh', opacity: 0.25, minWidth: 140, minHeight: 140, maxWidth: 300, maxHeight: 300 }} />
     <p data-aos="fade-up" className="text-sm font-semibold text-slate-400 mb-2">OUR IMPACT</p>
     <h2 data-aos="fade-up" data-aos-delay="100" className="text-3xl sm:text-4xl font-bold max-w-3xl mb-8">
       Delivering Measurable Results and Fostering Growth for Our Partners

@@ -93,9 +93,13 @@ const navItems = [
 ];
 
 
-const MegaMenu = ({ columns, featured }) => (
-  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-4xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
-    <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl grid grid-cols-3 gap-8 p-8">
+const MegaMenu = ({ columns, featured, align = 'center' }) => (
+  <div className={
+    align === 'left'
+  ? 'absolute top-full left-0 mt-2 w-screen max-w-2xl lg:ml-16 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
+  : 'absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
+  }>
+  <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl grid grid-cols-3 gap-8 p-8 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-slate-900">
       {columns.map(col => (
         <div key={col.title}>
           <h3 className="font-bold text-white mb-4 border-b border-slate-700 pb-2">{col.title}</h3>
@@ -283,7 +287,7 @@ const Header = () => {
                     <a href="#" className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors py-5">
                       {item.name} <ChevronDown size={16} />
                     </a>
-                    {item.dropdown?.type === 'mega' && <MegaMenu {...item.dropdown} />}
+                    {item.dropdown?.type === 'mega' && <MegaMenu {...item.dropdown} align={item.name === 'What we do' ? 'left' : 'center'} />}
                     {item.dropdown?.type === 'simple' && <SimpleMenu {...item.dropdown} />}
                   </div>
                 ))}

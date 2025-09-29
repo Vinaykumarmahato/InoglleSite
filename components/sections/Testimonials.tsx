@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React, { useState, useEffect, useRef } from 'react';
+import VantaGlobeBackground from '../VantaGlobeBackground';
 import { ArrowLeft, ArrowRight as ArrowRightIcon } from 'lucide-react';
 
 const testimonials = [
@@ -69,7 +70,8 @@ const Testimonials = () => {
   }, [currentIndex]);
   
   return (
-    <section className="py-24 text-center bg-dots" data-aos="fade-up">
+    <section className="py-24 text-center bg-dots relative overflow-hidden" data-aos="fade-up">
+  <VantaGlobeBackground position="center" size="partial" style={{ left: '50%', top: '55%', transform: 'translate(-50%, -50%)', width: '30vw', height: '30vh', opacity: 0.18, minWidth: 120, minHeight: 120, maxWidth: 250, maxHeight: 250 }} />
       <p className="text-sm font-semibold text-slate-400 mb-4">TRUSTED BY INDUSTRY LEADERS</p>
       
       <div className="min-h-[192px] md:min-h-[160px] flex flex-col items-center justify-center">

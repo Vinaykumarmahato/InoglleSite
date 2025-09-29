@@ -63,7 +63,6 @@ export default function Home() {
 
   return (
     <div className="text-slate-200 relative">
-      <div ref={vantaRef} className="fixed top-0 left-0 w-full h-full -z-10" />
       {showBanner && (
         <div className="bg-blue-600 text-white relative">
           <div className="max-w-7xl mx-auto px-12 sm:px-6 lg:px-8 py-2.5 text-center text-xs sm:text-sm">
@@ -83,8 +82,8 @@ export default function Home() {
         </div>
       )}
       <Header />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Hero />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <Hero vantaRef={vantaRef} />
         <Mission />
         <div id="services"><Services /></div>
         <div id="approach"><Approach /></div>

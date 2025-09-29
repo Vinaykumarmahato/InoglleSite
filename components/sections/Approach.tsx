@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
 */
 import React from 'react';
+import VantaGlobeBackground from '../VantaGlobeBackground';
 import { ArrowRight, Target, Laptop } from 'lucide-react';
 
 const Approach = () => (
-  <section className="py-24 text-center bg-concentric">
+  <section className="py-24 text-center bg-concentric relative overflow-hidden">
+  <VantaGlobeBackground position="top-right" size="partial" style={{ right: '5%', top: 0, width: '20vw', height: '35vh', opacity: 0.25, minWidth: 140, minHeight: 140, maxWidth: 300, maxHeight: 300 }} />
     <p data-aos="fade-up" className="text-sm font-semibold text-slate-400 mb-2">OUR APPROACH</p>
     <h2 data-aos="fade-up" data-aos-delay="100" className="text-3xl sm:text-4xl font-bold max-w-3xl mx-auto mb-8">
       From Concept to Completion, We're Your Dedicated Partner
