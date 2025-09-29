@@ -195,8 +195,18 @@ export default function Home() {
       <footer className="bg-black text-slate-400 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            <div className="col-span-2 md:col-span-4 lg:col-span-1">
+            <div className="col-span-2 md:col-span-4 lg:col-span-1 space-y-4">
               <h3 className="font-bold text-white text-lg">INOGLLE</h3>
+              <div>
+                <p className="font-semibold text-white">Industry</p>
+                <p>IT Services and IT Consulting</p>
+              </div>
+              <div>
+                <p className="font-semibold text-white">Website</p>
+                <a href="https://inoglle.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-white underline break-all">
+                  https://inoglle.vercel.app/
+                </a>
+              </div>
             </div>
             {Object.entries(footerLinks).map(([title, links]) => (
               <div key={title}>
