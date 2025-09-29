@@ -93,7 +93,8 @@ body {
 }
 
 .animate-fade-out-text {
-  animation: fade-out-text 0.3s ease-in-out forwards;
+  from { width: 0%; }
+  to { width: 100%; }
 }
 
 .animate-fade-in-text {

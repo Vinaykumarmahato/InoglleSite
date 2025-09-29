@@ -272,9 +272,11 @@ const Header = () => {
     };
   }, [isMobileMenuOpen, isLoginModalOpen]);
 
+  const [showBanner, setShowBanner] = useState(true);
   return (
     <>
-      <header className="sticky top-0 w-full bg-[#060814]/80 backdrop-blur-md z-40 border-b border-slate-800">
+      {/* Main Navbar */}
+      <header className="sticky top-0 w-full bg-[#111] z-40 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
@@ -284,7 +286,7 @@ const Header = () => {
               <div className="flex items-center gap-8">
                 {navItems.map(item => (
                   <div key={item.name} className="group relative">
-                    <a href="#" className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors py-5">
+                    <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
                       {item.name} <ChevronDown size={16} />
                     </a>
                     {item.dropdown?.type === 'mega' && <MegaMenu {...item.dropdown} align={item.name === 'What we do' ? 'left' : 'center'} />}
@@ -294,11 +296,9 @@ const Header = () => {
               </div>
             </nav>
             <div className="hidden md:flex items-center gap-4">
-              <a href="#" className="bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:from-blue-600 hover:to-blue-700">
-                Get Started
-              </a>
+              <a href="#" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-semibold px-6 py-2 rounded-lg text-base transition-colors">Get Started</a>
               <div className="group relative">
-                <div className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold cursor-pointer">
+                <div className="hidden sm:flex items-center gap-1 text-white hover:text-blue-400 text-base font-semibold cursor-pointer">
                   Login <ChevronDown size={16} />
                 </div>
                 <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
@@ -322,7 +322,7 @@ const Header = () => {
               </div>
             </div>
             <div className="md:hidden">
-              <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-slate-300 hover:text-white">
+              <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-white hover:text-blue-400">
                 <Menu size={24} />
               </button>
             </div>
