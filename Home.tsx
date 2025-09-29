@@ -39,10 +39,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center text-sm relative">
             <Bell size={16} className="mr-3" />
             <p>
-              Welcome to Inoglle! We are actively hiring for multiple roles.
+              Need a vendor switch? Accelerate your AI research with a neutral data partner.
             </p>
             <a href="#" className="font-bold underline ml-4 flex items-center gap-1">
-              View Careers <ArrowRight size={14} />
+              Learn More <ArrowRight size={14} />
             </a>
             <button onClick={() => setShowBanner(false)} className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-white/70 hover:text-white">
               <X size={18} />

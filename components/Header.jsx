@@ -2,12 +2,12 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import React from 'react';
-import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase, BookOpen, FileText, Mail, HelpCircle, Users, Menu, X } from 'lucide-react';
 
 const navItems = [
   {
-    name: 'Services',
+    name: 'What we do',
     dropdown: {
       type: 'mega',
       columns: [
@@ -24,34 +24,66 @@ const navItems = [
           links: [
             { name: 'IT Consulting', description: 'Strategic guidance to align technology with your business goals.', icon: MessageSquare },
             { name: 'IT Infrastructure Planning', description: 'Building a robust and scalable IT foundation.', icon: Briefcase },
+            { name: 'Deploy AI Talent', description: 'AI-native pods integrated into your team.', icon: Users },
           ]
         }
       ],
       featured: {
-        title: 'Featured Case Study: Digital Transformation',
-        description: 'Learn how we helped a client increase efficiency by 40% through strategic system integration and custom software.',
+        title: 'Featured Resource: Fine-Tuning LLMs',
+        description: 'Large language models (LLMs) have transformed the field of natural language processing with their advanced capabilities.',
         image: 'bg-slate-700'
       }
     }
   },
   {
-    name: 'Careers',
+    name: 'Resources',
+    dropdown: {
+      type: 'mega',
+      columns: [
+        {
+          title: 'Learn',
+          links: [
+            { name: 'Enterprise Insights', description: 'In-depth articles and analyses on IT trends.', icon: BookOpen },
+            { name: 'Case Studies', description: 'See how we\'ve helped businesses like yours succeed.', icon: FileText },
+            { name: 'Use Cases', description: 'Explore practical applications of our IT solutions.', icon: Zap },
+          ]
+        },
+        {
+          title: 'Connect',
+          links: [
+            { name: 'Contact Us', description: 'Get in touch with our team of experts.', icon: Mail },
+            { name: 'Help Center', description: 'Find answers to frequently asked questions.', icon: HelpCircle },
+            { name: 'Inoglle Careers', description: 'Join our team and shape the future of IT.', icon: Briefcase },
+          ]
+        }
+      ],
+      featured: {
+        title: 'Featured Resource: Secure App Development',
+        description: 'The convergence of generative AI and large language models (LLMs) has created a unique opportunity for enterprises to engineer powerful products.',
+        image: 'bg-slate-700'
+      }
+    }
+  },
+  {
+    name: 'For talent',
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'Why Join Inoglle', description: 'Become part of an innovative and nurturing team.' },
-        { name: 'Job Openings', description: 'Explore current opportunities to join our team.' },
-        { name: 'Internships', description: 'Kickstart your IT career with our hands-on internship programs.' },
+        { name: 'How to get hired', description: 'How Inoglle works and how we match you to job opportunities.' },
+        { name: 'Developer resources', description: 'Tips, tricks, and more to enhance your tech skills and stand out with clients.' },
+        { name: 'Talent support', description: 'Get answers to common questions about job matching and more.' },
       ]
     }
   },
   {
-    name: 'About Us',
+    name: 'Company',
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'Our Story' },
+        { name: 'About' },
+        { name: 'Careers' },
         { name: 'Blog' },
+        { name: 'Press' },
         { name: 'Contact Us' },
       ]
     }
@@ -109,38 +141,136 @@ const SimpleMenu = ({ links }) => (
   </div>
 );
 
-const Header = () => {
+const MobileNavItem = ({ item, isOpen, onToggle }) => {
+  const hasDropdown = item.dropdown && (item.dropdown.links?.length > 0 || item.dropdown.columns?.length > 0);
+
+  const getLinks = () => {
+    if (item.dropdown.type === 'simple') return item.dropdown.links;
+    if (item.dropdown.type === 'mega') return item.dropdown.columns.flatMap(c => c.links);
+    return [];
+  }
+
   return (
-    <header className="sticky top-0 w-full bg-[#060814]/80 backdrop-blur-md z-50 border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <a href="#" className="text-white font-bold text-xl tracking-wider">INOGLLE</a>
-          </div>
-          <nav className="hidden md:flex items-center justify-center flex-grow">
-            <div className="flex items-center gap-8">
-              {navItems.map(item => (
-                <div key={item.name} className="group relative">
-                  <a href="#" className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors py-5">
-                    {item.name} <ChevronDown size={16} />
-                  </a>
-                  {item.dropdown?.type === 'mega' && <MegaMenu {...item.dropdown} />}
-                  {item.dropdown?.type === 'simple' && <SimpleMenu {...item.dropdown} />}
+    <div className="border-b border-slate-700">
+      <button onClick={onToggle} className="w-full flex justify-between items-center py-4 text-left">
+        <span className="text-lg text-white font-medium">{item.name}</span>
+        {hasDropdown && <ChevronDown size={20} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />}
+      </button>
+      {hasDropdown && isOpen && (
+        <div className="pb-4 pl-4 space-y-3">
+          {getLinks().map(link => (
+             <a href="#" key={link.name} className="flex items-start gap-3 group/link">
+                {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400" />}
+                <div>
+                  <p className="text-white font-medium">{link.name}</p>
+                  {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
                 </div>
-              ))}
-            </div>
-          </nav>
-          <div className="flex items-center gap-4">
-            <a href="#" className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
+              </a>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+const MobileMenu = ({ isOpen, onClose }) => {
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleToggle = (name) => {
+    setOpenDropdown(openDropdown === name ? null : name);
+  };
+
+  return (
+    <div className={`fixed inset-0 z-50 transition-opacity md:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/60" onClick={onClose}></div>
+      
+      {/* Menu Panel */}
+      <div className={`absolute top-0 right-0 h-full w-full max-w-sm bg-[#060814] transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="flex flex-col h-full">
+          <div className="flex items-center justify-between p-4 border-b border-slate-700">
+            <a href="#" className="text-white font-bold text-xl tracking-wider">INOGLLE</a>
+            <button onClick={onClose} className="p-2">
+              <X size={24} />
+            </button>
+          </div>
+          <div className="flex-grow overflow-y-auto px-4">
+            {navItems.map(item => (
+              <MobileNavItem 
+                key={item.name} 
+                item={item}
+                isOpen={openDropdown === item.name}
+                onToggle={() => handleToggle(item.name)}
+              />
+            ))}
+          </div>
+          <div className="p-4 space-y-4 border-t border-slate-700">
+            <a href="#" className="bg-blue-600 text-white font-semibold px-4 py-3 rounded-lg text-sm w-full block text-center hover:bg-blue-700">
               Get Started
             </a>
-            <a href="#" className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold">
+            <a href="#" className="flex items-center justify-center gap-1 text-slate-300 hover:text-white text-sm font-semibold">
               Login <ChevronDown size={16} />
             </a>
           </div>
         </div>
       </div>
-    </header>
+    </div>
+  )
+}
+
+const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMobileMenuOpen]);
+
+  return (
+    <>
+      <header className="sticky top-0 w-full bg-[#060814]/80 backdrop-blur-md z-40 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex-shrink-0">
+              <a href="#" className="text-white font-bold text-xl tracking-wider">INOGLLE</a>
+            </div>
+            <nav className="hidden md:flex items-center justify-center flex-grow">
+              <div className="flex items-center gap-8">
+                {navItems.map(item => (
+                  <div key={item.name} className="group relative">
+                    <a href="#" className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors py-5">
+                      {item.name} <ChevronDown size={16} />
+                    </a>
+                    {item.dropdown?.type === 'mega' && <MegaMenu {...item.dropdown} />}
+                    {item.dropdown?.type === 'simple' && <SimpleMenu {...item.dropdown} />}
+                  </div>
+                ))}
+              </div>
+            </nav>
+            <div className="hidden md:flex items-center gap-4">
+              <a href="#" className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
+                Get Started
+              </a>
+              <a href="#" className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-white text-sm font-semibold">
+                Login <ChevronDown size={16} />
+              </a>
+            </div>
+            <div className="md:hidden">
+              <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-slate-300 hover:text-white">
+                <Menu size={24} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+    </>
   );
 };
 
