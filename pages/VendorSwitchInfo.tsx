@@ -230,30 +230,7 @@ const VendorSwitchInfo = () => {
 
   return (
     <div className="min-h-screen bg-[#111]">
-      {/* Example usage of SimpleMenu for demonstration */}
-      <div className="flex justify-center py-8">
-        <SimpleMenu
-          links={[
-          { name: 'How to get hired', description: 'How Inoglle works and we match you to opportunities.' },
-          { name: 'Developer resources', description: 'Tips and tricks to enhance your tech skills.' },
-          { name: 'Talent support', description: 'Get answers to common questions about job matching.' },
-          ]}
-        />
-      </div>
-      {showBanner && (
-        <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex items-center justify-between px-8 py-2 text-base font-medium">
-                    <div className="flex items-center gap-3">
-                        <Bell size={22} />
-                        <span>Need a vendor switch? Accelerate your AI research with a neutral data partner.</span>
-                    </div>
-                    <div className="flex items-center gap-6">
-                        <a href="#" className="underline font-semibold">Learn More &rarr;</a>
-                        <button onClick={() => setShowBanner(false)} className="text-white text-2xl font-bold hover:text-blue-200">&#10005;</button>
-                    </div>
-                </div>
-            )}
-
-            <Header />
+      <Header />
 
             <main className="flex-1">
                 <section className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200">
