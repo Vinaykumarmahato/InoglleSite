@@ -289,8 +289,18 @@ const Header = () => {
                     <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
                       {item.name} <ChevronDown size={16} />
                     </a>
-                    {item.dropdown?.type === 'mega' && <MegaMenu {...item.dropdown} align={item.name === 'What we do' ? 'left' : 'center'} />}
-                    {item.dropdown?.type === 'simple' && <SimpleMenu {...item.dropdown} />}
+                      {item.dropdown?.type === 'mega' && (
+                        <MegaMenu
+                          columns={item.dropdown.columns}
+                          featured={item.dropdown.featured}
+                          align={item.name === 'What we do' ? 'left' : 'center'}
+                        />
+                      )}
+                      {item.dropdown?.type === 'simple' && (
+                        <SimpleMenu
+                          links={item.dropdown.links}
+                        />
+                      )}
                   </div>
                 ))}
               </div>
