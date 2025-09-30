@@ -14,9 +14,9 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    Calendar,
+    Clock,
+    ArrowRight
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -334,14 +334,38 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const EnterpriseInsights = () => {
     const [showBanner, setShowBanner] = useState(true);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const featuredArticle = {
+        image: "https://placehold.co/800x500/dbeafe/1e3a8a?text=AI+in+Business",
+        category: "AI & Machine Learning",
+        title: "The Generative AI Revolution: Reshaping the Enterprise Landscape",
+        author: "Priya Sharma",
+        date: "September 30, 2025",
+        readTime: "8 min read",
+        excerpt: "Generative AI is not just a buzzword; it's a fundamental shift in how businesses innovate and operate. This in-depth analysis explores the practical applications, challenges, and strategic imperatives for leaders in the new AI-driven era."
+    };
+
+    const articles = [
+        {
+            image: "https://placehold.co/400x250/e0f2fe/0e7490?text=Cloud+Security",
+            category: "Cloud Computing",
+            title: "Navigating the Multi-Cloud Maze: A C-Suite Guide",
+            excerpt: "As organizations embrace multi-cloud strategies, new complexities in security, governance, and cost management arise..."
+        },
+        {
+            image: "https://placehold.co/400x250/e0f2fe/0e7490?text=Cybersecurity",
+            category: "Cybersecurity",
+            title: "Zero Trust Architecture: Beyond the Perimeter",
+            excerpt: "The traditional network perimeter is obsolete. Discover how to implement a Zero Trust model that secures your data and applications..."
+        },
+        {
+            image: "https://placehold.co/400x250/e0f2fe/0e7490?text=DevOps",
+            category: "DevOps",
+            title: "The Rise of Platform Engineering: A New Paradigm",
+            excerpt: "Learn how platform engineering is accelerating development cycles and improving developer experience by providing self-service capabilities..."
+        }
     ];
 
     return (
@@ -366,55 +390,54 @@ const FeaturedResourceLLMs = () => {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
                         <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Enterprise Insights</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Stay ahead of the curve with our in-depth articles, expert analyses, and strategic perspectives on the latest trends shaping the IT landscape.</p>
                         </div>
 
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
+                        {/* Featured Article */}
+                        <div className="grid lg:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow-xl border border-blue-100 mb-20">
+                            <div className="rounded-lg overflow-hidden">
+                                <img src={featuredArticle.image} alt={featuredArticle.title} className="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-semibold text-blue-600 uppercase mb-2">{featuredArticle.category}</p>
+                                <h2 className="text-3xl font-bold text-blue-900 mb-4">{featuredArticle.title}</h2>
+                                <div className="flex items-center gap-4 text-sm text-slate-500 mb-4">
+                                    <span>By {featuredArticle.author}</span>
+                                    <span className="flex items-center gap-1"><Calendar size={14} /> {featuredArticle.date}</span>
+                                    <span className="flex items-center gap-1"><Clock size={14} /> {featuredArticle.readTime}</span>
                                 </div>
+                                <p className="text-slate-600 mb-6">{featuredArticle.excerpt}</p>
+                                <a href="#" className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">
+                                    Read Full Article <ArrowRight size={20} />
+                                </a>
                             </div>
+                        </div>
 
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        {/* Latest Articles */}
+                        <h3 className="text-3xl font-bold text-blue-900 mb-8 text-center">Latest Articles</h3>
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {articles.map(article => (
+                                <div key={article.title} className="bg-white/90 rounded-xl shadow-lg border border-blue-100 overflow-hidden flex flex-col group">
+                                    <img src={article.image} alt={article.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/>
+                                    <div className="p-6 flex flex-col flex-grow">
+                                        <p className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full self-start mb-3">{article.category}</p>
+                                        <h4 className="font-bold text-lg text-blue-900 mb-2 flex-grow">{article.title}</h4>
+                                        <p className="text-slate-600 text-sm mb-4">{article.excerpt}</p>
+                                        <a href="#" className="text-blue-600 font-bold self-start hover:underline">Read More &rarr;</a>
                                     </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
-                            </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                         {/* Newsletter CTA */}
+                        <div className="mt-20 bg-white rounded-2xl shadow-xl border border-blue-100 p-12 text-center">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-4">Never Miss an Insight</h2>
+                            <p className="text-slate-600 max-w-2xl mx-auto mb-8">Subscribe to our newsletter to get the latest articles, case studies, and industry news delivered directly to your inbox.</p>
+                            <form className="max-w-md mx-auto flex gap-4">
+                                <input type="email" placeholder="Enter your email address" className="flex-grow px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <button type="submit" className="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">Subscribe</button>
+                            </form>
                         </div>
                     </div>
                 </section>
@@ -476,5 +499,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default EnterpriseInsights;

@@ -14,9 +14,10 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    Newspaper,
+    Download,
+    Quote,
+    ArrowRight
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -293,12 +294,8 @@ const Header = () => {
                     <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
                       {item.name} <ChevronDown size={16} />
                     </a>
-                    {item.dropdown?.type === 'mega' && (
-                      <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />
-                    )}
-                    {item.dropdown?.type === 'simple' && (
-                      <SimpleMenu links={item.dropdown.links} />
-                    )}
+                    {item.dropdown?.type === 'mega' && <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />}
+                    {item.dropdown?.type === 'simple' && <SimpleMenu links={item.dropdown.links} />}
                   </div>
                 ))}
               </div>
@@ -334,14 +331,19 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const Press = () => {
     const [showBanner, setShowBanner] = useState(true);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const pressReleases = [
+        { date: "SEP 15, 2025", title: "Inoglle Launches AI-Powered Talent Platform to Revolutionize IT Staffing", publication: "TechCrunch" },
+        { date: "AUG 02, 2025", title: "Bengaluru-Based Inoglle Recognized as 'Top IT Innovator' by YourStory", publication: "YourStory" },
+        { date: "JUN 20, 2025", title: "Inoglle Announces Strategic Partnership to Advance Cloud Solutions in APAC", publication: "Economic Times" },
+    ];
+    
+    const mediaAssets = [
+        { name: "Inoglle Logo Kit (.zip)", action: "Download" },
+        { name: "Brand Guidelines (.pdf)", action: "Download" },
+        { name: "Executive Headshots (.zip)", action: "Download" }
     ];
 
     return (
@@ -363,59 +365,49 @@ const FeaturedResourceLLMs = () => {
 
             <main className="flex-1">
                 <section className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
-                        <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                        <div className="text-center mb-20">
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">In the Spotlight</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Discover our latest announcements, media features, and stories as we continue to innovate and shape the future of IT.</p>
                         </div>
-
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
+                        
+                        {/* Press Releases Section */}
+                        <div className="grid lg:grid-cols-3 gap-12">
+                            <div className="lg:col-span-2">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-8">Recent Coverage</h2>
+                                <div className="space-y-8">
+                                    {pressReleases.map(release => (
+                                        <a href="#" key={release.title} className="block bg-white p-6 rounded-2xl shadow-lg border border-blue-100 hover:shadow-2xl hover:-translate-y-1 transition-all">
+                                            <div className="flex flex-col sm:flex-row justify-between sm:items-center">
+                                                <div>
+                                                    <p className="text-sm font-semibold text-blue-600 mb-1">{release.publication} &bull; {release.date}</p>
+                                                    <h3 className="text-lg font-bold text-blue-900">{release.title}</h3>
+                                                </div>
+                                                <ArrowRight className="text-blue-400 mt-4 sm:mt-0 flex-shrink-0" />
+                                            </div>
+                                        </a>
                                     ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
                                 </div>
                             </div>
-
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
+                            
+                            {/* Media Kit Section */}
+                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24 h-fit">
+                                <h3 className="text-2xl font-bold text-blue-900 mb-6">For the Press</h3>
+                                <div className="space-y-4 mb-6">
+                                    {mediaAssets.map(asset => (
+                                         <a key={asset.name} href="#" className="flex justify-between items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100">
+                                            <span className="font-semibold text-slate-700">{asset.name}</span>
+                                            <Download className="w-5 h-5 text-blue-600" />
+                                        </a>
+                                    ))}
+                                </div>
+                                <h4 className="font-bold text-blue-900">Media Inquiries</h4>
+                                <p className="text-slate-600 text-sm mb-2">For all media-related questions, please contact:</p>
+                                <a href="mailto:press@inoglle.com" className="font-semibold text-blue-600 hover:underline">press@inoglle.com</a>
                             </div>
                         </div>
+
                     </div>
                 </section>
             </main>
@@ -476,5 +468,5 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
+export default Press;
 

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../components/Header.jsx';
+import { MegaMenu, SimpleMenu } from '../components/Header.jsx';
 import {
     Bell,
     ChevronDown,
@@ -14,9 +16,10 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    Unlink,
+    ShieldCheck,
+    Scale,
+    Shuffle
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -132,59 +135,7 @@ const navItems = [
 ];
 
 
-const MegaMenu = ({ columns, featured, align = 'center' }) => (
-  <div className={
-    align === 'left'
-  ? 'absolute top-full left-0 mt-2 w-screen max-w-2xl lg:ml-16 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
-  : 'absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
-  }>
-  <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl grid grid-cols-3 gap-8 p-8 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-slate-900">
-      {columns.map(col => (
-        <div key={col.title}>
-          <h3 className="font-bold text-white mb-4 border-b border-slate-700 pb-2">{col.title}</h3>
-          <ul className="space-y-4">
-            {col.links.map(link => (
-              <li key={link.name}>
-                <a href={link.href || '#'} className="flex items-start gap-3 group/link">
-                  {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400 group-hover/link:text-blue-400" />}
-                  <div>
-                    <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-                    {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-      <div className="bg-slate-800/50 rounded-lg p-4">
-        <p className="text-xs font-semibold text-slate-400 mb-2">Featured resource</p>
-        <img src={featured.image} alt={featured.title} className="w-full h-32 object-cover rounded-md mb-4" />
-        <h4 className="font-bold text-white mb-2">{featured.title}</h4>
-        <p className="text-sm text-slate-400 mb-4">{featured.description}</p>
-        <a href="#" className="text-sm text-blue-400 font-bold hover:underline">Read more</a>
-        <a href="#" className="text-sm text-slate-300 hover:text-white mt-4 block">See all resources</a>
-      </div>
-    </div>
-  </div>
-);
-
-const SimpleMenu = ({ links }) => (
-  <div className="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
-    <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
-      <ul className="space-y-4">
-        {links.map(link => (
-          <li key={link.name}>
-            <a href="#" className="group/link">
-              <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-              {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-);
+// Duplicate MegaMenu and SimpleMenu definitions commented out to avoid conflicts. Use imported versions from Header.jsx.
 
 const MobileNavItem = ({ item, isOpen, onToggle }) => {
   const hasDropdown = item.dropdown && (item.dropdown.links?.length > 0 || item.dropdown.columns?.length > 0);
@@ -263,91 +214,34 @@ const MobileMenu = ({ isOpen, onClose, openLoginModal }) => {
   )
 }
 
-const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [initialLoginTab, setInitialLoginTab] = useState('client');
-
-  const openLoginModal = (tab) => {
-    setInitialLoginTab(tab);
-    setIsLoginModalOpen(true);
-    setIsMobileMenuOpen(false);
-  };
-
-  useEffect(() => {
-    const bodyStyle = document.body.style;
-    bodyStyle.overflow = (isMobileMenuOpen || isLoginModalOpen) ? 'hidden' : 'auto';
-    return () => { bodyStyle.overflow = 'auto'; };
-  }, [isMobileMenuOpen, isLoginModalOpen]);
-
-  return (
-    <>
-      <header className="sticky top-0 w-full bg-[#111] z-40 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex-shrink-0"><Logo /></div>
-            <nav className="hidden md:flex items-center justify-center flex-grow">
-              <div className="flex items-center gap-8">
-                {navItems.map(item => (
-                  <div key={item.name} className="group relative">
-                    <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
-                      {item.name} <ChevronDown size={16} />
-                    </a>
-                    {item.dropdown?.type === 'mega' && (
-                      <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />
-                    )}
-                    {item.dropdown?.type === 'simple' && (
-                      <SimpleMenu links={item.dropdown.links} />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </nav>
-            <div className="hidden md:flex items-center gap-4">
-              <a href="#" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-semibold px-6 py-2 rounded-lg text-base transition-colors">Get Started</a>
-              <div className="group relative">
-                <div className="hidden sm:flex items-center gap-1 text-white hover:text-blue-400 text-base font-semibold cursor-pointer">
-                  Login <ChevronDown size={16} />
-                </div>
-                <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
-                  <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
-                    <ul className="space-y-4">
-                      <li><button onClick={() => openLoginModal('client')} className="group/link text-left w-full"><p className="text-white font-medium group-hover/link:text-blue-400">For clients</p><p className="text-sm text-slate-400">Access your project dashboard.</p></button></li>
-                      <li><button onClick={() => openLoginModal('talent')} className="group/link text-left w-full"><p className="text-white font-medium group-hover/link:text-blue-400">For talent</p><p className="text-sm text-slate-400">Manage your profile.</p></button></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="md:hidden">
-              <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-white hover:text-blue-400"><Menu size={24} /></button>
-            </div>
-          </div>
-        </div>
-      </header>
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} openLoginModal={openLoginModal} />
-      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} initialTab={initialLoginTab} />
-    </>
-  );
-};
+// Removed local Header definition. Use imported Header from components/Header.jsx.
 // --- End: Header Data and Components ---
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const VendorSwitchInfo = () => {
     const [showBanner, setShowBanner] = useState(true);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const painPoints = [
+        { icon: <Unlink />, title: "Data Silos & Vendor Lock-In", description: "Your current partner's ecosystem may limit your access to diverse datasets, trapping your valuable IP and hindering innovation." },
+        { icon: <Scale />, title: "Biased & Skewed Models", description: "A vendor with their own models has a vested interest in promoting them, potentially leading to biased results and suboptimal performance for your specific needs." },
+        { icon: <Zap />, title: "Lack of Flexibility", description: "Proprietary platforms can stifle your ability to integrate best-in-class tools and adapt to the rapidly evolving AI landscape." },
     ];
 
-    return (
-        <div className="min-h-screen bg-[#111]">
-            {showBanner && (
-                <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex items-center justify-between px-8 py-2 text-base font-medium">
+  return (
+    <div className="min-h-screen bg-[#111]">
+      {/* Example usage of SimpleMenu for demonstration */}
+      <div className="flex justify-center py-8">
+        <SimpleMenu
+          links={[
+          { name: 'How to get hired', description: 'How Inoglle works and we match you to opportunities.' },
+          { name: 'Developer resources', description: 'Tips and tricks to enhance your tech skills.' },
+          { name: 'Talent support', description: 'Get answers to common questions about job matching.' },
+          ]}
+        />
+      </div>
+      {showBanner && (
+        <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex items-center justify-between px-8 py-2 text-base font-medium">
                     <div className="flex items-center gap-3">
                         <Bell size={22} />
                         <span>Need a vendor switch? Accelerate your AI research with a neutral data partner.</span>
@@ -363,58 +257,64 @@ const FeaturedResourceLLMs = () => {
 
             <main className="flex-1">
                 <section className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
-                        <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                        <div className="text-center mb-20">
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Liberate Your AI Research</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Break free from vendor lock-in and accelerate your innovation with a truly neutral data partner. We empower you to build objective, high-performing AI models without compromise.</p>
+                            <a href="/ContactUs" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">Schedule a Neutrality Assessment</a>
                         </div>
 
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
+                        {/* Problems Section */}
+                        <div className="mb-20">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">The Hidden Costs of a Biased Data Partner</h2>
+                            <div className="grid md:grid-cols-3 gap-8">
+                                {painPoints.map(point => (
+                                    <div key={point.title} className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
+                                         <div className="inline-block bg-red-100 p-3 rounded-full mb-4">
+                                            {React.cloneElement(point.icon, { className: 'w-6 h-6 text-red-600' })}
+                                        </div>
+                                        <h3 className="text-xl font-bold text-blue-900 mb-2">{point.title}</h3>
+                                        <p className="text-slate-600">{point.description}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        
+                        {/* Solution Section */}
+                         <div className="grid lg:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow-xl border border-blue-100 mb-20">
+                             <div className="p-4">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-4">The Inoglle Advantage: True Neutrality</h2>
+                                <p className="text-slate-600 mb-6">
+                                    As a neutral data partner, our only goal is your success. We are technology-agnostic, which means we provide unbiased data sourcing, annotation, and validation services to ensure your AI models are objective, accurate, and built for performance.
+                                </p>
                                 <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
+                                   <li className="flex items-start gap-3">
+                                        <ShieldCheck className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                                        <span className="text-slate-700"><strong>Objective & Unbiased:</strong> We don't build or sell models, ensuring our data services are free from conflicts of interest.</span>
+                                    </li>
+                                     <li className="flex items-start gap-3">
+                                        <Shuffle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                                        <span className="text-slate-700"><strong>Total Flexibility:</strong> Integrate seamlessly with any model, platform, or cloud provider. Your AI stack, your choice.</span>
+                                    </li>
+                                     <li className="flex items-start gap-3">
+                                        <Zap className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                                        <span className="text-slate-700"><strong>Accelerated Innovation:</strong> Focus on building groundbreaking AI without being constrained by a vendor's ecosystem.</span>
+                                    </li>
                                 </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
-                                </div>
                             </div>
+                            <div className="h-full">
+                               <img src="https://placehold.co/500x400/dbeafe/1e3a8a?text=Data+Neutrality" alt="Data Neutrality" className="rounded-lg shadow-md w-full h-full object-cover"/>
+                            </div>
+                        </div>
 
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
-                            </div>
+                         {/* CTA Section */}
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-4">Ready to Make the Switch?</h2>
+                            <p className="text-slate-600 max-w-2xl mx-auto mb-8">A smooth transition is our priority. Contact our team today to learn more about our seamless onboarding process and how a neutral data partner can de-risk and accelerate your AI development.</p>
+                             <a href="/ContactUs" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">
+                                Discuss Your Transition Plan
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -476,5 +376,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default VendorSwitchInfo;

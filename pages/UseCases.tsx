@@ -14,9 +14,13 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    HeartPulse,
+    ShoppingCart,
+    Wrench,
+    Truck,
+    ShieldCheck,
+    CloudCog,
+    Filter
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -334,15 +338,24 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const UseCases = () => {
     const [showBanner, setShowBanner] = useState(true);
+    const [filter, setFilter] = useState('All');
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const allUseCases = [
+        { title: "AI-Powered Predictive Maintenance", industry: "Manufacturing", technology: "AI/ML", description: "Reduce downtime and cut maintenance costs by using machine learning models to predict equipment failures before they happen.", icon: <Wrench /> },
+        { title: "Real-Time Logistics Tracking", industry: "Logistics", technology: "System Integration", description: "Unify data from multiple carriers and IoT devices into a single dashboard for complete visibility and optimized route planning.", icon: <Truck /> },
+        { title: "Secure Patient Data Platform", industry: "Healthcare", technology: "Cloud Solutions", description: "Build a HIPAA-compliant cloud platform for managing electronic health records (EHR) with robust security and scalability.", icon: <HeartPulse /> },
+        { title: "Automated Fraud Detection", industry: "Fintech", technology: "AI/ML", description: "Leverage real-time AI analysis to detect and prevent fraudulent transactions, protecting your customers and your business.", icon: <ShieldCheck /> },
+        { title: "Personalized E-commerce Experience", industry: "Retail", technology: "Custom Software", description: "Develop a bespoke e-commerce platform with an AI-driven recommendation engine to increase customer engagement and sales.", icon: <ShoppingCart /> },
+        { title: "Cloud-Native Application Modernization", industry: "All", technology: "Cloud Solutions", description: "Migrate legacy applications to a modern, cloud-native architecture to improve performance, scalability, and reduce TCO.", icon: <CloudCog /> },
     ];
+    
+    const filters = ['All', 'Fintech', 'Healthcare', 'Logistics', 'Retail', 'AI/ML', 'Cloud Solutions', 'System Integration', 'Custom Software'];
+    
+    const filteredCases = allUseCases.filter(c => 
+        filter === 'All' || c.industry === filter || c.technology === filter
+    );
 
     return (
         <div className="min-h-screen bg-[#111]">
@@ -366,56 +379,48 @@ const FeaturedResourceLLMs = () => {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
                         <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Transforming Industries with Technology</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Explore real-world applications of our custom software, AI, and cloud solutions, and discover how we can tailor them to solve your unique business challenges.</p>
+                        </div>
+                        
+                        {/* Filter Section */}
+                        <div className="mb-12 flex flex-wrap justify-center gap-3">
+                            {filters.map(f => (
+                                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors ${filter === f ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-700 hover:bg-blue-100'}`}>
+                                    {f}
+                                </button>
+                            ))}
                         </div>
 
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
+                        {/* Use Cases Grid */}
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {filteredCases.map(uc => (
+                                <div key={uc.title} className="bg-white rounded-2xl shadow-xl border border-blue-100 p-8 flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+                                    <div className="mb-4">
+                                        <div className="inline-block bg-blue-100 p-4 rounded-full">
+                                           {React.cloneElement(uc.icon, { className: 'w-8 h-8 text-blue-600' })}
+                                        </div>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-blue-900 mb-2">{uc.title}</h3>
+                                    <p className="text-slate-600 flex-grow mb-4">{uc.description}</p>
+                                    <div className="flex flex-wrap gap-2 text-xs font-semibold">
+                                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">{uc.industry}</span>
+                                        <span className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full">{uc.technology}</span>
+                                    </div>
+                                    <a href="#" className="text-blue-600 font-bold mt-6 self-start opacity-0 group-hover:opacity-100 transition-opacity">Learn More &rarr;</a>
                                 </div>
-                            </div>
-
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
-                            </div>
+                            ))}
                         </div>
+                        
+                         {/* CTA Section */}
+                        <div className="mt-20 bg-white rounded-2xl shadow-xl border border-blue-100 p-12 text-center flex flex-col items-center">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-4">Have a Specific Challenge in Mind?</h2>
+                            <p className="text-slate-600 max-w-2xl mx-auto mb-8">Our team specializes in creating tailored solutions. Let's discuss your specific use case and how our technology expertise can help you achieve your goals.</p>
+                            <a href="/ContactUs" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">
+                                Schedule a Consultation
+                            </a>
+                        </div>
+
                     </div>
                 </section>
             </main>
@@ -476,5 +481,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default UseCases;

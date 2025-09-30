@@ -1,3 +1,4 @@
+import VendorSwitchInfo from './pages/VendorSwitchInfo';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -14,6 +15,20 @@ import ITConsulting from './pages/ITConsulting';
 import ITInfrastructurePlanning from './pages/ITInfrastructurePlanning';
 import DeployAITalent from './pages/DeployAITalent';
 import FeaturedResourceLLMs from './pages/FeaturedResourceLLMs';
+import EnterpriseInsights from './pages/EnterpriseInsights';
+import CaseStudies from './pages/CaseStudies';
+import UseCases from './pages/UseCases';
+import ContactUs from './pages/ContactUs';
+import HelpCenter from './pages/HelpCenter';
+import InoglleCareers from './pages/InoglleCareers';
+import HowToGetHired from './pages/HowToGetHired';
+import DeveloperResources from './pages/DeveloperResources';
+import TalentSupport from './pages/TalentSupport';
+import About from './pages/About';
+import Careers from './pages/Careers';
+import Blog from './pages/Blog';
+import Press from './pages/Press';
+import ContactUsCompany from './pages/ContactUsCompany';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +42,21 @@ root.render(
 			<Route path="/ITInfrastructurePlanning" element={<ITInfrastructurePlanning />} />
 			<Route path="/DeployAITalent" element={<DeployAITalent />} />
 			<Route path="/FeaturedResourceLLMs" element={<FeaturedResourceLLMs />} />
+			<Route path="/EnterpriseInsights" element={<EnterpriseInsights />} />
+			<Route path="/CaseStudies" element={<CaseStudies />} />
+			<Route path="/UseCases" element={<UseCases />} />
+			<Route path="/ContactUs" element={<ContactUs />} />
+			<Route path="/HelpCenter" element={<HelpCenter />} />
+			<Route path="/InoglleCareers" element={<InoglleCareers />} />
+			<Route path="/HowToGetHired" element={<HowToGetHired />} />
+			<Route path="/DeveloperResources" element={<DeveloperResources />} />
+			<Route path="/TalentSupport" element={<TalentSupport />} />
+			<Route path="/About" element={<About />} />
+			<Route path="/Careers" element={<Careers />} />
+			<Route path="/Blog" element={<Blog />} />
+			<Route path="/Press" element={<Press />} />
+			<Route path="/ContactUsCompany" element={<ContactUsCompany />} />
+			<Route path="/VendorSwitchInfo" element={<VendorSwitchInfo />} />
 		</Routes>
 	</BrowserRouter>
 );

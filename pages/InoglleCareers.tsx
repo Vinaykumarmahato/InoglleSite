@@ -14,9 +14,12 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    MapPin,
+    Search,
+    BrainCircuit,
+    Lightbulb,
+    Handshake,
+    Rocket
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -334,15 +337,29 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const InoglleCareers = () => {
     const [showBanner, setShowBanner] = useState(true);
+    const [filter, setFilter] = useState('All');
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const values = [
+      { icon: <Lightbulb />, title: "Innovation", description: "We constantly seek new and better ways to solve problems and create value." },
+      { icon: <Handshake />, title: "Collaboration", description: "We believe the best results come from working together with our clients and each other." },
+      { icon: <BrainCircuit />, title: "Excellence", description: "We are committed to the highest standards of quality in everything we do." },
+      { icon: <Rocket />, title: "Growth", description: "We are dedicated to the personal and professional growth of our team members." }
     ];
+
+    const jobOpenings = [
+        { title: "Senior Frontend Engineer", department: "Engineering", location: "Bengaluru, India", type: "Full-time" },
+        { title: "Cloud Solutions Architect", department: "Engineering", location: "Remote", type: "Full-time" },
+        { title: "Product Manager - AI Platforms", department: "Product", location: "Bengaluru, India", type: "Full-time" },
+        { title: "UX/UI Designer", department: "Design", location: "Remote", type: "Contract" },
+        { title: "Technical Project Manager", department: "Product", location: "Bengaluru, India", type: "Full-time" },
+        { title: "DevOps Engineer", department: "Engineering", location: "Remote", type: "Full-time" }
+    ];
+
+    const filters = ['All', 'Engineering', 'Product', 'Design'];
+
+    const filteredJobs = jobOpenings.filter(job => filter === 'All' || job.department === filter);
 
     return (
         <div className="min-h-screen bg-[#111]">
@@ -365,57 +382,68 @@ const FeaturedResourceLLMs = () => {
                 <section className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
-                        <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                        <div className="text-center mb-20">
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Build the Future of Technology with Us</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">We're a team of passionate innovators, thinkers, and builders dedicated to solving complex challenges. If you're driven by impact and excellence, you're in the right place.</p>
+                            <a href="#open-positions" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">View Open Roles</a>
                         </div>
 
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
-                                </div>
+                        {/* Values Section */}
+                         <div className="mb-20">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">Our Core Values</h2>
+                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                {values.map(value => (
+                                    <div key={value.title} className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 text-center">
+                                         <div className="inline-block bg-blue-100 p-4 rounded-full mb-4">
+                                            {React.cloneElement(value.icon, { className: 'w-8 h-8 text-blue-600' })}
+                                        </div>
+                                        <h3 className="text-xl font-bold text-blue-900 mb-2">{value.title}</h3>
+                                        <p className="text-slate-600">{value.description}</p>
+                                    </div>
+                                ))}
                             </div>
+                        </div>
 
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
+                        {/* Open Positions */}
+                        <div id="open-positions">
+                             <div className="text-center mb-12">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-4">Current Openings</h2>
+                                <p className="text-slate-600 max-w-2xl mx-auto">Find your next opportunity in our list of open positions. We're always looking for talented individuals to join our team.</p>
+                            </div>
+                             <div className="mb-8 flex flex-wrap justify-center gap-3">
+                                {filters.map(f => (
+                                    <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors ${filter === f ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-700 hover:bg-blue-100'}`}>
+                                        {f}
                                     </button>
-                                </form>
+                                ))}
+                            </div>
+                            <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-blue-100 divide-y divide-blue-100">
+                                {filteredJobs.map(job => (
+                                    <div key={job.title} className="p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center hover:bg-blue-50 transition-colors">
+                                        <div>
+                                            <h3 className="text-lg font-bold text-blue-900">{job.title}</h3>
+                                            <div className="flex items-center gap-4 text-sm text-slate-500 mt-1">
+                                                <span className="flex items-center gap-1.5"><Briefcase size={14}/> {job.department}</span>
+                                                <span className="flex items-center gap-1.5"><MapPin size={14}/> {job.location}</span>
+                                            </div>
+                                        </div>
+                                        <div className="mt-4 sm:mt-0 flex-shrink-0">
+                                            <a href="#" className="bg-white border-2 border-blue-600 text-blue-600 font-bold py-2 px-5 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">Apply Now</a>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
+                        
+                        {/* CTA Section */}
+                        <div className="mt-20 bg-blue-600 text-white rounded-2xl shadow-xl p-12 text-center flex flex-col items-center">
+                            <h2 className="text-3xl font-bold mb-4">Don't See the Right Fit?</h2>
+                            <p className="max-w-2xl mx-auto mb-8">We're always on the lookout for exceptional talent. If you're passionate about what we do but don't see a current opening that matches your skills, we'd still love to hear from you.</p>
+                            <a href="#" className="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-100 transition-colors">
+                                Get in Touch
+                            </a>
+                        </div>
+
                     </div>
                 </section>
             </main>
@@ -476,5 +504,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default InoglleCareers;

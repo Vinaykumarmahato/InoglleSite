@@ -4,6 +4,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase, BookOpen, FileText, Mail, HelpCircle, Users, Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import Logo from './Logo';
 
@@ -45,17 +46,17 @@ const navItems = [
         {
           title: 'Learn',
           links: [
-            { name: 'Enterprise Insights', description: 'In-depth articles and analyses on IT trends.', icon: BookOpen },
-            { name: 'Case Studies', description: 'See how we\'ve helped businesses like yours succeed.', icon: FileText },
-            { name: 'Use Cases', description: 'Explore practical applications of our IT solutions.', icon: Zap },
+            { name: 'Enterprise Insights', href: '/EnterpriseInsights', description: 'In-depth articles and analyses on IT trends.', icon: BookOpen },
+            { name: 'Case Studies', href: '/CaseStudies', description: 'See how we\'ve helped businesses like yours succeed.', icon: FileText },
+            { name: 'Use Cases', href: '/UseCases', description: 'Explore practical applications of our IT solutions.', icon: Zap },
           ]
         },
         {
           title: 'Connect',
           links: [
-            { name: 'Contact Us', description: 'Get in touch with our team of experts.', icon: Mail },
-            { name: 'Help Center', description: 'Find answers to frequently asked questions.', icon: HelpCircle },
-            { name: 'Inoglle Careers', description: 'Join our team and shape the future of IT.', icon: Briefcase },
+            { name: 'Contact Us', href: '/ContactUs', description: 'Get in touch with our team of experts.', icon: Mail },
+            { name: 'Help Center', href: '/HelpCenter', description: 'Find answers to frequently asked questions.', icon: HelpCircle },
+            { name: 'Inoglle Careers', href: '/InoglleCareers', description: 'Join our team and shape the future of IT.', icon: Briefcase },
           ]
         }
       ],
@@ -71,9 +72,9 @@ const navItems = [
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'How to get hired', description: 'How Inoglle works and how we match you to job opportunities.' },
-        { name: 'Developer resources', description: 'Tips, tricks, and more to enhance your tech skills and stand out with clients.' },
-        { name: 'Talent support', description: 'Get answers to common questions about job matching and more.' },
+        { name: 'How to get hired', href: '/HowToGetHired', description: 'How Inoglle works and how we match you to job opportunities.' },
+        { name: 'Developer resources', href: '/DeveloperResources', description: 'Tips, tricks, and more to enhance your tech skills and stand out with clients.' },
+        { name: 'Talent support', href: '/TalentSupport', description: 'Get answers to common questions about job matching and more.' },
       ]
     }
   },
@@ -82,11 +83,11 @@ const navItems = [
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'About' },
-        { name: 'Careers' },
-        { name: 'Blog' },
-        { name: 'Press' },
-        { name: 'Contact Us' },
+        { name: 'About', href: '/About' },
+        { name: 'Careers', href: '/Careers' },
+        { name: 'Blog', href: '/Blog' },
+        { name: 'Press', href: '/Press' },
+        { name: 'Contact Us', href: '/ContactUsCompany' },
       ]
     }
   },
@@ -106,13 +107,23 @@ const MegaMenu = ({ columns, featured, align = 'center' }) => (
           <ul className="space-y-4">
             {col.links.map(link => (
               <li key={link.name}>
-                <a href={link.href || '#'} className="flex items-start gap-3 group/link">
-                  {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400 group-hover/link:text-blue-400" />}
-                  <div>
-                    <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-                    {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-                  </div>
-                </a>
+                {link.href ? (
+                  <Link to={link.href} className="flex items-start gap-3 group/link">
+                    {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400 group-hover/link:text-blue-400" />}
+                    <div>
+                      <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
+                      {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
+                    </div>
+                  </Link>
+                ) : (
+                  <span className="flex items-start gap-3 group/link">
+                    {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400 group-hover/link:text-blue-400" />}
+                    <div>
+                      <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
+                      {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
+                    </div>
+                  </span>
+                )}
               </li>
             ))}
           </ul>
@@ -136,10 +147,17 @@ const SimpleMenu = ({ links }) => (
       <ul className="space-y-4">
         {links.map(link => (
           <li key={link.name}>
-            <a href="#" className="group/link">
-              <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-              {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-            </a>
+            {link.href ? (
+              <Link to={link.href} className="group/link">
+                <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
+                {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
+              </Link>
+            ) : (
+              <span className="group/link">
+                <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
+                {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
+              </span>
+            )}
           </li>
         ))}
       </ul>
@@ -175,17 +193,21 @@ const MobileNavItem = ({ item, isOpen, onToggle }) => {
       </button>
       {hasDropdown && isOpen && (
         <div className="pb-4 pl-4 space-y-3">
-          {getLinks().map(link => (
-             link.onClick ? (
-              <button key={link.name} onClick={link.onClick} className="flex items-start gap-3 group/link text-left w-full">
-                <LinkContent link={link} />
-              </button>
-             ) : (
-              <a href="#" key={link.name} className="flex items-start gap-3 group/link">
-                <LinkContent link={link} />
-              </a>
-             )
-          ))}
+            {getLinks().map(link => (
+              link.onClick ? (
+                <button key={link.name} onClick={link.onClick} className="flex items-start gap-3 group/link text-left w-full">
+                  <LinkContent link={link} />
+                </button>
+              ) : link.href ? (
+                <Link to={link.href} key={link.name} className="flex items-start gap-3 group/link w-full">
+                  <LinkContent link={link} />
+                </Link>
+              ) : (
+                <span key={link.name} className="flex items-start gap-3 group/link">
+                  <LinkContent link={link} />
+                </span>
+              )
+            ))}
         </div>
       )}
     </div>
@@ -345,4 +367,5 @@ const Header = () => {
   );
 };
 
+export { MegaMenu, SimpleMenu };
 export default Header;

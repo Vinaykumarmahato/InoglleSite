@@ -14,9 +14,13 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    Lightbulb,
+    Handshake,
+    Rocket,
+    Award,
+    Heart,
+    Home,
+    Coffee
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -293,12 +297,8 @@ const Header = () => {
                     <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
                       {item.name} <ChevronDown size={16} />
                     </a>
-                    {item.dropdown?.type === 'mega' && (
-                      <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />
-                    )}
-                    {item.dropdown?.type === 'simple' && (
-                      <SimpleMenu links={item.dropdown.links} />
-                    )}
+                    {item.dropdown?.type === 'mega' && <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />}
+                    {item.dropdown?.type === 'simple' && <SimpleMenu links={item.dropdown.links} />}
                   </div>
                 ))}
               </div>
@@ -334,14 +334,21 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const About = () => {
     const [showBanner, setShowBanner] = useState(true);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const values = [
+        { icon: <Lightbulb />, title: "Innovation", description: "Fostering a culture where new ideas are nurtured and challenges are embraced as opportunities to create groundbreaking solutions." },
+        { icon: <BookOpen />, title: "Continuous Learning", description: "Our commitment to knowledge is integral. We provide free resources and internships to empower our team and clients." },
+        { icon: <Rocket />, title: "Growth Mindset", description: "We believe failure is a stepping stone to success, encouraging persistence and learning from every experience." },
+        { icon: <Handshake />, title: "Partnership", description: "We invest in long-term relationships dedicated to the growth and success of our clients and team members." },
+    ];
+    
+    const benefits = [
+        { icon: <Home />, title: "Remote-First Culture" },
+        { icon: <Coffee />, title: "Flexible Working Hours" },
+        { icon: <Users />, title: "Collaborative Environment" },
+        { icon: <Heart />, title: "Health & Wellness Programs" }
     ];
 
     return (
@@ -365,57 +372,83 @@ const FeaturedResourceLLMs = () => {
                 <section className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
-                        <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                        <div className="text-center mb-20">
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Nurturing Innovation, Cultivating Skills.</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">We are a forward-thinking IT solutions provider dedicated to fostering growth and shaping the future of technology, one solution at a time.</p>
                         </div>
-
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
+                        
+                        {/* Our Mission Section */}
+                        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                             <div className="bg-white p-10 rounded-2xl shadow-xl border border-blue-100">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-4">Our Mission</h2>
+                                <p className="text-slate-600 space-y-4">
+                                    <span>At Inoglle, we're dedicated to bridging the gap between business goals and technological possibilities. We offer a diverse range of services, from cutting-edge software development to comprehensive IT consulting, tailored to meet the unique needs of businesses in the digital age.</span>
+                                     <span>Join us on this exciting journey as we shape the future of IT. With Inoglle, you're not just investing in IT services, you're investing in a partnership dedicated to your growth and success.</span>
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-6">
+                                <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+                                    <p className="text-4xl font-bold text-blue-600">2023</p>
+                                    <p className="text-sm font-semibold text-slate-500">Founded</p>
+                                </div>
+                                <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+                                    <p className="text-4xl font-bold text-blue-600">11-50</p>
+                                    <p className="text-sm font-semibold text-slate-500">Employees</p>
+                                </div>
+                                 <div className="bg-white p-6 rounded-2xl shadow-lg text-center col-span-2">
+                                    <p className="text-2xl font-bold text-blue-600">Bengaluru, Karnataka</p>
+                                    <p className="text-sm font-semibold text-slate-500">Headquarters</p>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        {/* Our Values Section */}
+                         <div className="mb-20">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">Our Core Values</h2>
+                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                {values.map(value => (
+                                    <div key={value.title} className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 text-center hover:-translate-y-2 transition-transform duration-300">
+                                         <div className="inline-block bg-blue-100 p-4 rounded-full mb-4">
+                                            {React.cloneElement(value.icon, { className: 'w-8 h-8 text-blue-600' })}
+                                        </div>
+                                        <h3 className="text-xl font-bold text-blue-900 mb-2">{value.title}</h3>
+                                        <p className="text-slate-600 text-sm">{value.description}</p>
                                     </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
+                                ))}
                             </div>
                         </div>
+                        
+                        {/* Our Culture Section */}
+                        <div className="grid lg:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow-xl border border-blue-100 mb-20">
+                             <div className="p-4">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-4">Our Culture & Benefits</h2>
+                                <p className="text-slate-600 mb-8">
+                                    At Inoglle, we embrace the flexibility of remote work. Our policy allows employees to work from home or any location that suits their needs. We believe in empowering our team to maintain a healthy work-life balance while delivering exceptional results.
+                                </p>
+                                <div className="grid grid-cols-2 gap-6">
+                                    {benefits.map(benefit => (
+                                        <div key={benefit.title} className="flex items-center gap-3 bg-blue-50 p-4 rounded-lg">
+                                            {React.cloneElement(benefit.icon, {className: "w-6 h-6 text-blue-600 flex-shrink-0"})}
+                                            <span className="font-semibold text-slate-700">{benefit.title}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                               <img src="https://placehold.co/300x400/dbeafe/1e3a8a?text=Team" alt="Team collaborating" className="rounded-lg shadow-md w-full h-full object-cover"/>
+                               <img src="https://placehold.co/300x400/e0f2fe/0e7490?text=Culture" alt="Company offsite" className="rounded-lg shadow-md w-full h-full object-cover mt-8"/>
+                            </div>
+                        </div>
+
+                        {/* CTA Section */}
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-4">Join Our Journey</h2>
+                            <p className="text-slate-600 max-w-2xl mx-auto mb-8">We are always looking for passionate and talented individuals to join our team. If you're ready to shape the future of IT, we'd love to hear from you.</p>
+                            <a href="/InoglleCareers" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">
+                                View Open Roles
+                            </a>
+                        </div>
+
                     </div>
                 </section>
             </main>
@@ -476,5 +509,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default About;

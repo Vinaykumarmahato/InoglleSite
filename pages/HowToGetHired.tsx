@@ -14,9 +14,11 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    UserPlus,
+    ShieldCheck,
+    BrainCircuit,
+    Handshake,
+    Star
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -293,12 +295,8 @@ const Header = () => {
                     <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
                       {item.name} <ChevronDown size={16} />
                     </a>
-                    {item.dropdown?.type === 'mega' && (
-                      <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />
-                    )}
-                    {item.dropdown?.type === 'simple' && (
-                      <SimpleMenu links={item.dropdown.links} />
-                    )}
+                    {item.dropdown?.type === 'mega' && <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />}
+                    {item.dropdown?.type === 'simple' && <SimpleMenu links={item.dropdown.links} />}
                   </div>
                 ))}
               </div>
@@ -334,14 +332,14 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const HowToGetHired = () => {
     const [showBanner, setShowBanner] = useState(true);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const processSteps = [
+        { icon: <UserPlus />, title: "1. Create Your Profile", description: "Sign up and build a comprehensive profile that showcases your skills, experience, and past projects. A strong profile is your first impression." },
+        { icon: <ShieldCheck />, title: "2. Vetting & Assessment", description: "Our experts review your profile. Depending on your skills, you may be invited to technical assessments or screenings to verify your expertise." },
+        { icon: <BrainCircuit />, title: "3. AI-Powered Matching", description: "Our intelligent platform matches your profile with top opportunities from our network of clients that align with your skills and career goals." },
+        { icon: <Handshake />, title: "4. Interview & Get Hired", description: "Once matched, you'll interview directly with the client. We provide support throughout the process to help you land your next role." }
     ];
 
     return (
@@ -363,59 +361,59 @@ const FeaturedResourceLLMs = () => {
 
             <main className="flex-1">
                 <section className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
-                        <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                        <div className="text-center mb-20">
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Your Gateway to Premier Tech Opportunities</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Discover how Inoglle connects elite tech talent with innovative companies worldwide. Our streamlined process is designed to match your skills with your next big challenge.</p>
+                            <a href="#" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">Join Our Talent Network</a>
+                        </div>
+                        
+                        {/* Process Section */}
+                        <div className="mb-20">
+                             <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">Our Four-Step Hiring Process</h2>
+                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                {processSteps.map(step => (
+                                    <div key={step.title} className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 text-center">
+                                        <div className="inline-block bg-blue-100 p-4 rounded-full mb-4">
+                                            {React.cloneElement(step.icon, { className: 'w-8 h-8 text-blue-600' })}
+                                        </div>
+                                        <h3 className="text-xl font-bold text-blue-900 mb-2">{step.title}</h3>
+                                        <p className="text-slate-600 text-sm">{step.description}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
+                        {/* Testimonial Section */}
+                        <div className="bg-white rounded-2xl shadow-xl border border-blue-100 p-12 text-center mb-20">
+                            <img src="https://placehold.co/80x80/dbeafe/1e3a8a?text=AR" alt="Aarav Rao" className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-white shadow-lg" />
+                            <blockquote className="text-lg text-slate-700 max-w-3xl mx-auto mb-4">
+                                "The matching process was incredibly accurate. Inoglle connected me with a role that perfectly fit my expertise in cloud architecture, and the interview support was invaluable. I landed my dream job in just three weeks."
+                            </blockquote>
+                            <p className="font-bold text-blue-900">Aarav Rao</p>
+                            <p className="text-sm text-slate-500">Senior Cloud Engineer</p>
+                        </div>
+
+                         {/* Tips for Success Section */}
+                        <div>
+                            <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">Tips for a Standout Profile</h2>
+                            <div className="grid md:grid-cols-3 gap-8 text-center">
+                                <div className="bg-white p-8 rounded-2xl shadow-lg border border-transparent hover:border-blue-200 transition-all">
+                                    <h3 className="text-xl font-bold text-blue-900 mb-2">Detail Your Expertise</h3>
+                                    <p className="text-slate-600">Go beyond job titles. Describe the technologies you used, your role in the projects, and the problems you solved.</p>
+                                </div>
+                                <div className="bg-white p-8 rounded-2xl shadow-lg border border-transparent hover:border-blue-200 transition-all">
+                                    <h3 className="text-xl font-bold text-blue-900 mb-2">Quantify Your Impact</h3>
+                                    <p className="text-slate-600">Use numbers to showcase your achievements. For example, "Reduced API response time by 50%" is more powerful than "improved performance."</p>
+                                </div>
+                                <div className="bg-white p-8 rounded-2xl shadow-lg border border-transparent hover:border-blue-200 transition-all">
+                                    <h3 className="text-xl font-bold text-blue-900 mb-2">Keep It Current</h3>
+                                    <p className="text-slate-600">Regularly update your profile with new skills, projects, and certifications to ensure our matching algorithm finds the best roles for you.</p>
                                 </div>
                             </div>
-
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
-                            </div>
                         </div>
+
                     </div>
                 </section>
             </main>
@@ -476,5 +474,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default HowToGetHired;

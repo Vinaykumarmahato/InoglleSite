@@ -14,9 +14,11 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    Search,
+    Rocket,
+    CreditCard,
+    FolderKanban,
+    Wrench
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -334,15 +336,27 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const HelpCenter = () => {
     const [showBanner, setShowBanner] = useState(true);
+    const [activeFaq, setActiveFaq] = useState(null);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const helpCategories = [
+        { name: "Getting Started", icon: <Rocket />, description: "Onboarding, project setup, and first steps." },
+        { name: "Account & Billing", icon: <CreditCard />, description: "Manage payments, invoices, and subscriptions." },
+        { name: "Project Management", icon: <FolderKanban />, description: "Track progress, communicate, and manage tasks." },
+        { name: "Technical Support", icon: <Wrench />, description: "Troubleshooting, bug reports, and technical queries." },
     ];
+
+    const faqs = [
+        { q: "How do I start a new project with Inoglle?", a: "To start a new project, simply navigate to our 'Contact Us' page and fill out the project proposal form. Our team will review your request and get back to you within 24 hours to schedule a discovery call." },
+        { q: "Where can I view my invoices and payment history?", a: "You can access all your billing information through your client dashboard. Log in to your account and navigate to the 'Billing' section to view and download invoices." },
+        { q: "What is your typical response time for support tickets?", a: "Our standard support plan guarantees a response within 8 business hours. We also offer premium support packages with faster response times and dedicated account managers." },
+        { q: "How do I provide feedback or request a change during a project?", a: "All project communication, including feedback and change requests, is managed through your dedicated project portal. This ensures all stakeholders are informed and there is a clear record of all discussions." }
+    ];
+    
+    const handleFaqToggle = (index) => {
+        setActiveFaq(activeFaq === index ? null : index);
+    };
 
     return (
         <div className="min-h-screen bg-[#111]">
@@ -366,55 +380,57 @@ const FeaturedResourceLLMs = () => {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
                         <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">How can we help?</h1>
+                            <p className="text-lg text-slate-700 mb-8 max-w-3xl mx-auto">Welcome to the Inoglle Help Center. Find answers, tutorials, and resources to get the most out of our services.</p>
+                             <div className="max-w-2xl mx-auto relative">
+                                <input type="search" placeholder="Search for articles, e.g., 'how to start a project'" className="w-full px-6 py-4 pr-12 text-lg bg-white border-2 border-blue-200 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-blue-500" />
+                            </div>
                         </div>
 
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
-                                </div>
-                            </div>
+                        {/* Categories Section */}
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                            {helpCategories.map(cat => (
+                                <a key={cat.name} href="#" className="block bg-white p-8 rounded-2xl shadow-xl border border-blue-100 text-center hover:-translate-y-2 transition-transform duration-300">
+                                    <div className="inline-block bg-blue-100 p-4 rounded-full mb-4">
+                                        {React.cloneElement(cat.icon, { className: 'w-8 h-8 text-blue-600' })}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-blue-900 mb-2">{cat.name}</h3>
+                                    <p className="text-slate-600">{cat.description}</p>
+                                </a>
+                            ))}
+                        </div>
 
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
+                        {/* FAQ Section */}
+                        <div>
+                             <div className="text-center mb-12">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-4">Top Questions</h2>
+                                <p className="text-slate-600 max-w-2xl mx-auto">Here are some of the most common questions we receive from our clients.</p>
                             </div>
+                            <div className="max-w-3xl mx-auto space-y-4">
+                                {faqs.map((faq, index) => (
+                                    <div key={index} className="bg-white rounded-lg shadow-md border border-blue-100 overflow-hidden">
+                                        <button onClick={() => handleFaqToggle(index)} className="w-full flex justify-between items-center p-5 text-left font-semibold text-blue-900">
+                                            <span>{faq.q}</span>
+                                            <ChevronDown className={`w-5 h-5 transition-transform ${activeFaq === index ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        {activeFaq === index && (
+                                            <div className="px-5 pb-5 text-slate-600 border-t border-blue-100 pt-4">
+                                                <p>{faq.a}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* CTA Section */}
+                        <div className="mt-20 bg-white rounded-2xl shadow-xl border border-blue-100 p-12 text-center flex flex-col items-center">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-4">Can't Find What You're Looking For?</h2>
+                            <p className="text-slate-600 max-w-2xl mx-auto mb-8">Our dedicated support team is here to help. Contact us directly for personalized assistance with any questions or issues you may have.</p>
+                            <a href="/ContactUs" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">
+                                Contact Support
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -476,5 +492,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default HelpCenter;

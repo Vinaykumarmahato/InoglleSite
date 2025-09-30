@@ -14,9 +14,10 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    User,
+    DollarSign,
+    ClipboardList,
+    MessageCircle
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -293,12 +294,8 @@ const Header = () => {
                     <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
                       {item.name} <ChevronDown size={16} />
                     </a>
-                    {item.dropdown?.type === 'mega' && (
-                      <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />
-                    )}
-                    {item.dropdown?.type === 'simple' && (
-                      <SimpleMenu links={item.dropdown.links} />
-                    )}
+                    {item.dropdown?.type === 'mega' && <MegaMenu columns={item.dropdown.columns} featured={item.dropdown.featured} align={item.name === 'What we do' ? 'left' : 'center'} />}
+                    {item.dropdown?.type === 'simple' && <SimpleMenu links={item.dropdown.links} />}
                   </div>
                 ))}
               </div>
@@ -334,15 +331,27 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const TalentSupport = () => {
     const [showBanner, setShowBanner] = useState(true);
+    const [activeFaq, setActiveFaq] = useState(null);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const supportCategories = [
+        { name: "Profile & Vetting", icon: <User /> },
+        { name: "Payments & Invoices", icon: <DollarSign /> },
+        { name: "Job Matching", icon: <ClipboardList /> },
+        { name: "General Questions", icon: <MessageCircle /> },
     ];
+
+    const faqs = [
+        { q: "How does the job matching process work?", a: "Our AI-powered platform analyzes your skills, experience, and preferences against the requirements of our clients' open roles. When a strong match is found, we'll notify you and provide next steps for the interview process." },
+        { q: "What should I do if I don't get matched with any jobs?", a: "Don't worry! New opportunities arrive daily. We recommend keeping your profile updated with your latest projects and skills. You can also visit our Developer Resources page for tips on enhancing your profile and technical abilities." },
+        { q: "How can I improve my chances of getting hired?", a: "A detailed and up-to-date profile is key. Quantify your achievements with data, clearly describe your technical contributions to projects, and ensure your listed skills accurately reflect your expertise. Passing our technical assessments also significantly boosts your visibility." },
+        { q: "When and how do I get paid for a project?", a: "Payments are typically processed on a monthly or bi-weekly basis, depending on your contract. All invoices can be submitted and tracked through your talent dashboard, with payments made via direct deposit or your preferred payment platform."}
+    ];
+
+    const handleFaqToggle = (index) => {
+        setActiveFaq(activeFaq === index ? null : index);
+    };
 
     return (
         <div className="min-h-screen bg-[#111]">
@@ -363,59 +372,60 @@ const FeaturedResourceLLMs = () => {
 
             <main className="flex-1">
                 <section className="py-20 bg-gradient-to-br from-blue-100 via-white to-blue-200">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
                         <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Talent Support Center</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">We're here to help you succeed. Find answers to common questions about our platform, job matching, payments, and more.</p>
                         </div>
-
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
+                        
+                        {/* Categories & FAQ */}
+                        <div className="grid lg:grid-cols-3 gap-12 items-start">
+                            {/* Categories Nav */}
+                            <div className="lg:sticky top-24 bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
+                                <h2 className="text-xl font-bold text-blue-900 mb-6">Support Topics</h2>
                                 <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
+                                    {supportCategories.map(cat => (
+                                        <li key={cat.name}>
+                                            <a href="#" className="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-100 transition-colors">
+                                                {React.cloneElement(cat.icon, { className: 'w-6 h-6 text-blue-600'})}
+                                                <span className="font-semibold text-slate-700">{cat.name}</span>
+                                            </a>
                                         </li>
                                     ))}
                                 </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
+                            </div>
+                            
+                            {/* FAQ Accordion */}
+                            <div className="lg:col-span-2">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-8">Frequently Asked Questions</h2>
+                                <div className="space-y-4">
+                                    {faqs.map((faq, index) => (
+                                        <div key={index} className="bg-white rounded-lg shadow-md border border-blue-100 overflow-hidden">
+                                            <button onClick={() => handleFaqToggle(index)} className="w-full flex justify-between items-center p-5 text-left font-semibold text-blue-900">
+                                                <span>{faq.q}</span>
+                                                <ChevronDown className={`w-5 h-5 transition-transform ${activeFaq === index ? 'rotate-180' : ''}`} />
+                                            </button>
+                                            {activeFaq === index && (
+                                                <div className="px-5 pb-5 text-slate-600 border-t border-blue-100 pt-4">
+                                                    <p>{faq.a}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
-                                <form className="space-y-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
-                                        <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
-                                        <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                    </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
-                                </form>
-                            </div>
                         </div>
+
+                         {/* CTA Section */}
+                        <div className="mt-20 bg-white rounded-2xl shadow-xl border border-blue-100 p-12 text-center flex flex-col items-center">
+                            <h2 className="text-3xl font-bold text-blue-900 mb-4">Still Have Questions?</h2>
+                            <p className="text-slate-600 max-w-2xl mx-auto mb-8">Our dedicated talent support team is ready to assist you. Whether you have a specific question or need guidance, don't hesitate to reach out.</p>
+                            <a href="/ContactUs" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-colors">
+                                Contact Support
+                            </a>
+                        </div>
+
                     </div>
                 </section>
             </main>
@@ -476,5 +486,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default TalentSupport;

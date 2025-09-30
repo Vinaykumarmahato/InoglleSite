@@ -14,9 +14,9 @@ import {
     Users,
     Menu,
     X,
-    DownloadCloud,
-    CheckCircle,
-    BarChart
+    MapPin,
+    Phone,
+    Building
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
@@ -334,15 +334,20 @@ const Header = () => {
 
 
 // --- Main Page Component ---
-const FeaturedResourceLLMs = () => {
+const ContactUs = () => {
     const [showBanner, setShowBanner] = useState(true);
+    const [activeFaq, setActiveFaq] = useState(null);
 
-    const keyLearnings = [
-        "Core concepts behind Large Language Models.",
-        "Practical techniques for fine-tuning on custom datasets.",
-        "Strategies for deploying LLMs into production environments.",
-        "Best practices for monitoring, ethics, and cost management."
+    const faqs = [
+        { q: "What is the typical project timeline?", a: "Project timelines vary depending on the scope and complexity. A typical project can range from 3 to 9 months. We provide a detailed timeline after the initial discovery phase." },
+        { q: "How do you handle project management?", a: "We use agile methodologies and dedicated project managers to ensure transparency, regular communication, and on-time delivery. You will have access to a project portal to track progress." },
+        { q: "What are your pricing models?", a: "We offer flexible pricing models, including fixed-price for well-defined projects, time & materials for iterative work, and dedicated teams for ongoing development." },
+        { q: "Do you offer support after the project is launched?", a: "Yes, we provide a range of post-launch support and maintenance packages to ensure your application remains secure, updated, and performs optimally." }
     ];
+
+    const handleFaqToggle = (index) => {
+        setActiveFaq(activeFaq === index ? null : index);
+    };
 
     return (
         <div className="min-h-screen bg-[#111]">
@@ -366,56 +371,98 @@ const FeaturedResourceLLMs = () => {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Hero Section */}
                         <div className="text-center mb-16">
-                            <span className="text-sm font-semibold text-blue-600 uppercase mb-2 block">Exclusive Whitepaper</span>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Mastering LLMs: A Practical Guide to Fine-Tuning</h1>
-                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Go from theory to practice. This comprehensive guide provides the frameworks, techniques, and best practices you need to adapt Large Language Models for your specific business needs and unlock their full potential.</p>
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Let's Build Something Great Together</h1>
+                            <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">Have a project in mind or just want to learn more about our services? We'd love to hear from you. Reach out, and let's start the conversation.</p>
                         </div>
 
-                        {/* Content and Form Grid */}
-                        <div className="grid lg:grid-cols-2 gap-16 items-start">
+                        {/* Contact Form and Info Grid */}
+                        <div className="grid md:grid-cols-2 gap-16 items-start">
+                            {/* Contact Form */}
                             <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
-                                <h2 className="text-2xl font-bold text-blue-900 mb-6">What You'll Learn</h2>
-                                <ul className="space-y-4">
-                                    {keyLearnings.map((item, index) => (
-                                        <li key={index} className="flex items-start gap-3">
-                                            <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                                            <span className="text-slate-700">{item}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="mt-8 pt-8 border-t border-blue-100">
-                                     <h3 className="font-semibold text-blue-900 mb-4">Who is this for?</h3>
-                                     <div className="flex flex-wrap gap-2">
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Developers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Data Scientists</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Product Managers</span>
-                                        <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">CTOs</span>
-                                     </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 lg:sticky top-24">
-                               <h2 className="text-2xl font-bold text-blue-900 mb-2 text-center">Get Your Free Copy</h2>
-                               <p className="text-slate-600 text-center mb-6">Fill out the form below to download the whitepaper instantly.</p>
+                                <h2 className="text-2xl font-bold text-blue-900 mb-6">Send us a Message</h2>
                                 <form className="space-y-6">
                                     <div>
                                         <label htmlFor="name" className="block text-sm font-medium text-slate-700">Full Name</label>
                                         <input type="text" id="name" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                     </div>
                                     <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Business Email</label>
+                                        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Email Address</label>
                                         <input type="email" id="email" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                     </div>
-                                     <div>
-                                        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company</label>
-                                        <input type="text" id="company" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                    <div>
+                                        <label htmlFor="subject" className="block text-sm font-medium text-slate-700">How can we help?</label>
+                                        <select id="subject" className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <option>General Inquiry</option>
+                                            <option>Project Proposal</option>
+                                            <option>Partnership</option>
+                                            <option>Careers</option>
+                                        </select>
                                     </div>
-                                    <button type="submit" className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">
-                                       <DownloadCloud size={20}/> Download Now
-                                    </button>
+                                    <div>
+                                        <label htmlFor="message" className="block text-sm font-medium text-slate-700">Message</label>
+                                        <textarea id="message" rows={5} className="mt-1 block w-full px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                    </div>
+                                    <button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1">Send Message</button>
                                 </form>
                             </div>
+
+                            {/* Contact Info & Map */}
+                            <div className="space-y-8">
+                                <div className="bg-white p-8 rounded-2xl shadow-xl border border-blue-100">
+                                     <h3 className="text-xl font-bold text-blue-900 mb-4">Contact Information</h3>
+                                     <div className="space-y-4">
+                                         <div className="flex items-start gap-4">
+                                             <div className="bg-blue-100 p-3 rounded-full"><Mail className="w-6 h-6 text-blue-600"/></div>
+                                             <div>
+                                                 <p className="font-semibold text-slate-800">General Inquiries</p>
+                                                 <a href="mailto:contact@inoglle.com" className="text-blue-600 hover:underline">contact@inoglle.com</a>
+                                             </div>
+                                         </div>
+                                         <div className="flex items-start gap-4">
+                                             <div className="bg-blue-100 p-3 rounded-full"><Briefcase className="w-6 h-6 text-blue-600"/></div>
+                                             <div>
+                                                 <p className="font-semibold text-slate-800">Sales & Partnerships</p>
+                                                 <a href="mailto:sales@inoglle.com" className="text-blue-600 hover:underline">sales@inoglle.com</a>
+                                             </div>
+                                         </div>
+                                         <div className="flex items-start gap-4">
+                                             <div className="bg-blue-100 p-3 rounded-full"><MapPin className="w-6 h-6 text-blue-600"/></div>
+                                             <div>
+                                                 <p className="font-semibold text-slate-800">Our Office</p>
+                                                 <p className="text-slate-600">Plot 56, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka 560100, IN</p>
+                                             </div>
+                                         </div>
+                                     </div>
+                                </div>
+                                <div className="bg-white rounded-2xl shadow-xl border border-blue-100 h-64 overflow-hidden">
+                                     <img src="https://placehold.co/600x400/e0f2fe/1e3a8a?text=Office+Map+Location" alt="Map to office" className="w-full h-full object-cover"/>
+                                </div>
+                            </div>
                         </div>
+
+                         {/* FAQ Section */}
+                        <div className="mt-20">
+                             <div className="text-center mb-12">
+                                <h2 className="text-3xl font-bold text-blue-900 mb-4">Frequently Asked Questions</h2>
+                                <p className="text-slate-600 max-w-2xl mx-auto">Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us directly.</p>
+                            </div>
+                            <div className="max-w-3xl mx-auto space-y-4">
+                                {faqs.map((faq, index) => (
+                                    <div key={index} className="bg-white rounded-lg shadow-md border border-blue-100 overflow-hidden">
+                                        <button onClick={() => handleFaqToggle(index)} className="w-full flex justify-between items-center p-5 text-left font-semibold text-blue-900">
+                                            <span>{faq.q}</span>
+                                            <ChevronDown className={`w-5 h-5 transition-transform ${activeFaq === index ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        {activeFaq === index && (
+                                            <div className="px-5 pb-5 text-slate-600">
+                                                <p>{faq.a}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                     </div>
                 </section>
             </main>
@@ -476,5 +523,4 @@ const FeaturedResourceLLMs = () => {
     );
 };
 
-export default FeaturedResourceLLMs;
-
+export default ContactUs;
