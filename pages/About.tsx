@@ -2,49 +2,10 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import React, { useState, useEffect } from 'react';
-import {
-    Bell, ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase, BookOpen, FileText, Mail, HelpCircle, Users, Menu, X, Lightbulb, Handshake, Rocket, Award, Heart, Home, Coffee, ArrowRight
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { Bell, ArrowRight, Lightbulb, Handshake, Rocket, BookOpen, Home, Coffee, Users, Heart } from 'lucide-react';
+import Header from '../components/Header';
 import Footer from '../components/sections/Footer';
-
-// --- Reusable Header Component (from your provided code) ---
-// Note: This comprehensive header is assumed to be in its own file like './components/Header.js'
-// and is included here for completeness.
-const LoginModal = ({ isOpen, onClose, initialTab }) => { /* ... (your existing LoginModal code) ... */ };
-const Logo = () => (
-    <a href="/" className="flex items-center gap-3">
-        <img src="/images/logo.png" alt="Inoglle Logo" className="h-8" />
-        <span className="font-bold text-xl text-white sr-only">Inoglle</span>
-    </a>
-);
-const navItems = [
-    { name: 'What we do', dropdown: { type: 'mega', columns: [ { title: 'Development', links: [ { name: 'Software Development', href: '/SoftwareDevelopment', description: 'Scalable software solutions for your business needs.', icon: Code }, { name: 'System Integration', href: '/SystemIntegration', description: 'Seamlessly connect your disparate systems and services.', icon: GitBranch }, { name: 'Digital Transformation', href: '/DigitalTransformation', description: 'Modernize your operations for the digital age.', icon: Zap }, ] }, { title: 'Consulting', links: [ { name: 'IT Consulting', href: '/ITConsulting', description: 'Strategic guidance to align technology with your business goals.', icon: MessageSquare }, { name: 'IT Infrastructure Planning', href: '/ITInfrastructurePlanning', description: 'Building a robust and scalable IT foundation.', icon: Briefcase }, { name: 'Deploy AI Talent', href: '/DeployAITalent', description: 'AI-native pods integrated into your team.', icon: Users }, ] } ], featured: { title: 'Featured: Fine-Tuning LLMs', description: 'Explore how large language models have transformed the field of natural language processing.', image: 'https://placehold.co/400x200/18233a/a0aec0?text=Featured+Resource' } } },
-    { name: 'Resources', dropdown: { type: 'mega', columns: [ { title: 'Learn', links: [ { name: 'Enterprise Insights', description: 'In-depth articles and analyses on IT trends.', icon: BookOpen }, { name: 'Case Studies', description: 'See how we\'ve helped businesses like yours succeed.', icon: FileText }, { name: 'Use Cases', description: 'Explore practical applications of our IT solutions.', icon: Zap }, ] }, { title: 'Connect', links: [ { name: 'Contact Us', description: 'Get in touch with our team of experts.', icon: Mail }, { name: 'Help Center', description: 'Find answers to frequently asked questions.', icon: HelpCircle }, { name: 'Inoglle Careers', description: 'Join our team and shape the future of IT.', icon: Briefcase }, ] } ], featured: { title: 'Featured: Secure App Development', description: 'Leverage generative AI and LLMs to engineer powerful, secure enterprise-grade products.', image: 'https://placehold.co/400x200/18233a/a0aec0?text=Secure+Development' } } },
-    { name: 'For talent', dropdown: { type: 'simple', links: [ { name: 'How to get hired', description: 'How Inoglle works and we match you to opportunities.' }, { name: 'Developer resources', description: 'Tips and tricks to enhance your tech skills.' }, { name: 'Talent support', description: 'Get answers to common questions about job matching.' }, ] } },
-    { name: 'Company', dropdown: { type: 'simple', links: [ { name: 'About' }, { name: 'Careers' }, { name: 'Blog' }, { name: 'Press' }, { name: 'Contact Us' }, ] } },
-];
-const MegaMenu = ({ columns, featured, align = 'center' }) => { /* ... (your existing MegaMenu code) ... */ };
-const SimpleMenu = ({ links }) => { /* ... (your existing SimpleMenu code) ... */ };
-const MobileNavItem = ({ item, isOpen, onToggle }) => { /* ... (your existing MobileNavItem code) ... */ };
-const MobileMenu = ({ isOpen, onClose, openLoginModal }) => { /* ... (your existing MobileMenu code) ... */ };
-const Header = () => (
-    <header className="w-full bg-bg-dark-secondary text-white shadow-lg z-40">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <Logo />
-            {/* Add navigation or other header content here as needed */}
-            <nav>
-                <ul className="flex gap-6">
-                    {navItems.map((item) => (
-                        <li key={item.name}>
-                            <a href="#" className="hover:text-accent-blue font-semibold">{item.name}</a>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-        </div>
-    </header>
-);
 
 
 // --- SVG Assets for Background Effects (from Home page) ---
@@ -137,7 +98,7 @@ const About = () => {
             <GlobalStyles />
             
             {showBanner && (
-                <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between px-3 sm:px-8 py-2 sm:py-2 text-base font-medium shadow-lg z-50 min-h-[48px] sm:min-h-[40px]">
+                <div className="w-full bg-[#17439b] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between px-3 sm:px-8 py-2 sm:py-2 text-base font-medium shadow-lg z-50 min-h-[48px] sm:min-h-[40px]">
                     <div className="flex items-center gap-2 mb-1 sm:mb-0">
                         <Bell size={20} className="flex-shrink-0" />
                         <span className="text-xs sm:text-base font-semibold leading-tight sm:leading-normal">Need a vendor switch? <span className="block sm:inline">Accelerate your AI research with a neutral data partner.</span></span>
