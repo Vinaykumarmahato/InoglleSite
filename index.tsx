@@ -1,4 +1,5 @@
 import VendorSwitchInfo from './pages/VendorSwitchInfo';
+import InoglleVideo from './pages/InoglleVideo';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -57,6 +58,7 @@ root.render(
 			<Route path="/Press" element={<Press />} />
 			<Route path="/ContactUsCompany" element={<ContactUsCompany />} />
 			<Route path="/VendorSwitchInfo" element={<VendorSwitchInfo />} />
+			<Route path="/inoglle-video" element={<InoglleVideo />} />
 		</Routes>
 	</BrowserRouter>
 );

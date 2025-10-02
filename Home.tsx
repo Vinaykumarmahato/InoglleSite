@@ -1,36 +1,219 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 import React, { useState } from 'react';
 import Header from './components/Header';
 import { Bell, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Approach from './components/sections/Approach';
+import Impact from './components/sections/Impact';
+import Testimonials from './components/sections/Testimonials';
+import CTA from './components/sections/CTA';
+import Footer from './components/sections/Footer';
 
-// You can remove the unused imports if you wish
-// import AOS from 'aos';
-// import Hero from './components/sections/Hero';
-// import Mission from './components/sections/Mission';
-// import Services from './components/sections/Services';
-// import Approach from './components/sections/Approach';
-// import Impact from './components/sections/Impact';
-// import Testimonials from './components/sections/Testimonials';
-// import CTA from './components/sections/CTA';
-// import Footer from './components/sections/Footer';
-// import { X } from 'lucide-react';
+// --- SVG Assets defined as React Components ---
 
-declare global {
-  interface Window {
-    VANTA: any;
-    THREE: any;
-  }
-}
+const IconAINode = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1.5">
+    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" strokeOpacity="0.5"/>
+    <path d="M12 12m-3 0a3 3 0 106 0 3 3 0 10-6 0"/>
+    <path d="M12 9V6.5" />
+    <path d="M12 15v2.5" />
+    <path d="M15 12h2.5" />
+    <path d="M9 12H6.5" />
+    <path d="M14.121 9.879l1.768-1.768" />
+    <path d="M8.11 15.89l-1.767 1.768" />
+    <path d="M15.89 15.89l-1.768-1.768" />
+    <path d="M9.879 9.879l-1.768-1.768" />
+  </svg>
+);
 
+const IconNetwork = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1.5">
+    <path d="M19.5 13.5c1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5-2.5 1.119-2.5 2.5 1.119 2.5 2.5 2.5zM4.5 13.5c1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5-2.5 1.119-2.5 2.5 1.119 2.5 2.5 2.5zM12 6.5c1.381 0 2.5-1.119 2.5-2.5S13.381 1.5 12 1.5s-2.5 1.119-2.5 2.5 1.119 2.5 2.5 2.5zM12 22.5c1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5-2.5 1.119-2.5 2.5 1.119 2.5 2.5 2.5z" />
+    <path d="M7 11.5l5-5.5" strokeOpacity="0.6"/>
+    <path d="M12 6.5v13" strokeOpacity="0.6"/>
+    <path d="M17 11.5l-5 5" strokeOpacity="0.6"/>
+  </svg>
+);
+
+const HeroBackground = () => (
+  <div className="absolute inset-0 -z-20 overflow-hidden">
+    <svg viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <defs>
+        <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" style={{ stopColor: 'rgba(12, 18, 44, 0.9)' }} />
+          <stop offset="100%" style={{ stopColor: 'rgba(5, 8, 16, 0.9)' }} />
+        </radialGradient>
+        <radialGradient id="grad2" cx="10%" cy="20%" r="40%" fx="10%" fy="20%">
+          <stop offset="0%" style={{ stopColor: 'rgba(0, 162, 255, 0.1)' }} />
+          <stop offset="100%" style={{ stopColor: 'rgba(0, 162, 255, 0)' }} />
+        </radialGradient>
+        <radialGradient id="grad3" cx="90%" cy="80%" r="50%" fx="90%" fy="80%">
+          <stop offset="0%" style={{ stopColor: 'rgba(138, 43, 226, 0.15)' }} />
+          <stop offset="100%" style={{ stopColor: 'rgba(138, 43, 226, 0)' }} />
+        </radialGradient>
+      </defs>
+      <rect width="1440" height="800" fill="url(#grad1)" />
+      <rect width="1440" height="800" fill="url(#grad2)" />
+      <rect width="1440" height="800" fill="url(#grad3)" />
+    </svg>
+  </div>
+);
+
+const AnimatedNeuralLines = () => (
+  <div className="absolute inset-0 -z-10 opacity-20 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <style>{`
+        .neural-path {
+          stroke-dasharray: 200;
+          stroke-dashoffset: 200;
+          animation: dash 15s linear infinite alternate;
+        }
+        #path1 { animation-delay: -2s; }
+        #path2 { animation-delay: -5s; }
+        #path3 { animation-delay: -8s; }
+        #path4 { animation-delay: -12s; }
+      `}</style>
+      <path id="path1" className="neural-path" d="M0 20 Q 25 5, 50 30 T 100 50" stroke="url(#line-grad)" strokeWidth="0.5" fill="none" />
+      <path id="path2" className="neural-path" d="M0 80 Q 30 90, 60 50 T 100 20" stroke="url(#line-grad)" strokeWidth="0.5" fill="none" />
+      <path id="path3" className="neural-path" d="M20 0 Q 30 50, 50 50 T 80 100" stroke="url(#line-grad)" strokeWidth="0.5" fill="none" />
+      <path id="path4" className="neural-path" d="M100 80 Q 70 70, 50 50 T 0 30" stroke="url(#line-grad)" strokeWidth="0.5" fill="none" />
+      <defs>
+        <linearGradient id="line-grad" gradientTransform="rotate(90)">
+          <stop offset="0%" stopColor="var(--accent-blue)" />
+          <stop offset="100%" stopColor="var(--accent-purple)" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+);
+
+
+// --- Main Component ---
 export default function Home() {
   const [showBanner, setShowBanner] = useState(true);
 
+  // Inlined CSS for the new theme
+  const GlobalStyles = () => (
+    <style>{`
+      :root {
+        --bg-dark-primary: #050810;
+        --bg-dark-secondary: #0a0f1c;
+        --accent-blue: #00a2ff;
+        --accent-purple: #8a2be2;
+        --accent-glow: #00a2ff4d;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0b0;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --glass-bg: rgba(16, 22, 42, 0.5);
+        --font-family-sans: 'Inter', sans-serif;
+      }
+      
+      body {
+        background-color: var(--bg-dark-primary);
+        color: var(--text-primary);
+        font-family: var(--font-family-sans);
+        line-height: 1.6;
+      }
+
+      @keyframes gradient-pan {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      @keyframes subtle-glow {
+        0%, 100% { box-shadow: 0 0 20px -5px var(--accent-glow); }
+        50% { box-shadow: 0 0 25px 0px var(--accent-glow); }
+      }
+
+      @keyframes dash {
+        to { stroke-dashoffset: 0; }
+      }
+
+      .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-color);
+        border-radius: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .glass-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+      }
+      .animation-subtle-glow {
+        animation: subtle-glow 5s ease-in-out infinite;
+      }
+
+      .glass-card-neon {
+        position: relative;
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+      }
+      .glass-card-neon::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        z-index: -1;
+        margin: -2px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      }
+      .glass-card-neon:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 0 25px -5px var(--accent-glow);
+      }
+
+      .pill-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 2rem;
+        font-weight: 700;
+        border-radius: 9999px;
+        color: white;
+        background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+        background-size: 200% 200%;
+        box-shadow: 0 4px 15px 0 rgba(138, 43, 226, 0.4);
+        transition: all 0.3s ease;
+      }
+      .pill-btn:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 25px 0 rgba(0, 162, 255, 0.5);
+        animation: gradient-pan 4s linear infinite;
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--accent-blue);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    `}</style>
+  );
+
   return (
-    <div className="min-h-screen bg-[#111] text-white">
+    <div className="min-h-screen bg-bg-dark-primary text-text-primary">
+      <GlobalStyles />
+      
       {/* Responsive Notification Bar */}
       {showBanner && (
         <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between px-3 sm:px-8 py-2 sm:py-2 text-base font-medium shadow-lg z-50 min-h-[48px] sm:min-h-[40px]">
@@ -48,175 +231,156 @@ export default function Home() {
         </div>
       )}
 
-
       <Header />
-      
+
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section className="bg-gradient-to-br from-[#0a0f1c] via-[#111] to-[#1a2a3c] rounded-2xl border border-blue-900 shadow-xl p-8 md:p-16 flex flex-col items-center text-center relative mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Nurturing Innovation,<br />Cultivating Skills</h1>
-          <p className="text-lg md:text-xl mb-6">Empowering businesses with custom IT solutions, software development, and strategic consulting.<br />Transform your vision into reality with Inoglle.</p>
-          <div className="flex flex-wrap gap-2 mb-8 justify-center">
-            <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">Software Development</span>
-              <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">IT Consulting</span>
-              <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">System Integration</span>
+        {/* Hero Section */}
+        <section className="relative flex flex-col items-center text-center p-8 md:p-16 mb-24 overflow-hidden">
+          <HeroBackground />
+          <AnimatedNeuralLines />
+          
+          <div className="glass-card p-8 md:p-12 animation-subtle-glow">
+            <h1 className="text-4xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-blue-200">
+              Nurturing Innovation,<br />Cultivating Skills
+            </h1>
+            <p className="text-lg md:text-xl mb-8 max-w-3xl text-text-secondary">
+              Empowering businesses with custom IT solutions, software development, and strategic consulting.<br />Transform your vision into reality with Inoglle.
+            </p>
+            <div className="flex flex-wrap gap-3 mb-10 justify-center">
+              <span className="bg-white/5 text-xs font-semibold px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">Software Development</span>
+              <span className="bg-white/5 text-xs font-semibold px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">IT Consulting</span>
+              <span className="bg-white/5 text-xs font-semibold px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">System Integration</span>
             </div>
-            <Link to="/SoftwareDevelopment" className="bg-white text-[#2563eb] font-bold px-6 py-3 rounded-lg text-lg shadow hover:bg-blue-100 transition inline-block">Build Your Solution</Link>
-          <div className="relative w-full overflow-hidden mt-12 opacity-80">
-            <style>{`
-              @keyframes autoscroll {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
-              }
-            `}</style>
-            <div
-              className="flex gap-10 items-center whitespace-nowrap py-2 px-2"
-              style={{
-                animation: 'autoscroll 20s linear infinite',
-                willChange: 'transform',
-                minWidth: 'max-content',
-                display: 'flex',
-              }}
-            >
+            <Link to="/SoftwareDevelopment" className="pill-btn text-lg">
+              Build Your Solution
+            </Link>
+          </div>
+          
+          <div className="relative w-full overflow-hidden mt-20 opacity-60">
+              <style>{`@keyframes autoscroll {0% { transform: translateX(0); }100% { transform: translateX(-50%); }}`}</style>
+              <div
+                  className="flex gap-12 items-center whitespace-nowrap py-2"
+                  style={{ animation: 'autoscroll 30s linear infinite', willChange: 'transform', minWidth: 'max-content', display: 'flex' }}
+              >
+                  {[
+                      'logo.png', 'ADV HopeHaven Logo.png', 'ADV Indian Coder Logo.png', 'ADV SparkTech Logo.png', 'Elevtern logo.png',
+                      'logo.png', 'ADV HopeHaven Logo.png', 'ADV Indian Coder Logo.png', 'ADV SparkTech Logo.png', 'Elevtern logo.png',
+                  ].map((file, i) => (
+                      <img src={`/images/${file}`} alt={file.replace(/\.png$/, '')} className="h-10 w-auto filter grayscale contrast-50 hover:grayscale-0 hover:contrast-100 transition-all duration-300" key={file + i} />
+                  ))}
+              </div>
+          </div>
+        </section>
+
+        {/* Inoglle Video Section Description & Jump Button */}
+        <section id="inoglle-video-info" className="bg-gradient-to-br from-[#181f2a] via-[#23234a] to-[#1a1a2e] rounded-2xl border border-blue-900 shadow-xl p-8 md:p-16 flex flex-col items-center text-center relative mb-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-blue-600 mb-4 drop-shadow-lg">AI-Powered Video Generation</h2>
+          <p className="text-lg md:text-xl text-slate-300 mb-4">Transform your ideas into stunning visuals with Inoglle Video. Our AI-powered tool lets you create cinematic cityscapes, product ads, and personalized avatars directly from text and images.</p>
+          <p className="text-base md:text-lg text-slate-400 mb-6">Experience enterprise-grade creativity with a sleek, modern interface and neon highlights.</p>
+          <Link to="/inoglle-video" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:from-blue-600 hover:to-purple-700 transition-transform hover:-translate-y-1 text-lg">Explore Inoglle Video</Link>
+        </section>
+
+        {/* Mission Section */}
+        <section className="my-12 py-8 rounded-2xl bg-[#181f2a]/70 shadow-lg">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-blue-300">Inoglle partners with businesses to bridge the gap between their goals and technology, turning <span className='text-blue-400'>strategic vision into tangible results.</span></h2>
+          <div className="max-w-3xl mx-auto text-center text-lg text-slate-300">Inoglle partners with businesses to bridge the gap between their goals and technology, turning strategic vision into tangible results.</div>
+        </section>
+
+        {/* Approach Section */}
+        <section className="my-16 py-12 px-6 rounded-2xl">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">Our Approach</h2>
+            <p className="mt-4 text-lg text-text-secondary max-w-3xl mx-auto">
+              We combine strategy, design, and technology to craft solutions that are practical, scalable, 
+              and future-ready. Our step-by-step approach ensures success at every stage.
+            </p>
+            <div className="grid md:grid-cols-3 gap-8 mt-12">
               {[
-                'logo.png',
-                'ADV HopeHaven Logo.png',
-                'ADV Indian Coder Logo.png',
-                'ADV SparkTech Logo.png',
-                'Elevtern logo.png',
-                // Repeat logos for seamless scroll
-                'logo.png',
-                'ADV HopeHaven Logo.png',
-                'ADV Indian Coder Logo.png',
-                'ADV SparkTech Logo.png',
-                'Elevtern logo.png',
-              ].map((file, i) => (
-                <img src={`/images/${file}`} alt={file.replace(/\.png$/, '')} className="h-12 w-auto rounded-lg shadow-md bg-white/5 p-2" key={file + i} />
+                { icon: <IconAINode className="w-10 h-10 mb-4 text-accent-blue" />, title: "Discover", desc: "Understanding business needs, pain points, and goals to craft tailored solutions." },
+                { icon: <IconNetwork className="w-10 h-10 mb-4 text-accent-blue" />, title: "Innovate", desc: "Designing and building creative, cutting-edge solutions using modern technologies." },
+                { icon: <Bell className="w-10 h-10 mb-4 text-accent-blue" />, title: "Deliver", desc: "Implementing scalable systems that generate measurable business impact." },
+              ].map((step, idx) => (
+                <div key={idx} className="glass-card-neon text-left">
+                  {step.icon}
+                  <h3 className="text-xl font-semibold text-white">{step.title}</h3>
+                  <p className="text-text-secondary mt-2">{step.desc}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
-        
-        <div className="bg-[#101522] text-white py-20 px-4">
-          <section className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Inoglle partners with businesses to bridge the gap between their goals and technology, turning <span className="text-blue-400">strategic vision into tangible results.</span></h2>
-          </section>
-          
-          <section className="max-w-4xl mx-auto text-center mb-16">
-            <h3 className="text-lg font-semibold text-slate-400 mb-2">OUR APPROACH</h3>
-            <h4 className="text-2xl md:text-3xl font-bold mb-6">From Concept to Completion, We're Your Dedicated Partner</h4>
-            <button className="bg-white text-[#2563eb] font-semibold px-6 py-2 rounded mb-8 shadow hover:bg-blue-100 transition">Learn About Our Process</button>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center mt-8">
-              <div className="bg-[#181f2a] rounded-xl p-6 border border-slate-700 shadow flex flex-col items-start text-left">
-                <div className="mb-2"><span className="inline-block bg-blue-900 p-2 rounded-full"><svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span></div>
-                <h4 className="font-semibold text-lg mb-2">Strategize</h4>
-                <p className="text-slate-300 mb-2">We work with you to understand your needs and create a tailored IT strategy.</p>
-                <a href="#" className="text-blue-400 font-medium mt-auto">Start Planning &rarr;</a>
-              </div>
-              <div className="bg-[#181f2a] rounded-xl p-6 border border-slate-700 shadow flex flex-col items-start text-left">
-                <div className="mb-2"><span className="inline-block bg-blue-900 p-2 rounded-full"><svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span></div>
-                <h4 className="font-semibold text-lg mb-2">Build</h4>
-                <p className="text-slate-300 mb-2">Our expert team develops and deploys robust, scalable solutions.</p>
-                <a href="#" className="text-blue-400 font-medium mt-auto">Begin Development &rarr;</a>
-              </div>
-            </div>
-          </section>
 
-          <section className="max-w-4xl mx-auto text-center mb-16">
-            <h3 className="text-lg font-semibold text-slate-400 mb-2">OUR IMPACT</h3>
-            <h4 className="text-2xl md:text-3xl font-bold mb-6">Delivering Measurable Results and Fostering Growth for Our Partners</h4>
-            <Link to="/UseCases" className="bg-white text-[#2563eb] font-semibold px-6 py-2 rounded mb-8 shadow hover:bg-blue-100 transition inline-block">View Use Cases</Link>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center max-w-3xl mx-auto mt-8">
-              <div className="flex flex-col items-center">
-                <span className="text-3xl font-bold text-white">50+</span>
-                <span className="text-slate-400 mt-2">Projects Completed</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-3xl font-bold text-white">99%</span>
-                <span className="text-slate-400 mt-2">Client Satisfaction</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-3xl font-bold text-white">11-50</span>
-                <span className="text-slate-400 mt-2">Dedicated Members</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-3xl font-bold text-white">2023</span>
-                <span className="text-slate-400 mt-2">Year Founded</span>
-              </div>
-            </div>
-          </section>
-
-          <section className="max-w-4xl mx-auto text-center mb-16">
-            <h3 className="text-lg font-semibold text-slate-400 mb-2">TRUSTED BY INDUSTRY LEADERS</h3>
-            <blockquote className="max-w-2xl mx-auto text-xl text-white font-medium mb-4">“Working with Inoglle on our custom software was a seamless experience. Their agile development process and transparent communication kept us aligned and resulted in a product that perfectly fits our needs.”</blockquote>
-            <div className="text-slate-400 mb-2">Emily White<br /><span className="text-xs">Product Manager, Solutions Co.</span></div>
-            <div className="flex justify-center gap-2 mt-4">
-              <button className="w-3 h-3 rounded-full bg-white/30" aria-label="Previous"></button>
-              <button className="w-3 h-3 rounded-full bg-white" aria-label="Current"></button>
-              <button className="w-3 h-3 rounded-full bg-white/30" aria-label="Next"></button>
-            </div>
-          </section>
-
-          <section className="bg-blue-600 text-white rounded-xl py-10 px-6 text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Innovate? Let's Shape the Future of Your IT.</h2>
-            <p className="mb-6">Partner with Inoglle to deploy custom IT solutions, develop a winning strategy, and accelerate your business growth.</p>
-            <Link to="/ContactUs" className="bg-white text-blue-600 font-bold px-8 py-3 rounded-lg text-lg shadow hover:bg-blue-100 transition inline-block">Schedule a Consultation</Link>
-          </section>
-          
-          <footer className="bg-[#181f2a] text-slate-300 py-10 mt-12 border-t border-blue-900">
-            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8">
-              <div className="col-span-1 flex flex-col gap-2">
-                <div className="flex items-center gap-3 mb-2">
-                  <img src="/images/logo.png" alt="Inoglle Logo" className="h-8" />
-                  <span className="font-bold text-lg text-white">Inoglle</span>
+        {/* Impact Section */}
+        <section className="my-16 py-12 px-6 bg-[#181f2a]/70 rounded-2xl shadow-xl">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl md:text-5xl font-bold text-blue-300">Our Impact</h2>
+            <p className="mt-4 text-lg text-slate-300 max-w-3xl mx-auto">
+              Through innovation and collaboration, Inoglle has transformed businesses and empowered communities 
+              to embrace the digital future with confidence.
+            </p>
+            <div className="grid md:grid-cols-4 gap-8 mt-12">
+              {[
+                { stat: "50+", label: "Projects Delivered" },
+                { stat: "20+", label: "Happy Clients" },
+                { stat: "10+", label: "Industries Served" },
+                { stat: "100%", label: "Client Satisfaction" },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-[#1f2937]/70 p-6 rounded-xl text-center hover:scale-105 transition">
+                  <h3 className="text-3xl font-bold text-blue-400">{item.stat}</h3>
+                  <p className="text-slate-400 mt-2">{item.label}</p>
                 </div>
-                <span className="text-xs">Industry</span>
-                <span className="text-sm">IT Services and IT Consulting</span>
-                <span className="text-xs mt-2">Website</span>
-                <a href="https://inoglle.vercel.app/" className="text-blue-400 text-xs underline">https://inoglle.vercel.app/</a>
-              </div>
-              <div className="col-span-1 flex flex-col gap-2">
-                <span className="font-semibold mb-2">Services</span>
-                <Link to="/SoftwareDevelopment" className="hover:text-white text-sm">Software Development</Link>
-                <Link to="/SystemIntegration" className="hover:text-white text-sm">System Integration</Link>
-                <Link to="/ITConsulting" className="hover:text-white text-sm">IT Consulting</Link>
-                <Link to="/DigitalTransformation" className="hover:text-white text-sm">Digital Transformation</Link>
-                <Link to="/ITInfrastructurePlanning" className="hover:text-white text-sm">IT Infrastructure</Link>
-              </div>
-              <div className="col-span-1 flex flex-col gap-2">
-                <span className="font-semibold mb-2">Careers</span>
-                <Link to="/Careers" className="hover:text-white text-sm">Why Join Inoglle</Link>
-                <Link to="/Careers" className="hover:text-white text-sm">Job Openings</Link>
-                <Link to="/Careers" className="hover:text-white text-sm">Internships</Link>
-              </div>
-              <div className="col-span-1 flex flex-col gap-2">
-                <span className="font-semibold mb-2">About Us</span>
-                <Link to="/About" className="hover:text-white text-sm">Our Story</Link>
-                <Link to="/Blog" className="hover:text-white text-sm">Blog</Link>
-                <Link to="/Press" className="hover:text-white text-sm">Press</Link>
-                <Link to="/ContactUs" className="hover:text-white text-sm">Contact Us</Link>
-              </div>
-              <div className="col-span-1 flex flex-col gap-2">
-                <span className="font-semibold mb-2">Connect</span>
-                <Link to="/ContactUs" className="hover:text-white text-sm">Contact us</Link>
-                <Link to="/HelpCenter" className="hover:text-white text-sm">Help center</Link>
-              </div>
+              ))}
             </div>
-            <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
-              <div className="flex gap-4">
-                <a href="#" aria-label="Twitter" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .386.044.763.127 1.124-4.087-.205-7.713-2.164-10.141-5.144-.423.729-.666 1.577-.666 2.483 0 1.713.872 3.229 2.197 4.117-.809-.026-1.57-.248-2.236-.616v.062c0 2.393 1.703 4.389 3.965 4.84-.415.113-.853.174-1.305.174-.319 0-.626-.031-.928-.088.627 1.956 2.444 3.377 4.6 3.417-1.68 1.316-3.809 2.101-6.102 2.101-.396 0-.787-.023-1.175-.069 2.179 1.397 4.768 2.213 7.557 2.213 9.054 0 14.009-7.496 14.009-13.986 0-.213-.005-.425-.014-.636.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
-                <a href="#" aria-label="Instagram" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.947-.072c-1.276.06-2.687.334-3.678 1.325-.991.991-1.265 2.402-1.325 3.678-.06 1.28-.072 1.688-.072 4.947s.012 3.667.072 4.947c.06 1.276.334 2.687 1.325 3.678.991.991 2.402 1.265 3.678 1.325 1.28.06 1.688.072 4.947.072s3.667-.012 4.947-.072c1.276-.06 2.687-.334 3.678-1.325.991-.991 1.265-2.402 1.325-3.678.06-1.28.072-1.688.072-4.947s-.012-3.667-.072-4.947c-.06-1.276-.334-2.687-1.325-3.678-.991-.991-2.402-1.265-3.678-1.325-1.28-.06-1.688-.072-4.947-.072zm0-2.163c-3.259 0-3.667.012-4.947.072-1.276.06-2.687.334-3.678 1.325-.991.991-1.265 2.402-1.325 3.678-.06 1.28-.072 1.688-.072 4.947s.012 3.667.072 4.947c.06 1.276.334 2.687 1.325 3.678.991.991 2.402 1.265 3.678 1.325 1.28.06 1.688.072 4.947.072s3.667-.012 4.947-.072c1.276-.06 2.687-.334 3.678-1.325.991-.991 1.265-2.402 1.325-3.678.06-1.28.072-1.688.072-4.947s-.012-3.667-.072-4.947c-.06-1.276-.334-2.687-1.325-3.678-.991-.991-2.402-1.265-3.678-1.325-1.28-.06-1.688-.072-4.947-.072zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
-                <a href="#" aria-label="LinkedIn" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.381-1.563 2.841-1.563 3.039 0 3.601 2.001 3.601 4.601v5.595z"/></svg></a>
-              </div>
-              <div className="text-xs text-slate-400 mt-2">
-                Sitemap &nbsp; Terms of service &nbsp; Privacy policy &nbsp; Cookie settings
-              </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="my-16 py-12 px-6 bg-gradient-to-r from-[#0f172a] to-[#1e293b] rounded-2xl shadow-xl">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl md:text-5xl font-bold text-blue-300">What Our Clients Say</h2>
+            <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">
+              Hear from the people who’ve trusted us to shape their digital journey.
+            </p>
+            <div className="grid md:grid-cols-3 gap-8 mt-12">
+              {[
+                { quote: "Inoglle transformed our business operations with their scalable IT solutions. Truly a reliable partner.", name: "Ravi Kumar", role: "CEO, TechNova" },
+                { quote: "The team’s innovative approach and continuous support made our digital transition smooth and impactful.", name: "Ananya Sharma", role: "Founder, GreenFuture" },
+                { quote: "We gained not just a service provider but a long-term technology partner invested in our success.", name: "Michael Lee", role: "CTO, GlobalEdge" },
+              ].map((testimonial, idx) => (
+                <div key={idx} className="bg-[#1e293b]/70 p-6 rounded-xl shadow-lg hover:shadow-blue-500/30 transition text-left">
+                  <p className="text-slate-300 italic">"{testimonial.quote}"</p>
+                  <div className="mt-4">
+                    <h4 className="text-blue-400 font-semibold">{testimonial.name}</h4>
+                    <p className="text-slate-400 text-sm">{testimonial.role}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="max-w-7xl mx-auto px-4 text-xs text-slate-400 mt-4 text-right">
-              Plot 56, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka 560100, IN | &copy; {new Date().getFullYear()} Inoglle
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="my-20 py-16 px-6 relative bg-bg-dark-secondary rounded-2xl shadow-2xl text-center text-white overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-[400px] bg-gradient-to-tr from-accent-blue to-accent-purple rounded-full filter blur-3xl opacity-20 -z-10"></div>
+            <h2 className="text-3xl md:text-5xl font-bold">Ready to Shape the Future of IT?</h2>
+            <p className="mt-4 text-lg max-w-2xl mx-auto text-text-secondary">
+                Partner with Inoglle and let’s build innovative solutions together. Join us in turning vision into impact.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="/contact" className="pill-btn">
+                    Contact Us
+                </a>
+                <a
+                    href="/careers"
+                    className="px-8 py-3 bg-white/5 border-2 border-white/20 text-white font-semibold rounded-full hover:bg-white/10 hover:border-white/40 transition-all duration-300"
+                >
+                    View Careers
+                </a>
             </div>
-          </footer>
-        </div>
+        </section>
+
       </main>
+      <Footer />
     </div>
   );
 }
