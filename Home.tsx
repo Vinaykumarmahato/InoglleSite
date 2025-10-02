@@ -31,19 +31,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#111] text-white">
-      {/* Notification Bar */}
+      {/* Responsive Notification Bar */}
       {showBanner && (
-        <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex items-center justify-between px-8 py-2 text-base font-medium">
-          <div className="flex items-center gap-3">
-            <Bell size={22} />
-            <span>Need a vendor switch? Accelerate your AI research with a neutral data partner.</span>
+        <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between px-3 sm:px-8 py-2 sm:py-2 text-base font-medium shadow-lg z-50 min-h-[48px] sm:min-h-[40px]">
+          <div className="flex items-center gap-2 mb-1 sm:mb-0">
+            <Bell size={20} className="flex-shrink-0" />
+            <span className="text-xs sm:text-base font-semibold leading-tight sm:leading-normal">Need a vendor switch? <span className="block sm:inline">Accelerate your AI research with a neutral data partner.</span></span>
           </div>
-          <div className="flex items-center gap-6">
-            <Link to="/VendorSwitchInfo" className="underline font-semibold flex items-center gap-1 hover:text-blue-200 transition">
+          <div className="flex items-center gap-2 sm:gap-6 w-full sm:w-auto justify-between sm:justify-end">
+            <Link to="/VendorSwitchInfo" className="underline font-semibold text-xs sm:text-base whitespace-nowrap flex items-center gap-1 hover:text-blue-200 transition">
               Learn More
-              <ArrowRight size={16} />
+              <span className="hidden sm:inline"><ArrowRight size={16} /></span>
             </Link>
-            <button onClick={() => setShowBanner(false)} className="text-white text-2xl font-bold hover:text-blue-200">&#10005;</button>
+            <button onClick={() => setShowBanner(false)} className="text-white text-xl font-bold hover:text-blue-200 ml-2 sm:ml-0">&#10005;</button>
           </div>
         </div>
       )}
@@ -57,14 +57,40 @@ export default function Home() {
           <p className="text-lg md:text-xl mb-6">Empowering businesses with custom IT solutions, software development, and strategic consulting.<br />Transform your vision into reality with Inoglle.</p>
           <div className="flex flex-wrap gap-2 mb-8 justify-center">
             <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">Software Development</span>
-            <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">IT Consulting</span>
-            <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">System Integration</span>
-          </div>
-          <button className="bg-white text-[#2563eb] font-bold px-6 py-3 rounded-lg text-lg shadow hover:bg-blue-100 transition">Build Your Solution</button>
+              <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">IT Consulting</span>
+              <span className="bg-[#222] text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">System Integration</span>
+            </div>
+            <Link to="/SoftwareDevelopment" className="bg-white text-[#2563eb] font-bold px-6 py-3 rounded-lg text-lg shadow hover:bg-blue-100 transition inline-block">Build Your Solution</Link>
           <div className="relative w-full overflow-hidden mt-12 opacity-80">
-            <div className="flex gap-16 items-center animate-scroll-logos whitespace-nowrap" style={{animation: 'scroll-logos 18s linear infinite'}}>
-              {Array.from({length: 10}).map((_, i) => (
-                <img src="/images/logo.png" alt={`Logo ${i+1}`} className="h-8 inline-block" key={i} />
+            <style>{`
+              @keyframes autoscroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+              }
+            `}</style>
+            <div
+              className="flex gap-10 items-center whitespace-nowrap py-2 px-2"
+              style={{
+                animation: 'autoscroll 20s linear infinite',
+                willChange: 'transform',
+                minWidth: 'max-content',
+                display: 'flex',
+              }}
+            >
+              {[
+                'logo.png',
+                'ADV HopeHaven Logo.png',
+                'ADV Indian Coder Logo.png',
+                'ADV SparkTech Logo.png',
+                'Elevtern logo.png',
+                // Repeat logos for seamless scroll
+                'logo.png',
+                'ADV HopeHaven Logo.png',
+                'ADV Indian Coder Logo.png',
+                'ADV SparkTech Logo.png',
+                'Elevtern logo.png',
+              ].map((file, i) => (
+                <img src={`/images/${file}`} alt={file.replace(/\.png$/, '')} className="h-12 w-auto rounded-lg shadow-md bg-white/5 p-2" key={file + i} />
               ))}
             </div>
           </div>
@@ -98,7 +124,7 @@ export default function Home() {
           <section className="max-w-4xl mx-auto text-center mb-16">
             <h3 className="text-lg font-semibold text-slate-400 mb-2">OUR IMPACT</h3>
             <h4 className="text-2xl md:text-3xl font-bold mb-6">Delivering Measurable Results and Fostering Growth for Our Partners</h4>
-            <button className="bg-white text-[#2563eb] font-semibold px-6 py-2 rounded mb-8 shadow hover:bg-blue-100 transition">View Case Studies</button>
+            <Link to="/UseCases" className="bg-white text-[#2563eb] font-semibold px-6 py-2 rounded mb-8 shadow hover:bg-blue-100 transition inline-block">View Use Cases</Link>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center max-w-3xl mx-auto mt-8">
               <div className="flex flex-col items-center">
                 <span className="text-3xl font-bold text-white">50+</span>
@@ -133,7 +159,7 @@ export default function Home() {
           <section className="bg-blue-600 text-white rounded-xl py-10 px-6 text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Innovate? Let's Shape the Future of Your IT.</h2>
             <p className="mb-6">Partner with Inoglle to deploy custom IT solutions, develop a winning strategy, and accelerate your business growth.</p>
-            <button className="bg-white text-blue-600 font-bold px-8 py-3 rounded-lg text-lg shadow hover:bg-blue-100 transition">Schedule a Consultation</button>
+            <Link to="/ContactUs" className="bg-white text-blue-600 font-bold px-8 py-3 rounded-lg text-lg shadow hover:bg-blue-100 transition inline-block">Schedule a Consultation</Link>
           </section>
           
           <footer className="bg-[#181f2a] text-slate-300 py-10 mt-12 border-t border-blue-900">
@@ -150,29 +176,29 @@ export default function Home() {
               </div>
               <div className="col-span-1 flex flex-col gap-2">
                 <span className="font-semibold mb-2">Services</span>
-                <a href="#" className="hover:text-white text-sm">Software Development</a>
-                <a href="#" className="hover:text-white text-sm">System Integration</a>
-                <a href="#" className="hover:text-white text-sm">IT Consulting</a>
-                <a href="#" className="hover:text-white text-sm">Digital Transformation</a>
-                <a href="#" className="hover:text-white text-sm">IT Infrastructure</a>
+                <Link to="/SoftwareDevelopment" className="hover:text-white text-sm">Software Development</Link>
+                <Link to="/SystemIntegration" className="hover:text-white text-sm">System Integration</Link>
+                <Link to="/ITConsulting" className="hover:text-white text-sm">IT Consulting</Link>
+                <Link to="/DigitalTransformation" className="hover:text-white text-sm">Digital Transformation</Link>
+                <Link to="/ITInfrastructurePlanning" className="hover:text-white text-sm">IT Infrastructure</Link>
               </div>
               <div className="col-span-1 flex flex-col gap-2">
                 <span className="font-semibold mb-2">Careers</span>
-                <a href="#" className="hover:text-white text-sm">Why Join Inoglle</a>
-                <a href="#" className="hover:text-white text-sm">Job Openings</a>
-                <a href="#" className="hover:text-white text-sm">Internships</a>
+                <Link to="/Careers" className="hover:text-white text-sm">Why Join Inoglle</Link>
+                <Link to="/Careers" className="hover:text-white text-sm">Job Openings</Link>
+                <Link to="/Careers" className="hover:text-white text-sm">Internships</Link>
               </div>
               <div className="col-span-1 flex flex-col gap-2">
                 <span className="font-semibold mb-2">About Us</span>
-                <a href="#" className="hover:text-white text-sm">Our Story</a>
-                <a href="#" className="hover:text-white text-sm">Blog</a>
-                <a href="#" className="hover:text-white text-sm">Press</a>
-                <a href="#" className="hover:text-white text-sm">Contact Us</a>
+                <Link to="/About" className="hover:text-white text-sm">Our Story</Link>
+                <Link to="/Blog" className="hover:text-white text-sm">Blog</Link>
+                <Link to="/Press" className="hover:text-white text-sm">Press</Link>
+                <Link to="/ContactUs" className="hover:text-white text-sm">Contact Us</Link>
               </div>
               <div className="col-span-1 flex flex-col gap-2">
                 <span className="font-semibold mb-2">Connect</span>
-                <a href="#" className="hover:text-white text-sm">Contact us</a>
-                <a href="#" className="hover:text-white text-sm">Help center</a>
+                <Link to="/ContactUs" className="hover:text-white text-sm">Contact us</Link>
+                <Link to="/HelpCenter" className="hover:text-white text-sm">Help center</Link>
               </div>
             </div>
             <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
