@@ -52,6 +52,9 @@ import SecurityAuditCase from './pages/case-studies/SecurityAuditCase';
 import DataAnalyticsCase from './pages/case-studies/DataAnalyticsCase';
 import DigitalStrategyCase from './pages/case-studies/DigitalStrategyCase';
 import Leadership from './pages/Leadership';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import SLAAgreement from './pages/SLAAgreement';
 
 const App = () => {
 	useEffect(() => {
@@ -113,6 +116,9 @@ const App = () => {
 				<Route path="/careers" element={<Careers />} />
 				<Route path="/leadership" element={<Leadership />} />
 				<Route path="/contact" element={<ContactUs />} />
+				<Route path="/privacy" element={<PrivacyPolicy />} />
+				<Route path="/terms" element={<TermsOfService />} />
+				<Route path="/sla" element={<SLAAgreement />} />
 				<Route path="/Blog" element={<Blog />} />
 				<Route path="/Press" element={<Press />} />
 				<Route path="/ContactUsCompany" element={<ContactUsCompany />} />

@@ -1,21 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Lightbulb,
     Handshake,
     Rocket,
-    BookOpen,
     Coffee,
-    Users,
     Heart,
-    MapPin,
-    Award,
-    Smile,
+    BookOpen,
+    Users,
     ArrowRight
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/sections/Footer';
-
-import { useEffect } from 'react';
 
 const About = () => {
     useEffect(() => {
@@ -150,9 +146,9 @@ const About = () => {
                                 ))}
                             </div>
                             <div className="mt-10">
-                                <a href="/careers" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-blue-300 transition-colors group">
+                                <Link to="/careers" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-blue-300 transition-colors group">
                                     See Open Roles <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

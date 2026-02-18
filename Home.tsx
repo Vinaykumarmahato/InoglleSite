@@ -75,8 +75,8 @@ const AnimatedBackground = () => (
   </div>
 );
 
-const FeatureCard = ({ icon: Icon, title, description, color = "blue" }) => (
-  <div className="card-premium group hover:bg-slate-900/80 p-8 flex flex-col h-full border border-slate-800 hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden backdrop-blur-sm">
+const FeatureCard = ({ icon: Icon, title, description, href = "#", color = "blue" }) => (
+  <Link to={href} className="card-premium group hover:bg-slate-900/80 p-8 flex flex-col h-full border border-slate-800 hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden backdrop-blur-sm">
     <div className={`absolute inset-0 bg-gradient-to-br from-${color}-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
     <div className={`w-12 h-12 rounded-xl bg-${color}-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-${color}-500/20`}>
       <Icon className={`text-${color}-400 w-6 h-6`} />
@@ -86,7 +86,7 @@ const FeatureCard = ({ icon: Icon, title, description, color = "blue" }) => (
     <div className="mt-6 pt-4 border-t border-slate-800/50 flex items-center text-blue-400 text-xs font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
       Learn More <ArrowRight size={12} className="ml-2" />
     </div>
-  </div>
+  </Link>
 );
 
 const WhyChooseCard = ({ title, desc }) => (
@@ -126,12 +126,12 @@ const Ticker = () => (
 
 // --- Ecosystem Data ---
 const ecosystems = [
-  { icon: Code2, title: "Software Development", description: "Custom-built, scalable applications for enterprise needs.", color: "blue" },
-  { icon: Layers, title: "Automation Ecosystems", description: "Streamlining workflows with intelligent bot and CRM integrations.", color: "indigo" },
-  { icon: Cloud, title: "Cloud Services Division", description: "Secure, managed infrastructure on AWS & Azure.", color: "sky" },
-  { icon: Terminal, title: "IT Consulting", description: "Strategic technology roadmaps for digital transformation.", color: "purple" },
-  { icon: Rocket, title: "LacedIn Platform", description: "Next-gen professional network launching soon.", color: "pink" },
-  { icon: Users, title: "Learning & Internships", description: "Upskilling the next generation of tech leaders.", color: "green" },
+  { icon: Code2, title: "Software Development", description: "Custom-built, scalable applications for enterprise needs.", href: "/services/software", color: "blue" },
+  { icon: Layers, title: "Automation Ecosystems", description: "Streamlining workflows with intelligent bot and CRM integrations.", href: "/services/modernization", color: "indigo" },
+  { icon: Cloud, title: "Cloud Services Division", description: "Secure, managed infrastructure on AWS & Azure.", href: "/services/cloud", color: "sky" },
+  { icon: Terminal, title: "IT Consulting", description: "Strategic technology roadmaps for digital transformation.", href: "/consulting/strategy", color: "purple" },
+  { icon: Rocket, title: "LacedIn Platform", description: "Next-gen professional network launching soon.", href: "/about", color: "pink" },
+  { icon: Users, title: "Learning & Internships", description: "Upskilling the next generation of tech leaders.", href: "/careers", color: "green" },
 ];
 
 // --- Main Page Component ---
@@ -174,15 +174,15 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-6 w-full justify-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <Link to="/ecosystem" className="group relative px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-full text-white font-bold text-lg transition-all duration-300 shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.6)] hover:-translate-y-1 min-w-[200px] flex items-center justify-center overflow-hidden">
+              <Link to="/services/software" className="group relative px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-full text-white font-bold text-lg transition-all duration-300 shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.6)] hover:-translate-y-1 min-w-[200px] flex items-center justify-center overflow-hidden">
                 <span className="relative z-10 flex items-center gap-2">
                   Explore Ecosystem <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
 
-              <Link to="/products" className="group px-8 py-4 rounded-full text-slate-300 font-bold text-lg border border-slate-700 hover:border-white/50 hover:text-white bg-slate-900/40 backdrop-blur-md hover:bg-slate-800/80 transition-all duration-300 min-w-[200px] flex items-center justify-center relative overflow-hidden">
-                <span className="relative z-10">View Products</span>
+              <Link to="/services/modernization" className="group px-8 py-4 rounded-full text-slate-300 font-bold text-lg border border-slate-700 hover:border-white/50 hover:text-white bg-slate-900/40 backdrop-blur-md hover:bg-slate-800/80 transition-all duration-300 min-w-[200px] flex items-center justify-center relative overflow-hidden">
+                <span className="relative z-10">View Services</span>
                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
             </div>
@@ -393,7 +393,7 @@ export default function Home() {
                 { role: "Automation Specialist", type: "Remote", exp: "Fresher/Intern" },
                 { role: "Digital Marketing Intern", type: "Remote", exp: "Internship" }
               ].map((job, i) => (
-                <div key={i} className="flex items-center justify-between p-6 bg-slate-900 border border-slate-800 rounded-xl hover:border-blue-500/50 transition-all cursor-pointer group">
+                <Link key={i} to="/careers" className="flex items-center justify-between p-6 bg-slate-900 border border-slate-800 rounded-xl hover:border-blue-500/50 transition-all cursor-pointer group">
                   <div>
                     <h4 className="font-bold text-white text-lg group-hover:text-blue-300 transition-colors">{job.role}</h4>
                     <div className="flex gap-4 mt-2 text-xs text-slate-500 font-mono">
@@ -402,7 +402,7 @@ export default function Home() {
                     </div>
                   </div>
                   <ArrowRight className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
-                </div>
+                </Link>
               ))}
             </div>
             <div className="w-full flex justify-center mt-20 mb-20">

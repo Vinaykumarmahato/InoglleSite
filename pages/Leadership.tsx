@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/sections/Footer';
 import { Linkedin, Twitter, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Leadership = () => {
     const leaders = [
@@ -128,9 +129,9 @@ const Leadership = () => {
                         <p className="text-xl text-slate-400 mb-10 font-light leading-relaxed">
                             We're always looking for ambitious innovators to join our leadership and help shape the future of tech.
                         </p>
-                        <a href="/careers" className="inline-flex items-center gap-3 bg-white text-slate-950 px-8 py-4 rounded-full font-bold hover:bg-blue-50 hover:text-blue-600 transition-all shadow-xl hover:-translate-y-1">
+                        <Link to="/careers" className="inline-flex items-center gap-3 bg-white text-slate-950 px-8 py-4 rounded-full font-bold hover:bg-blue-50 hover:text-blue-600 transition-all shadow-xl hover:-translate-y-1">
                             Explore Careers <ArrowRight size={20} />
-                        </a>
+                        </Link>
                     </div>
                 </section>
 
