@@ -1,43 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Bell,
-    ChevronDown,
-    Code,
-    GitBranch,
-    MessageSquare,
-    Zap,
-    Briefcase,
-    BookOpen,
-    FileText,
-    Mail,
-    HelpCircle,
-    Users,
-    Menu,
-    X
+  Bell,
+  ChevronDown,
+  Code,
+  GitBranch,
+  MessageSquare,
+  Zap,
+  Briefcase,
+  BookOpen,
+  FileText,
+  Mail,
+  HelpCircle,
+  Users,
+  Menu,
+  X
 } from 'lucide-react';
 
 // --- Begin: Placeholder Components for Header ---
 const LoginModal = ({ isOpen, onClose, initialTab }) => {
-    if (!isOpen) return null;
-    return (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={onClose}>
-            <div className="bg-slate-800 text-white rounded-lg p-8 w-96" onClick={e => e.stopPropagation()}>
-                <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold">Login</h2>
-                    <button onClick={onClose} className="text-slate-400 hover:text-white">&times;</button>
-                </div>
-                <p>Login form for <span className="font-bold capitalize">{initialTab}</span> would appear here.</p>
-                <button onClick={onClose} className="mt-6 bg-blue-600 px-4 py-2 rounded-lg w-full hover:bg-blue-700">Close</button>
-            </div>
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={onClose}>
+      <div className="bg-slate-800 text-white rounded-lg p-8 w-96" onClick={e => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Login</h2>
+          <button onClick={onClose} className="text-slate-400 hover:text-white">&times;</button>
         </div>
-    );
+        <p>Login form for <span className="font-bold capitalize">{initialTab}</span> would appear here.</p>
+        <button onClick={onClose} className="mt-6 bg-blue-600 px-4 py-2 rounded-lg w-full hover:bg-blue-700">Close</button>
+      </div>
+    </div>
+  );
 };
 
 const Logo = () => (
-    <a href="/" className="flex items-center gap-3">
-        <img src="https://placehold.co/100x40/111/FFF?text=Inoglle" alt="Inoglle Logo" className="h-8" />
-        <span className="font-bold text-xl text-white sr-only">Inoglle</span>
-    </a>
+  <a href="/" className="flex items-center gap-3">
+    <img src="https://placehold.co/100x40/111/FFF?text=Inoglle" alt="Inoglle Logo" className="h-8" />
+    <span className="font-bold text-xl text-white sr-only">Inoglle</span>
+  </a>
 );
 // --- End: Placeholder Components ---
 
@@ -132,10 +132,10 @@ const navItems = [
 const MegaMenu = ({ columns, featured, align = 'center' }) => (
   <div className={
     align === 'left'
-  ? 'absolute top-full left-0 mt-2 w-screen max-w-2xl lg:ml-16 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
-  : 'absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
+      ? 'absolute top-full left-0 mt-2 w-screen max-w-2xl lg:ml-16 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
+      : 'absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
   }>
-  <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl grid grid-cols-3 gap-8 p-8 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-slate-900">
+    <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl grid grid-cols-3 gap-8 p-8 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-slate-900">
       {columns.map(col => (
         <div key={col.title}>
           <h3 className="font-bold text-white mb-4 border-b border-slate-700 pb-2">{col.title}</h3>
@@ -209,15 +209,15 @@ const MobileNavItem = ({ item, isOpen, onToggle }) => {
       {hasDropdown && isOpen && (
         <div className="pb-4 pl-4 space-y-3">
           {getLinks().map(link => (
-             link.onClick ? (
-               <button key={link.name} onClick={link.onClick} className="flex items-start gap-3 group/link text-left w-full">
-                 <LinkContent link={link} />
-               </button>
-               ) : (
-               <a href={link.href || '#'} key={link.name} className="flex items-start gap-3 group/link">
-                 <LinkContent link={link} />
-               </a>
-               )
+            link.onClick ? (
+              <button key={link.name} onClick={link.onClick} className="flex items-start gap-3 group/link text-left w-full">
+                <LinkContent link={link} />
+              </button>
+            ) : (
+              <a href={link.href || '#'} key={link.name} className="flex items-start gap-3 group/link">
+                <LinkContent link={link} />
+              </a>
+            )
           ))}
         </div>
       )}
@@ -332,189 +332,189 @@ const Header = () => {
 // --- Main Page Component ---
 
 const CustomDevIcon = () => (
-    <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-        <path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 9l5-5 5 5M12 4.998V16" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
+  <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+    <path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 9l5-5 5 5M12 4.998V16" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
 );
 
 const ScalableIcon = () => (
-    <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-        <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
+  <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
 );
 
 const EfficiencyIcon = () => (
-    <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-        <path d="M9 17v-2a4 4 0 014-4h4m-6 6h6a2 2 0 002-2v-5a2 2 0 00-2-2h-6a2 2 0 00-2 2v5a2 2 0 002 2z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
+  <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+    <path d="M9 17v-2a4 4 0 014-4h4m-6 6h6a2 2 0 002-2v-5a2 2 0 00-2-2h-6a2 2 0 00-2 2v5a2 2 0 002 2z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
 );
 
 const SoftwareDevelopment = () => {
-    const [showBanner, setShowBanner] = useState(true);
+  const [showBanner, setShowBanner] = useState(true);
 
-    const services = [
-        { icon: <CustomDevIcon />, title: 'Custom Development', description: 'Tailored software built for your business, from web apps to enterprise platforms.' },
-        { icon: <ScalableIcon />, title: 'Scalable Solutions', description: 'Grow with confidence using robust, scalable software that adapts to your needs.' },
-        { icon: <EfficiencyIcon />, title: 'Efficiency Improvement', description: 'Streamline operations and boost productivity with automation and smart integrations.' },
-    ];
+  const services = [
+    { icon: <CustomDevIcon />, title: 'Custom Development', description: 'Tailored software built for your business, from web apps to enterprise platforms.' },
+    { icon: <ScalableIcon />, title: 'Scalable Solutions', description: 'Grow with confidence using robust, scalable software that adapts to your needs.' },
+    { icon: <EfficiencyIcon />, title: 'Efficiency Improvement', description: 'Streamline operations and boost productivity with automation and smart integrations.' },
+  ];
 
-    const processSteps = [
-        { number: 1, title: 'Discovery', description: 'We analyze your business needs and define clear project goals.' },
-        { number: 2, title: 'Design & Prototyping', description: 'Our team creates intuitive UI/UX and technical blueprints for your solution.' },
-        { number: 3, title: 'Development', description: 'We build, test, and iterate using agile methods for rapid delivery.' },
-        { number: 4, title: 'Launch & Support', description: 'Your software goes live with ongoing support and future-proofing.' },
-    ];
+  const processSteps = [
+    { number: 1, title: 'Discovery', description: 'We analyze your business needs and define clear project goals.' },
+    { number: 2, title: 'Design & Prototyping', description: 'Our team creates intuitive UI/UX and technical blueprints for your solution.' },
+    { number: 3, title: 'Development', description: 'We build, test, and iterate using agile methods for rapid delivery.' },
+    { number: 4, title: 'Launch & Support', description: 'Your software goes live with ongoing support and future-proofing.' },
+  ];
 
-    const successStories = [
-        { logo: 'https://placehold.co/48x48/E2E8F0/334155?text=AC', alt: 'Acme Corp logo', name: 'Acme Corp', story: 'Acme Corp scaled their operations by 300% with our custom ERP solution, improving efficiency and reducing costs.' },
-        { logo: 'https://placehold.co/48x48/E2E8F0/334155?text=TN', alt: 'TechNova logo', name: 'TechNova', story: 'TechNova launched a new SaaS platform in record time, thanks to our agile development and scalable architecture.' }
-    ];
+  const successStories = [
+    { logo: 'https://placehold.co/48x48/E2E8F0/334155?text=AC', alt: 'Acme Corp logo', name: 'Acme Corp', story: 'Acme Corp scaled their operations by 300% with our custom ERP solution, improving efficiency and reducing costs.' },
+    { logo: 'https://placehold.co/48x48/E2E8F0/334155?text=TN', alt: 'TechNova logo', name: 'TechNova', story: 'TechNova launched a new SaaS platform in record time, thanks to our agile development and scalable architecture.' }
+  ];
 
-    return (
-        <div className="min-h-screen bg-[#111]">
-            {showBanner && (
-                <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex items-center justify-between px-8 py-2 text-base font-medium">
-                    <div className="flex items-center gap-3">
-                        <Bell size={22} />
-                        <span>Need a vendor switch? Accelerate your AI research with a neutral data partner.</span>
-                    </div>
-                    <div className="flex items-center gap-6">
-                        <a href="#" className="underline font-semibold">Learn More &rarr;</a>
-                        <button onClick={() => setShowBanner(false)} className="text-white text-2xl font-bold hover:text-blue-200">&#10005;</button>
-                    </div>
-                </div>
-            )}
-
-            <Header />
-
-            <main>
-                <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-100 text-slate-800">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="max-w-5xl mx-auto">
-                            <section className="text-center mb-20">
-                                <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Software Development Services</h1>
-                                <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">
-                                    Unlock your business potential with scalable, custom software solutions designed to drive efficiency, innovation, and growth. Our expert team delivers robust applications tailored to your unique needs.
-                                </p>
-                            </section>
-
-                            <section id="services" className="grid md:grid-cols-3 gap-8 mb-20">
-                                {services.map((service, index) => (
-                                    <div key={index} className="bg-white/80 rounded-2xl p-8 shadow group hover:shadow-xl transition-all border border-blue-100 text-center">
-                                        <span className="inline-block bg-gradient-to-tr from-blue-400 to-blue-600 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform">
-                                            {service.icon}
-                                        </span>
-                                        <h3 className="font-bold text-xl text-blue-900 mb-2">{service.title}</h3>
-                                        <p className="text-slate-600">{service.description}</p>
-                                    </div>
-                                ))}
-                            </section>
-
-                            <section id="process" className="mb-20">
-                                <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">How We Work</h2>
-                                <div className="grid md:grid-cols-4 gap-6">
-                                    {processSteps.map(step => (
-                                        <div key={step.number} className="bg-white rounded-xl p-6 shadow-sm text-center border border-gray-100">
-                                            <div className="text-blue-500 text-3xl font-bold mb-2">{step.number}</div>
-                                            <h4 className="font-semibold text-blue-900 mb-1">{step.title}</h4>
-                                            <p className="text-slate-600 text-sm">{step.description}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            <section id="clients" className="mb-20">
-                                <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">Client Success Stories</h2>
-                                <div className="grid md:grid-cols-2 gap-8 mb-12">
-                                    {successStories.map((story, index) => (
-                                        <div key={index} className="bg-white/90 rounded-xl p-6 shadow-sm border border-blue-100 flex items-center gap-4">
-                                            <img src={story.logo} alt={story.alt} className="h-12 w-12 rounded-full border border-blue-200" />
-                                            <div>
-                                                <h4 className="font-bold text-blue-800 mb-1">{story.name}</h4>
-                                                <p className="text-slate-600 text-sm">{story.story}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                
-                                <div className="relative flex justify-center items-center p-8 bg-white rounded-2xl shadow-lg border border-blue-100 min-h-[250px] overflow-hidden">
-                                    <div className="text-center">
-                                        <h3 className="font-bold text-xl text-blue-900">Visualizing Your Growth</h3>
-                                        <p className="text-slate-600 text-sm max-w-sm mx-auto mt-2">Our solutions replace inefficient workflows, unlocking significant growth and scalability.</p>
-                                    </div>
-                                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-50 to-transparent flex items-end justify-center gap-4 px-8">
-                                        <div className="bg-blue-200 rounded-t-lg w-8 transition-all duration-500" style={{height: '20%'}}></div>
-                                        <div className="bg-blue-300 rounded-t-lg w-8 transition-all duration-500" style={{height: '40%'}}></div>
-                                        <div className="bg-blue-400 rounded-t-lg w-8 transition-all duration-500" style={{height: '60%'}}></div>
-                                        <div className="bg-blue-500 rounded-t-lg w-8 transition-all duration-500" style={{height: '80%'}}></div>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section id="contact" className="text-center">
-                                <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold px-10 py-4 rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1 text-xl">
-                                    Build Your Solution
-                                </button>
-                            </section>
-                        </div>
-                    </div>
-                </section>
-            </main>
-
-            <footer className="bg-[#181f2a] text-slate-300 py-10 border-t border-blue-900">
-                <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8">
-                    <div className="col-span-1 flex flex-col gap-2">
-                        <div className="flex items-center gap-3 mb-2">
-                             <img src="https://placehold.co/100x40/181f2a/FFF?text=Inoglle" alt="Inoglle Logo" className="h-8" />
-                        </div>
-                        <span className="text-xs">Industry</span>
-                        <span className="text-sm">IT Services and IT Consulting</span>
-                        <span className="text-xs mt-2">Website</span>
-                        <a href="https://inoglle.vercel.app/" className="text-blue-400 text-xs underline">https://inoglle.vercel.app/</a>
-                    </div>
-                    <div className="col-span-1 flex flex-col gap-2">
-                        <span className="font-semibold mb-2">Services</span>
-                        <a href="#" className="hover:text-white text-sm">Software Development</a>
-                        <a href="#" className="hover:text-white text-sm">System Integration</a>
-                        <a href="#" className="hover:text-white text-sm">IT Consulting</a>
-                        <a href="#" className="hover:text-white text-sm">Digital Transformation</a>
-                        <a href="#" className="hover:text-white text-sm">IT Infrastructure</a>
-                    </div>
-                    <div className="col-span-1 flex flex-col gap-2">
-                        <span className="font-semibold mb-2">Careers</span>
-                        <a href="#" className="hover:text-white text-sm">Why Join Inoglle</a>
-                        <a href="#" className="hover:text-white text-sm">Job Openings</a>
-                        <a href="#" className="hover:text-white text-sm">Internships</a>
-                    </div>
-                    <div className="col-span-1 flex flex-col gap-2">
-                        <span className="font-semibold mb-2">About Us</span>
-                        <a href="#" className="hover:text-white text-sm">Our Story</a>
-                        <a href="#" className="hover:text-white text-sm">Blog</a>
-                        <a href="#" className="hover:text-white text-sm">Press</a>
-                        <a href="#" className="hover:text-white text-sm">Contact Us</a>
-                    </div>
-                    <div className="col-span-1 flex flex-col gap-2">
-                        <span className="font-semibold mb-2">Connect</span>
-                        <a href="#" className="hover:text-white text-sm">Contact us</a>
-                        <a href="#" className="hover:text-white text-sm">Help center</a>
-                    </div>
-                </div>
-                <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
-                    <div className="flex gap-4">
-                        <a href="#" aria-label="Twitter" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .386.044.763.127 1.124-4.087-.205-7.713-2.164-10.141-5.144-.423.729-.666 1.577-.666 2.483 0 1.713.872 3.229 2.197 4.117-.809-.026-1.57-.248-2.236-.616v.062c0 2.393 1.703 4.389 3.965 4.84-.415.113-.853.174-1.305.174-.319 0-.626-.031-.928-.088.627 1.956 2.444 3.377 4.6 3.417-1.68 1.316-3.809 2.101-6.102 2.101-.396 0-.787-.023-1.175-.069 2.179 1.397 4.768 2.213 7.557 2.213 9.054 0 14.009-7.496 14.009-13.986 0-.213-.005-.425-.014-.636.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
-                        <a href="#" aria-label="Instagram" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.947-.072c-1.276.06-2.687.334-3.678 1.325-.991.991-1.265 2.402-1.325 3.678-.06 1.28-.072 1.688-.072 4.947s.012 3.667.072 4.947c.06 1.276.334 2.687 1.325 3.678.991.991 2.402 1.265 3.678 1.325 1.28.06 1.688.072 4.947.072s3.667-.012 4.947-.072c1.276-.06 2.687-.334 3.678-1.325.991-.991 1.265-2.402 1.325-3.678.06-1.28.072-1.688.072-4.947s-.012-3.667-.072-4.947c-.06-1.276-.334-2.687-1.325-3.678-.991-.991-2.402-1.265-3.678-1.325-1.28-.06-1.688-.072-4.947-.072zm0-2.163c-3.259 0-3.667.012-4.947.072-1.276.06-2.687.334-3.678 1.325-.991.991-1.265 2.402-1.325 3.678-.06 1.28-.072 1.688-.072 4.947s.012 3.667.072 4.947c.06 1.276.334 2.687 1.325 3.678.991.991 2.402 1.265 3.678 1.325 1.28.06 1.688.072 4.947.072s3.667-.012 4.947-.072c1.276-.06 2.687-.334 3.678-1.325.991-.991 1.265-2.402 1.325-3.678.06-1.28.072-1.688.072-4.947s-.012-3.667-.072-4.947c-.06-1.276-.334-2.687-1.325-3.678-.991-.991-2.402-1.265-3.678-1.325-1.28-.06-1.688-.072-4.947-.072zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
-                        <a href="#" aria-label="LinkedIn" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.381-1.563 2.841-1.563 3.039 0 3.601 2.001 3.601 4.601v5.595z"/></svg></a>
-                    </div>
-                    <div className="text-xs text-slate-400 mt-2">
-                        Sitemap &nbsp; Terms of service &nbsp; Privacy policy &nbsp; Cookie settings
-                    </div>
-                </div>
-                <div className="max-w-7xl mx-auto px-4 text-xs text-slate-400 mt-4 text-right">
-                    Plot 56, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka 560100, IN | &copy; {new Date().getFullYear()} Inoglle
-                </div>
-            </footer>
+  return (
+    <div className="min-h-screen bg-[#111]">
+      {showBanner && (
+        <div className="w-full bg-gradient-to-r from-[#1662c4] to-[#0a2a6c] text-white flex items-center justify-between px-8 py-2 text-base font-medium">
+          <div className="flex items-center gap-3">
+            <Bell size={22} />
+            <span>Need a vendor switch? Accelerate your AI research with a neutral data partner.</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <a href="#" className="underline font-semibold">Learn More &rarr;</a>
+            <button onClick={() => setShowBanner(false)} className="text-white text-2xl font-bold hover:text-blue-200">&#10005;</button>
+          </div>
         </div>
-    );
+      )}
+
+      <Header />
+
+      <main>
+        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-100 text-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-5xl mx-auto">
+              <section className="text-center mb-20">
+                <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">Software Development Services</h1>
+                <p className="text-lg text-slate-700 mb-10 max-w-3xl mx-auto">
+                  Unlock your business potential with scalable, custom software solutions designed to drive efficiency, innovation, and growth. Our expert team delivers robust applications tailored to your unique needs.
+                </p>
+              </section>
+
+              <section id="services" className="grid md:grid-cols-3 gap-8 mb-20">
+                {services.map((service, index) => (
+                  <div key={index} className="bg-white/80 rounded-2xl p-8 shadow group hover:shadow-xl transition-all border border-blue-100 text-center">
+                    <span className="inline-block bg-gradient-to-tr from-blue-400 to-blue-600 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                      {service.icon}
+                    </span>
+                    <h3 className="font-bold text-xl text-blue-900 mb-2">{service.title}</h3>
+                    <p className="text-slate-600">{service.description}</p>
+                  </div>
+                ))}
+              </section>
+
+              <section id="process" className="mb-20">
+                <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">How We Work</h2>
+                <div className="grid md:grid-cols-4 gap-6">
+                  {processSteps.map(step => (
+                    <div key={step.number} className="bg-white rounded-xl p-6 shadow-sm text-center border border-gray-100">
+                      <div className="text-blue-500 text-3xl font-bold mb-2">{step.number}</div>
+                      <h4 className="font-semibold text-blue-900 mb-1">{step.title}</h4>
+                      <p className="text-slate-600 text-sm">{step.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section id="clients" className="mb-20">
+                <h2 className="text-3xl font-bold text-blue-900 mb-8 text-center">Client Success Stories</h2>
+                <div className="grid md:grid-cols-2 gap-8 mb-12">
+                  {successStories.map((story, index) => (
+                    <div key={index} className="bg-white/90 rounded-xl p-6 shadow-sm border border-blue-100 flex items-center gap-4">
+                      <img src={story.logo} alt={story.alt} className="h-12 w-12 rounded-full border border-blue-200" />
+                      <div>
+                        <h4 className="font-bold text-blue-800 mb-1">{story.name}</h4>
+                        <p className="text-slate-600 text-sm">{story.story}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="relative flex justify-center items-center p-8 bg-white rounded-2xl shadow-lg border border-blue-100 min-h-[250px] overflow-hidden">
+                  <div className="text-center">
+                    <h3 className="font-bold text-xl text-blue-900">Visualizing Your Growth</h3>
+                    <p className="text-slate-600 text-sm max-w-sm mx-auto mt-2">Our solutions replace inefficient workflows, unlocking significant growth and scalability.</p>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-50 to-transparent flex items-end justify-center gap-4 px-8">
+                    <div className="bg-blue-200 rounded-t-lg w-8 transition-all duration-500" style={{ height: '20%' }}></div>
+                    <div className="bg-blue-300 rounded-t-lg w-8 transition-all duration-500" style={{ height: '40%' }}></div>
+                    <div className="bg-blue-400 rounded-t-lg w-8 transition-all duration-500" style={{ height: '60%' }}></div>
+                    <div className="bg-blue-500 rounded-t-lg w-8 transition-all duration-500" style={{ height: '80%' }}></div>
+                  </div>
+                </div>
+              </section>
+
+              <section id="contact" className="text-center">
+                <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold px-10 py-4 rounded-xl shadow-lg hover:from-blue-600 hover:to-blue-700 transition-transform hover:-translate-y-1 text-xl">
+                  Build Your Solution
+                </button>
+              </section>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#181f2a] text-slate-300 py-10 border-t border-blue-900">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8">
+          <div className="col-span-1 flex flex-col gap-2">
+            <div className="flex items-center gap-3 mb-2">
+              <img src="https://placehold.co/100x40/181f2a/FFF?text=Inoglle" alt="Inoglle Logo" className="h-8" />
+            </div>
+            <span className="text-xs">Industry</span>
+            <span className="text-sm">IT Services and IT Consulting</span>
+            <span className="text-xs mt-2">Website</span>
+            <a href="https://inoglle.in/" className="text-blue-400 text-xs underline">https://inoglle.in/</a>
+          </div>
+          <div className="col-span-1 flex flex-col gap-2">
+            <span className="font-semibold mb-2">Services</span>
+            <a href="#" className="hover:text-white text-sm">Software Development</a>
+            <a href="#" className="hover:text-white text-sm">System Integration</a>
+            <a href="#" className="hover:text-white text-sm">IT Consulting</a>
+            <a href="#" className="hover:text-white text-sm">Digital Transformation</a>
+            <a href="#" className="hover:text-white text-sm">IT Infrastructure</a>
+          </div>
+          <div className="col-span-1 flex flex-col gap-2">
+            <span className="font-semibold mb-2">Careers</span>
+            <a href="#" className="hover:text-white text-sm">Why Join Inoglle</a>
+            <a href="#" className="hover:text-white text-sm">Job Openings</a>
+            <a href="#" className="hover:text-white text-sm">Internships</a>
+          </div>
+          <div className="col-span-1 flex flex-col gap-2">
+            <span className="font-semibold mb-2">About Us</span>
+            <a href="#" className="hover:text-white text-sm">Our Story</a>
+            <a href="#" className="hover:text-white text-sm">Blog</a>
+            <a href="#" className="hover:text-white text-sm">Press</a>
+            <a href="#" className="hover:text-white text-sm">Contact Us</a>
+          </div>
+          <div className="col-span-1 flex flex-col gap-2">
+            <span className="font-semibold mb-2">Connect</span>
+            <a href="#" className="hover:text-white text-sm">Contact us</a>
+            <a href="#" className="hover:text-white text-sm">Help center</a>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
+          <div className="flex gap-4">
+            <a href="#" aria-label="Twitter" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.717 0-4.92 2.203-4.92 4.917 0 .386.044.763.127 1.124-4.087-.205-7.713-2.164-10.141-5.144-.423.729-.666 1.577-.666 2.483 0 1.713.872 3.229 2.197 4.117-.809-.026-1.57-.248-2.236-.616v.062c0 2.393 1.703 4.389 3.965 4.84-.415.113-.853.174-1.305.174-.319 0-.626-.031-.928-.088.627 1.956 2.444 3.377 4.6 3.417-1.68 1.316-3.809 2.101-6.102 2.101-.396 0-.787-.023-1.175-.069 2.179 1.397 4.768 2.213 7.557 2.213 9.054 0 14.009-7.496 14.009-13.986 0-.213-.005-.425-.014-.636.962-.695 1.797-1.562 2.457-2.549z" /></svg></a>
+            <a href="#" aria-label="Instagram" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.947-.072c-1.276.06-2.687.334-3.678 1.325-.991.991-1.265 2.402-1.325 3.678-.06 1.28-.072 1.688-.072 4.947s.012 3.667.072 4.947c.06 1.276.334 2.687 1.325 3.678.991.991 2.402 1.265 3.678 1.325 1.28.06 1.688.072 4.947.072s3.667-.012 4.947-.072c1.276-.06 2.687-.334 3.678-1.325.991-.991 1.265-2.402 1.325-3.678.06-1.28.072-1.688.072-4.947s-.012-3.667-.072-4.947c-.06-1.276-.334-2.687-1.325-3.678-.991-.991-2.402-1.265-3.678-1.325-1.28-.06-1.688-.072-4.947-.072zm0-2.163c-3.259 0-3.667.012-4.947.072-1.276.06-2.687.334-3.678 1.325-.991.991-1.265 2.402-1.325 3.678-.06 1.28-.072 1.688-.072 4.947s.012 3.667.072 4.947c.06 1.276.334 2.687 1.325 3.678.991.991 2.402 1.265 3.678 1.325 1.28.06 1.688.072 4.947.072s3.667-.012 4.947-.072c1.276-.06 2.687-.334 3.678-1.325.991-.991 1.265-2.402 1.325-3.678.06-1.28.072-1.688.072-4.947s-.012-3.667-.072-4.947c-.06-1.276-.334-2.687-1.325-3.678-.991-.991-2.402-1.265-3.678-1.325-1.28-.06-1.688-.072-4.947-.072zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" /></svg></a>
+            <a href="#" aria-label="LinkedIn" className="hover:text-blue-400"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.381-1.563 2.841-1.563 3.039 0 3.601 2.001 3.601 4.601v5.595z" /></svg></a>
+          </div>
+          <div className="text-xs text-slate-400 mt-2">
+            Sitemap &nbsp; Terms of service &nbsp; Privacy policy &nbsp; Cookie settings
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 text-xs text-slate-400 mt-4 text-right">
+          Plot 56, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka 560100, IN | &copy; {new Date().getFullYear()} Inoglle
+        </div>
+      </footer>
+    </div>
+  );
 };
 
 export default SoftwareDevelopment;
