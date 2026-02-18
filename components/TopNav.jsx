@@ -29,7 +29,9 @@ const navLinks = [
 const TopNav = () => (
   <header className="sticky top-0 w-full bg-[#060814]/90 backdrop-blur-md z-50 border-b border-slate-800">
     <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <Link to="/" className="font-bold text-white text-xl">Inoglle</Link>
+      <Link to="/" className="h-10">
+        <img src="/images/logo.png" alt="Inoglle Logo" className="h-full w-auto object-contain" />
+      </Link>
       <div className="flex items-center gap-8">
         {navLinks.map((item) => (
           <div key={item.name} className="group relative">

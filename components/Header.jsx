@@ -145,20 +145,20 @@ const Header = () => {
                             </div>
                           ))}
                         </div>
-                        <div className="w-64 bg-slate-950/30 p-6 flex flex-col justify-end relative overflow-hidden group/card">
+                        <Link to="/case-studies/fintech-scale" className="w-64 bg-slate-950/30 p-6 flex flex-col justify-end relative overflow-hidden group/card block cursor-pointer">
                           <img
                             src={item.dropdown.featured.image}
                             alt="Featured"
                             className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover/card:opacity-50 transition-opacity"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                          <div className="relative z-10">
+                          <div className="relative z-10 text-left">
                             <div className="text-xs font-bold text-blue-400 mb-2">FEATURED</div>
                             <div className="text-sm font-bold text-white mb-2 leading-tight">{item.dropdown.featured.title}</div>
                             <div className="text-xs text-slate-400 mb-4 line-clamp-2">{item.dropdown.featured.description}</div>
-                            <div className="text-xs font-bold text-white flex items-center gap-1">Read Story <ArrowRight size={12} /></div>
+                            <div className="text-xs font-bold text-white flex items-center gap-1">Read Story <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" /></div>
                           </div>
-                        </div>
+                        </Link>
                       </div>
                     )}
                   </div>
