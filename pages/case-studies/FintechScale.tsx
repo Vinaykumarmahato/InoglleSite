@@ -17,6 +17,8 @@ import 'aos/dist/aos.css';
 
 const FintechScale = () => {
     useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = "Case Study: Scaling a Neobank to 5M Users | Inoglle";
         AOS.init({
             duration: 1000,
             once: true,

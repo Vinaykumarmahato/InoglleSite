@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/sections/Footer';
 import {
@@ -14,6 +14,11 @@ import {
 } from 'lucide-react';
 
 const ContactUs = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.title = "Contact Inoglle | Start Your Digital Transformation";
+  }, []);
+
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   const faqs = [

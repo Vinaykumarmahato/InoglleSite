@@ -14,6 +14,11 @@ const ScrollProgress = () => {
   const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    document.title = "Inoglle | Premier IT Solutions & Software Engineering";
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => {
       const winScroll = document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -160,8 +165,8 @@ export default function Home() {
             </div>
 
             <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight mb-10 text-white leading-[1.1] max-w-5xl mx-auto drop-shadow-2xl">
-              <span className="block animate-fade-in-up" style={{ animationDelay: '0.1s' }}>Innovation Meets</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 animate-pulse-slow block animate-fade-in-up" style={{ animationDelay: '0.2s' }}>Opportunity.</span>
+              <span className="block animate-fade-in-up" style={{ animationDelay: '0.1s' }}>Premier IT Solutions</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 animate-pulse-slow block animate-fade-in-up" style={{ animationDelay: '0.2s' }}>Engineered for Growth.</span>
             </h1>
 
             <p className="text-lg md:text-xl text-slate-400 mb-16 max-w-3xl mx-auto leading-loose font-light text-balance animate-fade-in-up" style={{ animationDelay: '0.3s' }}>

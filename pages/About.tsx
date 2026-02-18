@@ -15,7 +15,14 @@ import {
 import Header from '../components/Header';
 import Footer from '../components/sections/Footer';
 
+import { useEffect } from 'react';
+
 const About = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = "About Inoglle | Our Mission & Technology Vision";
+    }, []);
+
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden">
             <Header />

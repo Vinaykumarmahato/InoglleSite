@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://inoglle.vercel.app/sitemap.xml

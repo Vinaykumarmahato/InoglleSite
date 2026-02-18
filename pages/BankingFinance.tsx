@@ -17,7 +17,14 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { useEffect } from 'react';
+
 const BankingFinance = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = "Banking & Finance IT Solutions | Inoglle";
+    }, []);
+
     return (
         <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden relative">
             {/* --- Global Background Effects --- */}
