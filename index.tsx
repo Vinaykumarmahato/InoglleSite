@@ -31,11 +31,20 @@ import Blog from './pages/Blog';
 import Press from './pages/Press';
 import ContactUsCompany from './pages/ContactUsCompany';
 
+import CustomSoftware from './pages/CustomSoftware';
+import CloudDevOps from './pages/CloudDevOps';
+import LegacyModernization from './pages/LegacyModernization';
+import DigitalStrategy from './pages/DigitalStrategy';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<BrowserRouter>
 		<Routes>
 			<Route path="/" element={<Home />} />
+			<Route path="/services/software" element={<CustomSoftware />} />
+			<Route path="/services/cloud" element={<CloudDevOps />} />
+			<Route path="/services/modernization" element={<LegacyModernization />} />
+			<Route path="/consulting/strategy" element={<DigitalStrategy />} />
 			<Route path="/SoftwareDevelopment" element={<SoftwareDevelopment />} />
 			<Route path="/SystemIntegration" element={<SystemIntegration />} />
 			<Route path="/DigitalTransformation" element={<DigitalTransformation />} />

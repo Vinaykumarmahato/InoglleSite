@@ -1,80 +1,51 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase, BookOpen, FileText, Mail, HelpCircle, Users, Menu, X } from 'lucide-react';
+import { ChevronDown, Code, GitBranch, MessageSquare, Zap, Briefcase, BookOpen, FileText, Mail, HelpCircle, Users, Menu, X, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import LoginModal from './LoginModal';
 import Logo from './Logo';
 
 const navItems = [
   {
-    name: 'What we do',
+    name: 'Services',
     dropdown: {
       type: 'mega',
       columns: [
         {
-          title: 'Development',
+          title: 'Engineering',
           links: [
-            { name: 'Software Development', href: '/SoftwareDevelopment', description: 'Scalable software solutions for your business needs.', icon: Code },
-            { name: 'System Integration', href: '/SystemIntegration', description: 'Seamlessly connect your disparate systems and services.', icon: GitBranch },
-            { name: 'Digital Transformation', href: '/DigitalTransformation', description: 'Modernize your operations for the digital age.', icon: Zap },
+            { name: 'Custom Software', href: '/services/software', description: 'Tailored enterprise applications.', icon: Code },
+            { name: 'Cloud & DevOps', href: '/services/cloud', description: 'Scalable infrastructure on AWS/Azure.', icon: Zap },
+            { name: 'Legacy Modernization', href: '/services/modernization', description: 'Transforming outdated systems.', icon: GitBranch },
           ]
         },
         {
           title: 'Consulting',
           links: [
-            { name: 'IT Consulting', href: '/ITConsulting', description: 'Strategic guidance to align technology with your business goals.', icon: MessageSquare },
-            { name: 'IT Infrastructure Planning', href: '/ITInfrastructurePlanning', description: 'Building a robust and scalable IT foundation.', icon: Briefcase },
-            { name: 'Deploy AI Talent', href: '/DeployAITalent', description: 'AI-native pods integrated into your team.', icon: Users },
+            { name: 'Digital Strategy', href: '/consulting/strategy', description: 'Roadmaps for digital transformation.', icon: MessageSquare },
+            { name: 'Security & Compliance', href: '/consulting/security', description: 'ISO 27001 & GDPR adherence.', icon: Briefcase },
+            { name: 'Data Analytics', href: '/consulting/data', description: 'Turning data into business value.', icon: BookOpen },
           ]
         }
       ],
       featured: {
-        title: 'Featured Resource: Fine-Tuning LLMs',
-        description: 'Large language models (LLMs) have transformed the field of natural language processing with their advanced capabilities.',
-  image: '/images/logo.png'
+        title: 'Case Study: FinTech Scale',
+        description: 'How we helped a NeoBank scale to 5M users with 99.99% uptime.',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400'
       }
     }
   },
   {
-    name: 'Resources',
-    dropdown: {
-      type: 'mega',
-      columns: [
-        {
-          title: 'Learn',
-          links: [
-            { name: 'Enterprise Insights', href: '/EnterpriseInsights', description: 'In-depth articles and analyses on IT trends.', icon: BookOpen },
-            { name: 'Case Studies', href: '/CaseStudies', description: 'See how we\'ve helped businesses like yours succeed.', icon: FileText },
-            { name: 'Use Cases', href: '/UseCases', description: 'Explore practical applications of our IT solutions.', icon: Zap },
-          ]
-        },
-        {
-          title: 'Connect',
-          links: [
-            { name: 'Contact Us', href: '/ContactUs', description: 'Get in touch with our team of experts.', icon: Mail },
-            { name: 'Help Center', href: '/HelpCenter', description: 'Find answers to frequently asked questions.', icon: HelpCircle },
-            { name: 'Inoglle Careers', href: '/InoglleCareers', description: 'Join our team and shape the future of IT.', icon: Briefcase },
-          ]
-        }
-      ],
-      featured: {
-        title: 'Featured Resource: Secure App Development',
-        description: 'The convergence of generative AI and large language models (LLMs) has created a unique opportunity for enterprises to engineer powerful products.',
-        image: '/images/featured-resource-secure-dev.jpg'
-      }
-    }
-  },
-  {
-    name: 'For talent',
+    name: 'Industries',
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'How to get hired', href: '/HowToGetHired', description: 'How Inoglle works and how we match you to job opportunities.' },
-        { name: 'Developer resources', href: '/DeveloperResources', description: 'Tips, tricks, and more to enhance your tech skills and stand out with clients.' },
-        { name: 'Talent support', href: '/TalentSupport', description: 'Get answers to common questions about job matching and more.' },
+        { name: 'Banking & Finance', href: '/industries/bfsi', description: 'Secure, high-transaction systems.' },
+        { name: 'Healthcare', href: '/industries/healthcare', description: 'HIPAA compliant patient solutions.' },
+        { name: 'Manufacturing', href: '/industries/manufacturing', description: 'IoT and supply chain optimization.' },
+        { name: 'Retail & E-commerce', href: '/industries/retail', description: 'Omnichannel customer experiences.' },
       ]
     }
   },
@@ -83,289 +54,204 @@ const navItems = [
     dropdown: {
       type: 'simple',
       links: [
-        { name: 'About', href: '/About' },
-        { name: 'Careers', href: '/Careers' },
-        { name: 'Blog', href: '/Blog' },
-        { name: 'Press', href: '/Press' },
-        { name: 'Contact Us', href: '/ContactUsCompany' },
+        { name: 'About Inoglle', href: '/about' },
+        { name: 'Leadership', href: '/leadership' },
+        { name: 'Careers', href: '/careers' },
+        { name: 'Contact', href: '/contact' },
       ]
     }
-  },
+  }
 ];
-
-
-const MegaMenu = ({ columns, featured, align = 'center' }) => (
-  <div className={
-    align === 'left'
-  ? 'absolute top-full left-0 mt-2 w-screen max-w-2xl lg:ml-16 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
-  : 'absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300'
-  }>
-  <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl grid grid-cols-3 gap-8 p-8 max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-slate-900">
-      {columns.map(col => (
-        <div key={col.title}>
-          <h3 className="font-bold text-white mb-4 border-b border-slate-700 pb-2">{col.title}</h3>
-          <ul className="space-y-4">
-            {col.links.map(link => (
-              <li key={link.name}>
-                {link.href ? (
-                  <Link to={link.href} className="flex items-start gap-3 group/link">
-                    {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400 group-hover/link:text-blue-400" />}
-                    <div>
-                      <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-                      {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-                    </div>
-                  </Link>
-                ) : (
-                  <span className="flex items-start gap-3 group/link">
-                    {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400 group-hover/link:text-blue-400" />}
-                    <div>
-                      <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-                      {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-                    </div>
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-      <div className="bg-slate-800/50 rounded-lg p-4">
-        <p className="text-xs font-semibold text-slate-400 mb-2">Featured resource</p>
-        <img src={featured.image} alt={featured.title} className="w-full h-32 object-cover rounded-md mb-4" />
-        <h4 className="font-bold text-white mb-2">{featured.title}</h4>
-        <p className="text-sm text-slate-400 mb-4">{featured.description}</p>
-        <a href="#" className="text-sm text-blue-400 font-bold hover:underline">Read more</a>
-        <a href="#" className="text-sm text-slate-300 hover:text-white mt-4 block">See all resources</a>
-      </div>
-    </div>
-  </div>
-);
-
-const SimpleMenu = ({ links }) => (
-  <div className="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
-    <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
-      <ul className="space-y-4">
-        {links.map(link => (
-          <li key={link.name}>
-            {link.href ? (
-              <Link to={link.href} className="group/link">
-                <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-                {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-              </Link>
-            ) : (
-              <span className="group/link">
-                <p className="text-white font-medium group-hover/link:text-blue-400">{link.name}</p>
-                {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-              </span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-);
-
-const MobileNavItem = ({ item, isOpen, onToggle }) => {
-  const hasDropdown = item.dropdown && (item.dropdown.links?.length > 0 || item.dropdown.columns?.length > 0);
-
-  const getLinks = () => {
-    if (!hasDropdown) return [];
-    if (item.dropdown.type === 'simple') return item.dropdown.links;
-    if (item.dropdown.type === 'mega') return item.dropdown.columns.flatMap(c => c.links);
-    return [];
-  };
-
-  const LinkContent = ({ link }) => (
-    <>
-      {link.icon && <link.icon className="w-5 h-5 mt-1 text-slate-400" />}
-      <div>
-        <p className="text-white font-medium">{link.name}</p>
-        {link.description && <p className="text-sm text-slate-400">{link.description}</p>}
-      </div>
-    </>
-  );
-
-  return (
-    <div className="border-b border-slate-700">
-      <button onClick={onToggle} className="w-full flex justify-between items-center py-4 text-left">
-        <span className="text-lg text-white font-medium">{item.name}</span>
-        {hasDropdown && <ChevronDown size={20} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />}
-      </button>
-      {hasDropdown && isOpen && (
-        <div className="pb-4 pl-4 space-y-3">
-            {getLinks().map(link => (
-              link.onClick ? (
-                <button key={link.name} onClick={link.onClick} className="flex items-start gap-3 group/link text-left w-full">
-                  <LinkContent link={link} />
-                </button>
-              ) : link.href ? (
-                <Link to={link.href} key={link.name} className="flex items-start gap-3 group/link w-full">
-                  <LinkContent link={link} />
-                </Link>
-              ) : (
-                <span key={link.name} className="flex items-start gap-3 group/link">
-                  <LinkContent link={link} />
-                </span>
-              )
-            ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-const MobileMenu = ({ isOpen, onClose, openLoginModal }) => {
-  const [openDropdown, setOpenDropdown] = useState(null);
-
-  const handleToggle = (name) => {
-    setOpenDropdown(openDropdown === name ? null : name);
-  };
-  
-  const loginItem = {
-    name: 'Login',
-    dropdown: {
-      type: 'simple',
-      links: [
-        { name: 'For clients', description: 'Access your project dashboard and resources.', onClick: () => openLoginModal('client') },
-        { name: 'For talent', description: 'Manage your profile and find opportunities.', onClick: () => openLoginModal('talent') },
-      ]
-    }
-  };
-
-  return (
-    <div className={`fixed inset-0 z-50 transition-opacity md:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60" onClick={onClose}></div>
-      
-      {/* Menu Panel */}
-      <div className={`absolute top-0 right-0 h-full w-full max-w-sm bg-[#060814] transition-transform transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-4 border-b border-slate-700">
-            <Logo />
-            <button onClick={onClose} className="p-2">
-              <X size={24} />
-            </button>
-          </div>
-          <div className="flex-grow overflow-y-auto px-4">
-            {navItems.map(item => (
-              <MobileNavItem 
-                key={item.name} 
-                item={item}
-                isOpen={openDropdown === item.name}
-                onToggle={() => handleToggle(item.name)}
-              />
-            ))}
-             <MobileNavItem 
-                item={loginItem}
-                isOpen={openDropdown === loginItem.name}
-                onToggle={() => handleToggle(loginItem.name)}
-              />
-          </div>
-          <div className="p-4 border-t border-slate-700">
-            <a href="#" className="bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold px-4 py-3 rounded-lg text-sm w-full block text-center hover:from-blue-600 hover:to-blue-700">
-              Get Started
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [initialLoginTab, setInitialLoginTab] = useState('client');
-
-  const openLoginModal = (tab) => {
-    setInitialLoginTab(tab);
-    setIsLoginModalOpen(true);
-    setIsMobileMenuOpen(false); // Close mobile menu when modal opens
-  };
+  const [scrolled, setScrolled] = useState(false);
+  const [hoveredNav, setHoveredNav] = useState(null);
 
   useEffect(() => {
-    if (isMobileMenuOpen || isLoginModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMobileMenuOpen, isLoginModalOpen]);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const [showBanner, setShowBanner] = useState(true);
   return (
-    <>
-      {/* Main Navbar */}
-      <header className="sticky top-0 w-full bg-[#111] z-40 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex-shrink-0">
-              <Logo />
-            </div>
-            <nav className="hidden md:flex items-center justify-center flex-grow">
-              <div className="flex items-center gap-8">
-                {navItems.map(item => (
-                  <div key={item.name} className="group relative">
-                    <a href="#" className="flex items-center gap-1 text-white hover:text-blue-400 transition-colors py-5 font-semibold">
-                      {item.name} <ChevronDown size={16} />
-                    </a>
-                      {item.dropdown?.type === 'mega' && (
-                        <MegaMenu
-                          columns={item.dropdown.columns}
-                          featured={item.dropdown.featured}
-                          align={item.name === 'What we do' ? 'left' : 'center'}
-                        />
-                      )}
-                      {item.dropdown?.type === 'simple' && (
-                        <SimpleMenu
-                          links={item.dropdown.links}
-                        />
-                      )}
+    <header
+      className={`fixed top-4 left-0 right-0 z-[1000] transition-all duration-300 ${scrolled ? 'translate-y-0' : 'translate-y-0'
+        }`}
+    >
+      <div className={`max-w-7xl mx-auto px-4 transition-all duration-300`}>
+        <div className={`
+                    rounded-full border transition-all duration-300 px-6 py-3 flex items-center justify-between
+                    ${scrolled
+            ? 'bg-slate-900/95 backdrop-blur-xl border-slate-700/50 shadow-2xl shadow-black/50'
+            : 'bg-slate-900/50 backdrop-blur-sm border-white/5'
+          }
+                `}>
+
+          {/* Logo Section */}
+          <Link to="/" className="flex items-center gap-2 z-[1000]">
+            <Logo />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1 z-[1000]">
+            {navItems.map((item) => (
+              <div
+                key={item.name}
+                className="relative group px-4 py-2"
+                onMouseEnter={() => setHoveredNav(item.name)}
+                onMouseLeave={() => setHoveredNav(null)}
+              >
+                <button className="flex items-center gap-1 text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
+                  {item.name} <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
+                </button>
+
+                {/* Dropdown */}
+                <div className={`
+                                    absolute top-full left-1/2 -translate-x-1/2 pt-8 transition-all duration-300 transform origin-top z-[1000]
+                                    ${hoveredNav === item.name ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}
+                                `}>
+                  <div className="bg-slate-900/95 backdrop-blur-2xl border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden min-w-[320px]">
+                    {item.dropdown.type === 'simple' && (
+                      <div className="p-2 w-64">
+                        {item.dropdown.links.map(link => (
+                          <Link key={link.name} to={link.href} className="block px-4 py-3 rounded-xl hover:bg-slate-800/50 transition-colors group/link">
+                            <div className="text-sm font-semibold text-slate-200 group-hover/link:text-white mb-0.5">{link.name}</div>
+                            {link.description && <div className="text-xs text-slate-500 group-hover/link:text-slate-400">{link.description}</div>}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+
+                    {item.dropdown.type === 'mega' && (
+                      <div className="flex w-[800px]">
+                        <div className="flex-1 grid grid-cols-2 gap-8 p-8 border-r border-slate-800">
+                          {item.dropdown.columns.map(col => (
+                            <div key={col.title}>
+                              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">{col.title}</div>
+                              <div className="space-y-4">
+                                {col.links.map(link => (
+                                  <Link key={link.name} to={link.href} className="flex gap-3 group/link">
+                                    <div className="mt-1 text-slate-600 group-hover/link:text-blue-400">
+                                      <link.icon size={18} />
+                                    </div>
+                                    <div>
+                                      <div className="text-sm font-semibold text-slate-300 group-hover/link:text-white transition-colors">{link.name}</div>
+                                      <div className="text-xs text-slate-500 line-clamp-1">{link.description}</div>
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="w-64 bg-slate-950/30 p-6 flex flex-col justify-end relative overflow-hidden group/card">
+                          <img
+                            src={item.dropdown.featured.image}
+                            alt="Featured"
+                            className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover/card:opacity-50 transition-opacity"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+                          <div className="relative z-10">
+                            <div className="text-xs font-bold text-blue-400 mb-2">FEATURED</div>
+                            <div className="text-sm font-bold text-white mb-2 leading-tight">{item.dropdown.featured.title}</div>
+                            <div className="text-xs text-slate-400 mb-4 line-clamp-2">{item.dropdown.featured.description}</div>
+                            <div className="text-xs font-bold text-white flex items-center gap-1">Read Story <ArrowRight size={12} /></div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
-            </nav>
-            <div className="hidden md:flex items-center gap-4">
-              <a href="#" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-semibold px-6 py-2 rounded-lg text-base transition-colors">Get Started</a>
-              <div className="group relative">
-                <div className="hidden sm:flex items-center gap-1 text-white hover:text-blue-400 text-base font-semibold cursor-pointer">
-                  Login <ChevronDown size={16} />
                 </div>
-                <div className="absolute top-full right-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:delay-150 transition-all duration-300">
-                  <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-lg shadow-2xl p-6">
-                    <ul className="space-y-4">
-                      <li>
-                        <button onClick={() => openLoginModal('client')} className="group/link text-left w-full">
-                          <p className="text-white font-medium group-hover/link:text-blue-400">For clients</p>
-                          <p className="text-sm text-slate-400">Access your project dashboard and resources.</p>
-                        </button>
-                      </li>
-                      <li>
-                        <button onClick={() => openLoginModal('talent')} className="group/link text-left w-full">
-                          <p className="text-white font-medium group-hover/link:text-blue-400">For talent</p>
-                          <p className="text-sm text-slate-400">Manage your profile and find opportunities.</p>
-                        </button>
-                      </li>
-                    </ul>
+              </div>
+            ))}
+          </nav>
+
+          {/* CTA Button */}
+          <div className="hidden lg:flex items-center gap-6 z-[1000]">
+            <Link to="/contact" className="hidden lg:flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all hover:shadow-lg hover:shadow-blue-500/25">
+              Start Transformation
+            </Link>
+          </div>
+
+          {/* Mobile Menu Toggle Wrapper */}
+          <div className="lg:hidden relative z-[1001]">
+            <button
+              className={`group relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] focus:outline-none focus:ring-2 focus:ring-blue-500/50
+                ${isMobileMenuOpen
+                  ? 'bg-blue-600 border-transparent text-white rotate-90 shadow-[0_0_15px_rgba(37,99,235,0.5)]'
+                  : 'bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20 backdrop-blur-md'
+                }`}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              <div className="relative z-10 w-6 h-6 flex flex-col justify-center items-center gap-[5px]">
+                {/* Top Bar */}
+                <span
+                  className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 ease-in-out transform origin-center
+                    ${isMobileMenuOpen ? 'rotate-45 translate-y-[7.5px]' : 'group-hover:w-4 group-hover:translate-x-1'}`}
+                />
+
+                {/* Middle Bar */}
+                <span
+                  className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 ease-in-out
+                    ${isMobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'}`}
+                />
+
+                {/* Bottom Bar */}
+                <span
+                  className={`w-6 h-[2.5px] bg-white rounded-full transition-all duration-300 ease-in-out transform origin-center
+                    ${isMobileMenuOpen ? '-rotate-45 -translate-y-[7.5px]' : 'group-hover:w-4 group-hover:translate-x-1'}`}
+                />
+              </div>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <>
+          <div
+            className="fixed inset-0 top-0 bg-slate-950/98 z-[999] lg:hidden overflow-y-auto pt-24 pb-8 px-4 animate-in fade-in slide-in-from-bottom-10 duration-200 backdrop-blur-lg"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <div className="space-y-2">
+              {navItems.map(item => (
+                <div key={item.name} className="border-b border-slate-900 pb-4 mb-4">
+                  <div className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-3">{item.name}</div>
+                  <div className="space-y-3">
+                    {(item.dropdown.links || item.dropdown.columns?.flatMap(c => c.links)).map(link => (
+                      <Link key={link.name} to={link.href} className="flex items-center justify-between text-lg font-medium text-slate-200 hover:text-white transition-colors py-2" onClick={() => setIsMobileMenuOpen(false)}>
+                        {link.name} <ArrowRight size={16} className="text-slate-600" />
+                      </Link>
+                    ))}
                   </div>
                 </div>
-              </div>
+              ))}
+              <Link to="/contact" className="mt-8 flex w-full justify-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-blue-900/20" onClick={() => setIsMobileMenuOpen(false)}>
+                Schedule Consultation
+              </Link>
             </div>
-            <div className="md:hidden">
-              <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-white hover:text-blue-400">
-                <Menu size={24} />
-              </button>
+
+            {/* Spacer for scroll indicator visibility */}
+            <div className="h-16"></div>
+          </div>
+
+          {/* Fixed Scroll Indicator */}
+          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[1002] flex flex-col items-center gap-1 animate-bounce pointer-events-none lg:hidden">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Scroll</span>
+            <div className="w-8 h-8 rounded-full bg-slate-800/80 backdrop-blur-sm border border-slate-700 flex items-center justify-center shadow-lg">
+              <ChevronDown size={18} className="text-blue-400" />
             </div>
           </div>
-        </div>
-      </header>
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} openLoginModal={openLoginModal} />
-      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} initialTab={initialLoginTab} />
-    </>
+        </>
+      )}
+    </header>
   );
 };
 
-export { MegaMenu, SimpleMenu };
 export default Header;
