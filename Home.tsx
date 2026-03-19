@@ -104,25 +104,131 @@ const StatItem = ({ value, label }) => (
   </div>
 );
 
-const Ticker = () => (
-  <div className="w-full bg-blue-600/10 border-y border-blue-500/20 py-2 overflow-hidden flex items-center backdrop-blur-sm relative z-20">
-    <div className="animate-infinite-scroll flex items-center gap-12 whitespace-nowrap text-sm font-semibold text-blue-300">
-      <span className="flex items-center gap-2"><Rocket size={14} className="text-blue-400" /> UPCOMING: LacedIn Product Launch 🚀</span>
-      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-      <span>Cloud Services Expansion in APAC Region</span>
-      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-      <span>Automated Workflows for Enterprise</span>
-      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-      <span>Now Hiring: Full Stack Developers & Cloud Engineers</span>
-      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-      <span className="flex items-center gap-2"><Rocket size={14} className="text-blue-400" /> UPCOMING: LacedIn Product Launch 🚀</span>
-      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-      <span>Cloud Services Expansion in APAC Region</span>
-      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-      <span>Automated Workflows for Enterprise</span>
+const BannerSlider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const slides = [
+    {
+      badge: "Careers",
+      title: "Now Hiring: Full Stack Developers & Cloud Engineers",
+      description: "Join our global remote-first team. Work on next-gen digital transformation projects.",
+      gradient: "from-slate-950 via-slate-900/90 to-transparent",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2850&q=80",
+      badgeColor: "text-blue-400 border-blue-400/30 bg-blue-400/10",
+      icon: Users,
+      href: "/careers"
+    },
+    {
+      badge: "Upcoming Launch",
+      title: "LacedIn Product Launch 🚀",
+      description: "The next-generation platform designed to empower digital professionals in a decentralized economy.",
+      gradient: "from-slate-950 via-slate-900/90 to-transparent",
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80",
+      badgeColor: "text-purple-400 border-purple-400/30 bg-purple-400/10",
+      icon: Rocket,
+      href: "/about"
+    },
+    {
+      badge: "Global Expansion",
+      title: "Cloud Services Expansion in APAC Region",
+      description: "Scaling our resilient, managed enterprise cloud infrastructure solutions across the Asia-Pacific.",
+      gradient: "from-slate-950 via-slate-900/90 to-transparent",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80",
+      badgeColor: "text-sky-400 border-sky-400/30 bg-sky-400/10",
+      icon: Cloud,
+      href: "/services/cloud"
+    },
+    {
+      badge: "Enterprise Solutions",
+      title: "Automated Workflows for Enterprise",
+      description: "Streamline operations with intelligent, automated bots and seamless CRM integrations.",
+      gradient: "from-slate-950 via-slate-900/90 to-transparent",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80",
+      badgeColor: "text-green-400 border-green-400/30 bg-green-400/10",
+      icon: Zap,
+      href: "/services/modernization"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  return (
+    <div className="w-full relative z-20 border-y border-slate-700/50">
+      <div className="relative w-full h-[350px] md:h-[400px] lg:h-[450px] overflow-hidden bg-slate-950 group">
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out flex items-center ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+            }`}
+          >
+            {/* Background Image with Auto Scale Effect */}
+            <div className={`absolute inset-0 transition-transform duration-[10000ms] ease-out ${index === currentSlide ? "scale-105" : "scale-100"}`}>
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+                style={{ backgroundImage: `url('${slide.image}')` }}
+              />
+            </div>
+            
+            {/* Background gradient & noise */}
+            <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient} opacity-90`}></div>
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]"></div>
+            
+            {/* Elegant light flare */}
+            <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent skew-x-12 translate-x-1/4 mix-blend-overlay"></div>
+
+            <div className="relative z-20 w-full h-full max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12 lg:px-16">
+              <div className={`max-w-2xl mt-6 sm:mt-0 transform transition-all duration-700 delay-100 ${index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+                <div className={`inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full border ${slide.badgeColor} text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-3 shadow-lg backdrop-blur-md`}>
+                  <slide.icon size={12} className="sm:hidden" />
+                  <slide.icon size={14} className="hidden sm:block" />
+                  {slide.badge}
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-2 sm:mb-4 drop-shadow-2xl leading-[1.15]">
+                  {slide.title}
+                </h2>
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-slate-200 font-light max-w-xl leading-relaxed drop-shadow-md line-clamp-2 sm:line-clamp-none mb-4 sm:mb-0">
+                  {slide.description}
+                </p>
+                <div className="sm:hidden mt-2">
+                  <Link to={slide.href} className="inline-flex items-center gap-2 px-5 py-2 bg-white/10 border border-white/20 rounded-full text-white text-xs font-semibold backdrop-blur-sm shadow-xl active:bg-white/20">
+                    Discover <ArrowRight size={12} />
+                  </Link>
+                </div>
+              </div>
+              
+              <Link to={slide.href} className="hidden sm:flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 hover:scale-110 transition-all duration-300 cursor-pointer shadow-xl backdrop-blur-md group-hover:scale-110">
+                  <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 text-white/80 group-hover:text-white group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+        ))}
+        
+        {/* Progress Bar Indicators */}
+        <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center gap-3">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className="relative h-1.5 rounded-full overflow-hidden transition-all duration-500 ease-out bg-slate-700 w-8 md:w-12 group/btn hover:bg-slate-600"
+            >
+              <div 
+                className={`absolute left-0 top-0 bottom-0 bg-blue-500 transition-all duration-500 ${
+                  index === currentSlide ? "w-full shadow-[0_0_10px_rgba(59,130,246,0.8)]" : "w-0"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
-  </div>
-)
+  );
+};
 
 // --- Ecosystem Data ---
 const ecosystems = [
@@ -147,8 +253,8 @@ export default function Home() {
 
       <main>
         {/* 1. Immersive Hero */}
-        <section className="relative min-h-screen flex flex-col pt-32 overflow-hidden">
-          <Ticker />
+        <section className="relative min-h-screen flex flex-col pt-20 md:pt-24 overflow-hidden">
+          <BannerSlider />
 
           <div className="flex-grow flex flex-col justify-center items-center text-center px-4 relative z-10 py-20">
             {/* Floating Elements (Visual Decoration) */}
@@ -458,15 +564,7 @@ export default function Home() {
 
       </main>
       <Footer />
-      <style>{`
-        @keyframes infinite-scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-        .animate-infinite-scroll {
-             animation: infinite-scroll 40s linear infinite;
-        }
-      `}</style>
+
     </div>
   );
 }
