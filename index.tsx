@@ -30,6 +30,7 @@ import DeveloperResources from './pages/DeveloperResources';
 import TalentSupport from './pages/TalentSupport';
 import About from './pages/About';
 import Careers from './pages/Careers';
+import JobDetails from './pages/JobDetails';
 import Blog from './pages/Blog';
 import Press from './pages/Press';
 import ContactUsCompany from './pages/ContactUsCompany';
@@ -114,6 +115,7 @@ const App = () => {
 				<Route path="/TalentSupport" element={<TalentSupport />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/careers" element={<Careers />} />
+				<Route path="/careers/:jobId" element={<JobDetails />} />
 				<Route path="/leadership" element={<Leadership />} />
 				<Route path="/contact" element={<ContactUs />} />
 				<Route path="/privacy" element={<PrivacyPolicy />} />

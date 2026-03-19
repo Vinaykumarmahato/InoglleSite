@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Bell,
   ChevronDown,
@@ -428,7 +429,7 @@ const InoglleCareers = () => {
                       </div>
                     </div>
                     <div className="mt-4 sm:mt-0 flex-shrink-0">
-                      <a href="#" className="bg-white border-2 border-blue-600 text-blue-600 font-bold py-2 px-5 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">Apply Now</a>
+                      <Link to={`/careers/${job.title.toLowerCase().replace(/\s+/g, '-')}`} className="bg-white border-2 border-blue-600 text-blue-600 font-bold py-2 px-5 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">Apply Now</Link>
                     </div>
                   </div>
                 ))}

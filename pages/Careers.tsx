@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/sections/Footer';
 import {
@@ -121,7 +122,8 @@ const Careers = () => {
             <div className="space-y-4">
               {filteredJobs.length > 0 ? (
                 filteredJobs.map((job, i) => (
-                  <div
+                  <Link
+                    to={`/careers/${job.title.toLowerCase().replace(/\s+/g, '-')}`}
                     key={i}
                     className="group flex flex-col md:flex-row md:items-center justify-between p-6 bg-slate-900/50 rounded-xl border border-slate-800 hover:border-blue-500/50 hover:bg-slate-900 transition-all cursor-pointer"
                     data-aos="fade-up"
@@ -142,7 +144,7 @@ const Careers = () => {
                         <ArrowRight size={18} />
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))
               ) : (
                 <div className="text-center py-20 border border-dashed border-slate-800 rounded-xl text-slate-500" data-aos="fade-in">

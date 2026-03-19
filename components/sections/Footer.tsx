@@ -74,7 +74,7 @@ const Footer = () => (
       </div>
 
       <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-slate-600 font-medium tracking-wide">
-        <p>&copy; {new Date().getFullYear()} Inoglle Technologies Pvt. Ltd. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Inoglle (Under Registration). All rights reserved.</p>
         <div className="flex items-center gap-8">
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
